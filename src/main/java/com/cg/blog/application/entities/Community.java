@@ -30,7 +30,7 @@ public class Community {
 	private LocalDate createdOn;
 	@Column(name = "post_rules_allowed")
 	private List<String> postRulesAllowed;
-	@Column(name = "post_rules_disllowed")
+	@Column(name = "post_rules_disallowed")
 	private List<String> postRulesDisAllowed;
 	@Column(name = "banning_policy")
 	private List<String> banningPolicy;
