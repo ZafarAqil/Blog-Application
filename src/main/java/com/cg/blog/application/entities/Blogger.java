@@ -158,4 +158,11 @@ public class Blogger {
 	public void setKarma(int karma) {
 		this.karma = karma;
 	}
+
+	@Override
+	public String toString() {
+		return "Blogger [userId=" + userId + ", bloggerName=" + bloggerName + ", posts=" + posts + ", comments="
+				+ comments + ", upvoted=" + upvoted + ", downvoted=" + downvoted + ", awardsReceived=" + awardsReceived
+				+ ", awardsGiven=" + awardsGiven + ", communities=" + communities + ", karma=" + karma + "]";
+	}
 }
