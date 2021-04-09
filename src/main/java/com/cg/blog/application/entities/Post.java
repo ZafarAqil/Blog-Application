@@ -82,7 +82,7 @@ public class Post {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Post(int postId, String title, Blogger createdBy, PostType content, List<Files> data, Award awardsReceived,
+	public Post(int postId, String title, Blogger createdBy, PostType content, List<Files> data, List<Award> awardsReceived,
 			LocalDateTime createdDateTime, List<Comment> comments, int votes, boolean voteUp, boolean notSafeForWork,
 			boolean spoiler, boolean originalContent, String flair, Community community) {
 		super();
@@ -103,7 +103,7 @@ public class Post {
 		this.community = community;
 	}
 
-	public Post(String title, Blogger createdBy, PostType content, List<Files> data, Award awardsReceived,
+	public Post(String title, Blogger createdBy, PostType content, List<Files> data, List<Award> awardsReceived,
 			LocalDateTime createdDateTime, List<Comment> comments, int votes, boolean voteUp, boolean notSafeForWork,
 			boolean spoiler, boolean originalContent, String flair, Community community) {
 		super();
@@ -163,11 +163,11 @@ public class Post {
 		this.data = data;
 	}
 
-	public Award getAwardsReceived() {
+	public List<Award> getAwardsReceived() {
 		return awardsReceived;
 	}
 
-	public void setAwardsReceived(Award awardsReceived) {
+	public void setAwardsReceived(List<Award> awardsReceived) {
 		this.awardsReceived = awardsReceived;
 	}
 
