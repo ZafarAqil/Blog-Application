@@ -17,16 +17,16 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column
+	@Column(name = "name")
 	private String name;
-	@Column
+	@Column(name = "email")
 	private String email;
-	@Column
+	@Column(name = "password")
 	private String password;
-	@Column
+	@Column(name = "role")
 	@JsonIgnore
 	private String role;
-	@Column
+	@Column(name = "karma")
 	@JsonIgnore
 	private long karma;
 

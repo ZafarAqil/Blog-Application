@@ -6,9 +6,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,25 +30,25 @@ public class Post {
 	private String title;
 	
 	@Column(name = "created_by")
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 	private Blogger createdBy;
 	
 	@Column(name = "content")
 	private PostType content;
 	
 	@Column(name = "data")
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 	private List<Files> data;
 	
 	@Column(name = "awards_recieved")
-	@OneToMany
-	private Award awardsReceived;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+	private List<Award> awardsReceived;
 	
 	@Column(name = "created_date_time")
 	private LocalDateTime createdDateTime;
 	
 	@Column(name="comments")
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 	private List<Comment> comments;
 	
 	@Column(name= "votes")
@@ -68,7 +70,8 @@ public class Post {
 	private String flair;
 	
 	@Column(name = "community")
-	@ManyToOne
+	@ManyToOne(fetch= FetchType.LAZY)
+	@JoinColumn(name= "communityId")
 	private Community community;
 	
 	
@@ -79,7 +82,7 @@ public class Post {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Post(int postId, String title, Blogger createdBy, PostType content, List<Files> data, Award awardsReceived,
+	public Post(int postId, String title, Blogger createdBy, PostType content, List<Files> data, List<Award> awardsReceived,
 			LocalDateTime createdDateTime, List<Comment> comments, int votes, boolean voteUp, boolean notSafeForWork,
 			boolean spoiler, boolean originalContent, String flair, Community community) {
 		super();
@@ -100,7 +103,7 @@ public class Post {
 		this.community = community;
 	}
 
-	public Post(String title, Blogger createdBy, PostType content, List<Files> data, Award awardsReceived,
+	public Post(String title, Blogger createdBy, PostType content, List<Files> data, List<Award> awardsReceived,
 			LocalDateTime createdDateTime, List<Comment> comments, int votes, boolean voteUp, boolean notSafeForWork,
 			boolean spoiler, boolean originalContent, String flair, Community community) {
 		super();
@@ -160,11 +163,11 @@ public class Post {
 		this.data = data;
 	}
 
-	public Award getAwardsReceived() {
+	public List<Award> getAwardsReceived() {
 		return awardsReceived;
 	}
 
-	public void setAwardsReceived(Award awardsReceived) {
+	public void setAwardsReceived(List<Award> awardsReceived) {
 		this.awardsReceived = awardsReceived;
 	}
 
