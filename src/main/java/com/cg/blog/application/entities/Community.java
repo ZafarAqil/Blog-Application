@@ -152,4 +152,12 @@ public class Community {
 		this.flairs = flairs;
 	}
 
+	@Override
+	public String toString() {
+		return "Community [communityId=" + communityId + ", communityDescription=" + communityDescription
+				+ ", totalMembers=" + totalMembers + ", onlineMembers=" + onlineMembers + ", image=" + image
+				+ ", createdOn=" + createdOn + ", postRulesAllowed=" + postRulesAllowed + ", postRulesDisAllowed="
+				+ postRulesDisAllowed + ", banningPolicy=" + banningPolicy + ", flairs=" + flairs + "]";
+	}
+
 }
