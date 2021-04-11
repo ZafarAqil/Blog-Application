@@ -12,9 +12,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 
 @Entity
-
+@Component
 @Table(name = "bloggers")
 public class Blogger {
 
