@@ -1,5 +1,7 @@
 package com.cg.blog.application.entities;
 
+
+
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,42 +10,41 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "post")
 public class Post {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "postSeq")
+	@SequenceGenerator(name = "postSeq",sequenceName = "post_seq", allocationSize = 1)
 	private int postId;
 	
 	@Column(name = "title")
-	@NotNull
 	private String title;
 	
-	@Column(name = "created_by")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+	@ManyToOne(fetch= FetchType.LAZY)
+	@JoinColumn(name= "blogger_id", referencedColumnName = "user_id")
 	private Blogger createdBy;
 	
 	@Column(name = "content")
 	private PostType content;
 	
-	@Column(name = "data")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-	private List<Files> data;
 	
-	@Column(name = "awards_recieved")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-	private List<Award> awardsReceived;
+//	@Column(name = "data")
+//    private List<Files> data;
 	
+//	@Column(name = "awards_recieved")
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+//	private List<Award> awardsReceived;
+//	
 	@Column(name = "created_date_time")
 	private LocalDateTime createdDateTime;
 	
@@ -69,9 +70,8 @@ public class Post {
 	@Column(name = "flair")
 	private String flair;
 	
-	@Column(name = "community")
 	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name= "communityId")
+	@JoinColumn(name= "community_id", referencedColumnName = "communityId")
 	private Community community;
 	
 	
@@ -90,8 +90,8 @@ public class Post {
 		this.title = title;
 		this.createdBy = createdBy;
 		this.content = content;
-		this.data = data;
-		this.awardsReceived = awardsReceived;
+//		this.data = data;
+//		this.awardsReceived = awardsReceived;
 		this.createdDateTime = createdDateTime;
 		this.comments = comments;
 		this.votes = votes;
@@ -110,8 +110,8 @@ public class Post {
 		this.title = title;
 		this.createdBy = createdBy;
 		this.content = content;
-		this.data = data;
-		this.awardsReceived = awardsReceived;
+//		this.data = data;
+//		this.awardsReceived = awardsReceived;
 		this.createdDateTime = createdDateTime;
 		this.comments = comments;
 		this.votes = votes;
@@ -155,21 +155,21 @@ public class Post {
 		this.content = content;
 	}
 
-	public List<Files> getData() {
-		return data;
-	}
+//	public List<Files> getData() {
+//		return data;
+//	}
+//
+//	public void setData(List<Files> data) {
+//		this.data = data;
+//	}
 
-	public void setData(List<Files> data) {
-		this.data = data;
-	}
-
-	public List<Award> getAwardsReceived() {
-		return awardsReceived;
-	}
-
-	public void setAwardsReceived(List<Award> awardsReceived) {
-		this.awardsReceived = awardsReceived;
-	}
+//	public List<Award> getAwardsReceived() {
+//		return awardsReceived;
+//	}
+//
+//	public void setAwardsReceived(List<Award> awardsReceived) {
+//		this.awardsReceived = awardsReceived;
+//	}
 
 	public LocalDateTime getCreatedDateTime() {
 		return createdDateTime;
@@ -243,13 +243,13 @@ public class Post {
 		this.community = community;
 	}
 
-	@Override
-	public String toString() {
-		return "Post [postId=" + postId + ", title=" + title + ", createdBy=" + createdBy + ", content=" + content
-				+ ", data=" + data + ", awardsReceived=" + awardsReceived + ", createdDateTime=" + createdDateTime
-				+ ", comments=" + comments + ", votes=" + votes + ", voteUp=" + voteUp + ", notSafeForWork="
-				+ notSafeForWork + ", spoiler=" + spoiler + ", originalContent=" + originalContent + ", flair=" + flair
-				+ ", community=" + community + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Post [postId=" + postId + ", title=" + title + ", createdBy=" + createdBy + ", content=" + content
+//				+ ", data=" + data + ", awardsReceived=" + awardsReceived + ", createdDateTime=" + createdDateTime
+//				+ ", comments=" + comments + ", votes=" + votes + ", voteUp=" + voteUp + ", notSafeForWork="
+//				+ notSafeForWork + ", spoiler=" + spoiler + ", originalContent=" + originalContent + ", flair=" + flair
+//				+ ", community=" + community + "]";
+//	}
 
 }
