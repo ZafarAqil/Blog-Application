@@ -1,5 +1,6 @@
 package com.cg.blog.application.services;
 
+import java.net.URI;
 import java.util.List;
 
 import com.cg.blog.application.entities.Blogger;
@@ -17,5 +18,7 @@ public interface IPostService {
 	public List<Post> getPostByBlogger(Blogger blogger);
 
 	public void upVote(boolean upVote);
+
+	URI addPost(int id, Post post);
 
 }
