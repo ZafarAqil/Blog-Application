@@ -1,27 +1,41 @@
 package com.cg.blog.application.entities;
 
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "users")
+
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "userSeq")
+	@SequenceGenerator(name = "userSeq",sequenceName = "user_seq", allocationSize = 1)
 	private int id;
-
-	@Column(name = "name")
+	@NotEmpty
+	@Size(min = 2, message = "user name should have at least 2 characters")
+	@Column(name = "name", nullable = false)
 	private String name;
-	@Column(name = "email")
+	@NotEmpty
+	@Email
+
 	private String email;
-	@Column(name = "password")
+	@NotEmpty
+	@Size(min = 8, message = "password should have at least 8 characters")
 	private String password;
 	@Column(name = "role")
 	@JsonIgnore

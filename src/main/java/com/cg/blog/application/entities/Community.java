@@ -1,14 +1,22 @@
 package com.cg.blog.application.entities;
 
+
+
+
 import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,24 +26,44 @@ public class Community {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int communityId;
+	
 	@Column(name = "community_description")
 	private String communityDescription;
+	
 	@Column(name = "total_members")
 	private int totalMembers;
+	
 	@Column(name = "online_members")
 	private int onlineMembers;
+	
 	@Column
 	private File image;
+	
 	@Column(name = "created_on")
 	private LocalDate createdOn;
-	@Column(name = "post_rules_allowed")
+	
+    @ElementCollection
+    @CollectionTable(name = "community_postRulesAllowed", joinColumns = @JoinColumn(name = "communityId"))
+    @Column(name = "post_rules_allowed")
 	private List<String> postRulesAllowed;
+    
+    @ElementCollection
+    @CollectionTable(name = "comm_RulesDisallowed", joinColumns = @JoinColumn(name = "communityId"))
 	@Column(name = "post_rules_disallowed")
-	private List<String> postRulesDisAllowed;
+	private List<String> postRulesDisallowed;
+    
+    @ElementCollection
+    @CollectionTable(name = "community_banning_policy", joinColumns = @JoinColumn(name = "communityId"))
 	@Column(name = "banning_policy")
 	private List<String> banningPolicy;
-	@Column
+    
+    @ElementCollection
+    @CollectionTable(name = "community_flairs", joinColumns = @JoinColumn(name = "communityId"))
 	private List<String> flairs;
+    
+	@ManyToMany(mappedBy = "communities")
+	Set<Blogger> bloggers;
+	
 
 	public Community() {
 		super();
@@ -52,7 +80,7 @@ public class Community {
 		this.image = image;
 		this.createdOn = createdOn;
 		this.postRulesAllowed = postRulesAllowed;
-		this.postRulesDisAllowed = postRulesDisAllowed;
+		this.postRulesDisallowed = postRulesDisAllowed;
 		this.banningPolicy = banningPolicy;
 		this.flairs = flairs;
 	}
@@ -67,7 +95,7 @@ public class Community {
 		this.image = image;
 		this.createdOn = createdOn;
 		this.postRulesAllowed = postRulesAllowed;
-		this.postRulesDisAllowed = postRulesDisAllowed;
+		this.postRulesDisallowed = postRulesDisAllowed;
 		this.banningPolicy = banningPolicy;
 		this.flairs = flairs;
 	}
@@ -128,12 +156,12 @@ public class Community {
 		this.postRulesAllowed = postRulesAllowed;
 	}
 
-	public List<String> getPostRulesDisAllowed() {
-		return postRulesDisAllowed;
+	public List<String> getPostRulesDisallowed() {
+		return postRulesDisallowed;
 	}
 
-	public void setPostRulesDisAllowed(List<String> postRulesDisAllowed) {
-		this.postRulesDisAllowed = postRulesDisAllowed;
+	public void setPostRulesDisallowed(List<String> postRulesDisAllowed) {
+		this.postRulesDisallowed = postRulesDisAllowed;
 	}
 
 	public List<String> getBanningPolicy() {
@@ -156,8 +184,9 @@ public class Community {
 	public String toString() {
 		return "Community [communityId=" + communityId + ", communityDescription=" + communityDescription
 				+ ", totalMembers=" + totalMembers + ", onlineMembers=" + onlineMembers + ", image=" + image
-				+ ", createdOn=" + createdOn + ", postRulesAllowed=" + postRulesAllowed + ", postRulesDisAllowed="
-				+ postRulesDisAllowed + ", banningPolicy=" + banningPolicy + ", flairs=" + flairs + "]";
+				+ ", createdOn=" + createdOn + ", postRulesAllowed=" + postRulesAllowed + ", postRulesDisallowed="
+				+ postRulesDisallowed + ", banningPolicy=" + banningPolicy + ", flairs=" + flairs + "]";
 	}
 
 }
+

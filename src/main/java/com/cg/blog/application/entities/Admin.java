@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "administrators")
-public class Admin {
+public class Admin extends User{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

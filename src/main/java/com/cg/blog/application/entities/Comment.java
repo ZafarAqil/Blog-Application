@@ -1,10 +1,14 @@
 package com.cg.blog.application.entities;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,10 +25,13 @@ public class Comment {
 	@Column(name = "votes")
 	private int votes;
 
-	@Column(name = "blogger")
+	
+	@ManyToOne(fetch= FetchType.LAZY)
+	@JoinColumn(name= "blogger_id", referencedColumnName = "user_id")
 	private Blogger blogger;
 
-	@Column(name = "post")
+	@ManyToOne(fetch= FetchType.LAZY)
+	@JoinColumn(name= "post_id", referencedColumnName = "postId")
 	private Post post;
 
 	@Column(name = "vote_up")

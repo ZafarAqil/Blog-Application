@@ -4,17 +4,21 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
+
 @Table(name = "bloggers")
 public class Blogger {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
 	private int userId;
 
@@ -22,25 +26,38 @@ public class Blogger {
 	private String bloggerName;
 
 	@Column(name = "posts")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
 	private List<Post> posts;
 
 	@Column(name = "comments")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "blogger")
 	private List<Comment> comments;
 
 	@Column(name = "upvoted")
+	@ManyToMany
+	@JoinTable(
+			  name = "blogger_communities", 
+			  joinColumns = @JoinColumn(name = "user_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "postId"))
 	private List<Post> upvoted;
 
-	@Column(name = "downvoted")
-	private List<Post> downvoted;
-
-	@Column(name = "awards_recieved")
-	private Award awardsReceived;
-
-	@Column(name = "awards_given")
-	private Award awardsGiven;
+//	@Column(name = "downvoted")
+//	private List<Post> downvoted;
+//
+//	@Column(name = "awards_recieved")
+//	private Award awardsReceived;
+//
+//	@Column(name = "awards_given")
+//	private Award awardsGiven;
 
 	@Column(name = "communities")
-	private List<Community> communities;
+	@ManyToMany
+	@JoinTable(
+			  name = "blogger_communities", 
+			  joinColumns = @JoinColumn(name = "user_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "communityId"))
+	private	List<Community> communities;
+
 
 	@Column(name = "karma")
 	private int karma;
@@ -58,9 +75,9 @@ public class Blogger {
 		this.posts = posts;
 		this.comments = comments;
 		this.upvoted = upvoted;
-		this.downvoted = downvoted;
-		this.awardsReceived = awardsReceived;
-		this.awardsGiven = awardsGiven;
+//		this.downvoted = downvoted;
+//		this.awardsReceived = awardsReceived;
+//		this.awardsGiven = awardsGiven;
 		this.communities = communities;
 		this.karma = karma;
 	}
@@ -72,9 +89,9 @@ public class Blogger {
 		this.posts = posts;
 		this.comments = comments;
 		this.upvoted = upvoted;
-		this.downvoted = downvoted;
-		this.awardsReceived = awardsReceived;
-		this.awardsGiven = awardsGiven;
+//		this.downvoted = downvoted;
+//		this.awardsReceived = awardsReceived;
+//		this.awardsGiven = awardsGiven;
 		this.communities = communities;
 		this.karma = karma;
 	}
@@ -119,29 +136,29 @@ public class Blogger {
 		this.upvoted = upvoted;
 	}
 
-	public List<Post> getDownvoted() {
-		return downvoted;
-	}
-
-	public void setDownvoted(List<Post> downvoted) {
-		this.downvoted = downvoted;
-	}
-
-	public Award getAwardsReceived() {
-		return awardsReceived;
-	}
-
-	public void setAwardsReceived(Award awardsReceived) {
-		this.awardsReceived = awardsReceived;
-	}
-
-	public Award getAwardsGiven() {
-		return awardsGiven;
-	}
-
-	public void setAwardsGiven(Award awardsGiven) {
-		this.awardsGiven = awardsGiven;
-	}
+//	public List<Post> getDownvoted() {
+//		return downvoted;
+//	}
+//
+//	public void setDownvoted(List<Post> downvoted) {
+//		this.downvoted = downvoted;
+//	}
+//
+//	public Award getAwardsReceived() {
+//		return awardsReceived;
+//	}
+//
+//	public void setAwardsReceived(Award awardsReceived) {
+//		this.awardsReceived = awardsReceived;
+//	}
+//
+//	public Award getAwardsGiven() {
+//		return awardsGiven;
+//	}
+//
+//	public void setAwardsGiven(Award awardsGiven) {
+//		this.awardsGiven = awardsGiven;
+//	}
 
 	public List<Community> getCommunities() {
 		return communities;
@@ -159,10 +176,10 @@ public class Blogger {
 		this.karma = karma;
 	}
 
-	@Override
-	public String toString() {
-		return "Blogger [userId=" + userId + ", bloggerName=" + bloggerName + ", posts=" + posts + ", comments="
-				+ comments + ", upvoted=" + upvoted + ", downvoted=" + downvoted + ", awardsReceived=" + awardsReceived
-				+ ", awardsGiven=" + awardsGiven + ", communities=" + communities + ", karma=" + karma + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Blogger [userId=" + userId + ", bloggerName=" + bloggerName + ", posts=" + posts + ", comments="
+//				+ comments + ", upvoted=" + upvoted + ", downvoted=" + downvoted + ", awardsReceived=" + awardsReceived
+//				+ ", awardsGiven=" + awardsGiven + ", communities=" + communities + ", karma=" + karma + "]";
+//	}
 }
