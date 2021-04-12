@@ -7,7 +7,7 @@ import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Post;
 
 public interface IPostService {
-	public Post addPost(Post post);
+
 
 	public Post updatePost(Post post);
 
@@ -15,9 +15,10 @@ public interface IPostService {
 
 	public List<Post> getPostBySearchString(String searchStr);
 
-	public List<Post> getPostByBlogger(Blogger blogger);
+	public List<Post> getPostByBlogger(int id);
 
 	public void upVote(boolean upVote);
+
 
 	URI addPost(int id, Post post);
 

@@ -1,6 +1,7 @@
 package com.cg.blog.application.controllers;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,20 @@ public class PostController {
 	PostServiceImpl postService;
 	
 	@RequestMapping(value = "blogger/{id}/posts",method = RequestMethod.POST)
-	public ResponseEntity<Object> createUser(@PathVariable int id, @RequestBody Post post)  {
+	public ResponseEntity<Object> addPost(@PathVariable int id, @RequestBody Post post)  {
 		URI location = postService.addPost(id,post);
 		return ResponseEntity.created(location).build(); 
 	}
+	
+//	@RequestMapping(value = "/posts",method = RequestMethod.POST)
+//	public ResponseEntity<Object> addPost( @RequestBody Post post)  {
+//		URI location = postService.addPost(post);
+//		return ResponseEntity.created(location).build(); 
+//	}
+	
+//	@RequestMapping(value = "blogger/{id}/posts",method = RequestMethod.GET)
+//	public ResponseEntity<Object> getPostByBlogger(@PathVariable int id)  {
+//		List<Post> = postService.getPostByBlogger(id);
+//		return null;
+//	}
 }

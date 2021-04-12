@@ -27,10 +27,11 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public User signIn(User user) {
 		if(user.getPassword().equals(((User) userRepository.findByName(user.getName())).getPassword())) {
-			blogger.setUserId(user.getId());
+			blogger.setUserId(userRepository.findByName(user.getName()).getId());
 			blogger.setBloggerName(user.getName());
 			bloggerRepository.save(blogger);
-			return user;
+			 user.setId(userRepository.findByName(user.getName()).getId());
+			 return user;
 		}
 		return null;
 		
