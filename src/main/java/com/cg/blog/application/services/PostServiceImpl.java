@@ -35,7 +35,7 @@ public class PostServiceImpl implements IPostService{
 	
 	
 	@Override
-	public URI addPost(int id, Post post)  {
+	public Post addPost(int id, Post post)  {
 		Optional<Blogger> bloggerOptional= bloggerRepository.findById(id);  
 		if(!bloggerOptional.isPresent())  
 		{  
@@ -51,8 +51,8 @@ public class PostServiceImpl implements IPostService{
 		//save post to the database  
 		postRepository.save(post);  
 		//getting the path of the post and append id of the post to the URI   
-		URI location=ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getPostId()).toUri(); 
-		return null;
+		
+		return post;
 	}
 
 	@Override
@@ -61,20 +61,37 @@ public class PostServiceImpl implements IPostService{
 		return null;
 	}
 
-	@Transactional
-	@Override
-	public void deletePost(int id) {
-		Optional<Post> postOptional= postRepository.findById(id);  
-		if(!postOptional.isPresent())  
-		{  
-//		throw new PostFoundException("id: "+ id, null);  
-		}  
-	    
-		//save post to the database  
-		postRepository.delete(postOptional.get()) ;
-		//getting the path of the post and append id of the post to the URI   
+//	@Transactional
+//	@Override
+//	public void deletePost(int id) {
+//		Optional<Post> postOptional= postRepository.findById(id);  
+//		if(!postOptional.isPresent())  
+//		{  
+////		throw new PostFoundException("id: "+ id, null);  
+//		}  
+//	    
+//		//save post to the database  
+//		postRepository.delete(postOptional.get()) ;
+//		//getting the path of the post and append id of the post to the URI   
+//	
+//	}
 	
-	}
+    @Transactional
+    @Override
+    public void deletePost(int id) {
+        Optional<Post> postOptional= postRepository.findById(id);
+        if(!postOptional.isPresent())
+        {
+//        throw new PostFoundException("id: "+ id, null);
+        }
+       
+        //save post to the database
+//        postRepository.delete(postOptional.get()) ;
+       
+        postOptional.get().getCreatedBy().getPosts().remove(postOptional.get());
+        //getting the path of the post and append id of the post to the URI  
+   
+    }
 
 	@Override
 	public List<Post> getPostBySearchString(String searchStr) {

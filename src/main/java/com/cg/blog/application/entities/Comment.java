@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "comments")
 public class Comment {
@@ -25,11 +27,12 @@ public class Comment {
 	@Column(name = "votes")
 	private int votes;
 
-	
+//	@JsonBackReference
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name= "blogger_id", referencedColumnName = "user_id")
 	private Blogger blogger;
 
+//	@JsonBackReference
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name= "post_id", referencedColumnName = "postId")
 	private Post post;
