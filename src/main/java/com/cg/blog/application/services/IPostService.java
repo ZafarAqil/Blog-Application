@@ -11,7 +11,7 @@ public interface IPostService {
 
 	public Post updatePost(Post post);
 
-	public Post deletePost(int id);
+	public void deletePost(int id);
 
 	public List<Post> getPostBySearchString(String searchStr);
 

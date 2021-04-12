@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 @Table(name = "post")
@@ -30,6 +32,7 @@ public class Post {
 	@Column(name = "title")
 	private String title;
 	
+	@JsonBackReference
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name= "blogger_id", referencedColumnName = "user_id")
 	private Blogger createdBy;
