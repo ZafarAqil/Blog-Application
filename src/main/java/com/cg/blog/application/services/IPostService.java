@@ -20,6 +20,6 @@ public interface IPostService {
 	public void upVote(boolean upVote);
 
 
-	URI addPost(int id, Post post);
+	Post addPost(int id, Post post);
 
 }

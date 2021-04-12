@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +19,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -32,7 +34,7 @@ public class Post {
 	@Column(name = "title")
 	private String title;
 	
-	@JsonBackReference
+//	@JsonBackReference
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name= "blogger_id", referencedColumnName = "user_id")
 	private Blogger createdBy;
@@ -51,8 +53,9 @@ public class Post {
 	@Column(name = "created_date_time")
 	private LocalDateTime createdDateTime;
 	
+//	@JsonManagedReference
 	@Column(name="comments")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
 	private List<Comment> comments;
 	
 	@Column(name= "votes")

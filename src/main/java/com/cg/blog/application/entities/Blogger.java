@@ -32,13 +32,14 @@ public class Blogger {
 	@Column(name = "blogger_name")
 	private String bloggerName;
 
-	@JsonManagedReference
+//	@JsonManagedReference
 	@Column(name = "posts")
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "createdBy")
 	private List<Post> posts;
 
+//	@JsonManagedReference
 	@Column(name = "comments")
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "blogger")
 	private List<Comment> comments;
 
 	@Column(name = "upvoted")

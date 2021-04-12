@@ -6,11 +6,11 @@ import com.cg.blog.application.entities.Comment;
 import com.cg.blog.application.entities.Post;
 
 public interface ICommentService {
-	public Comment addComment(Comment comment);
+	public Comment addComment(int id, int pid, Comment comment);
 
-	public void deleteComment(Comment comment);
+	public void deleteCommentById(int id);
 
-	public List<Comment> listAllCommentsByPost(Post post);
+	public List<Comment> listAllCommentsByPost(int pid);
 
 	public void upVote(boolean upVote);
 

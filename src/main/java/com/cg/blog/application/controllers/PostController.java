@@ -22,8 +22,8 @@ public class PostController {
 	
 	@RequestMapping(value = "blogger/{id}/posts",method = RequestMethod.POST)
 	public ResponseEntity<Object> addPost(@PathVariable int id, @RequestBody Post post)  {
-		URI location = postService.addPost(id,post);
-		return ResponseEntity.created(location).build(); 
+		Post post1 = postService.addPost(id,post);
+		return ResponseEntity.status(201).body(post1);
 	}
 	
 //	@RequestMapping(value = "/posts",method = RequestMethod.POST)
