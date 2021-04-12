@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Post;
+import com.cg.blog.application.exceptions.IdNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.IPostRepository;
 import com.cg.blog.application.repositories.IUserRepository;
@@ -24,22 +25,24 @@ public class PostServiceImpl implements IPostService{
 	
 	@Autowired
 	IBloggerRepository bloggerRepository;
-	@Override
-	public Post addPost(Post post) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Post addPost(Post post) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+	
 	
 	@Override
-	public URI addPost(int id, Post post) {
+	public URI addPost(int id, Post post)  {
 		Optional<Blogger> bloggerOptional= bloggerRepository.findById(id);  
 		if(!bloggerOptional.isPresent())  
 		{  
-//		throw new UserNotFoundException("id: "+ id);  
+//		throw new IdNotFoundException("id: "+ id, null);  
 		}  
 		Blogger blogger=bloggerOptional.get();     
 		//map the user to the post  
 		post.setCreatedBy(blogger);  
+		blogger.getPosts().add(post);
 		//save post to the database  
 		postRepository.save(post);  
 		//getting the path of the post and append id of the post to the URI   
@@ -65,16 +68,22 @@ public class PostServiceImpl implements IPostService{
 		return null;
 	}
 
-	@Override
-	public List<Post> getPostByBlogger(Blogger blogger) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<Post> getPostByBlogger(Blogger blogger) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public void upVote(boolean upVote) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Post> getPostByBlogger(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
