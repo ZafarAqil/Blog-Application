@@ -7,9 +7,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Community;
+import com.cg.blog.application.entities.Post;
 import com.cg.blog.application.exceptions.IdNotFoundException;
 
 public interface IBloggerRepository extends JpaRepository<Blogger, Integer> {
+
+	List<Post> getPostsByUserId(int id);
+
+//	Optional<Blogger> findByBlogger(Blogger blogger);
+
+	
 
 //	Optional<Blogger> findOne(Blogger createdBy);
 //	public Blogger addBlogger(Blogger blogger);

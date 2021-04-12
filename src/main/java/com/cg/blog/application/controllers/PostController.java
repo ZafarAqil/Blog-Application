@@ -32,9 +32,27 @@ public class PostController {
 //		return ResponseEntity.created(location).build(); 
 //	}
 	
-//	@RequestMapping(value = "blogger/{id}/posts",method = RequestMethod.GET)
-//	public ResponseEntity<Object> getPostByBlogger(@PathVariable int id)  {
-//		List<Post> = postService.getPostByBlogger(id);
-//		return null;
+//	@RequestMapping(value = "blogger/posts/{id}",method = RequestMethod.GET)
+//	public List<Post> getPostByBlogger(@PathVariable int id)  {
+//		List<Post> list= postService.getPostByBlogger(id);
+//		return list;
 //	}
+	
+	@RequestMapping(value = "blogger/posts/{id}",method = RequestMethod.GET)
+	public ResponseEntity<List<Post>> getPostByBlogger(@PathVariable int id)  {
+		List<Post> list= postService.getPostByBlogger(id);
+		return  ResponseEntity.status(200).body(list);
+	}
+	
+	@RequestMapping(value = "blogger/{id}/posts",method = RequestMethod.PUT)
+	public ResponseEntity<Object> UpdatePost(@PathVariable int id, @RequestBody Post post)  {
+		URI location = postService.UpdatePost(id,post);
+		return ResponseEntity.created(location).build(); 
+	}
+	
+	@RequestMapping(value = "blogger/{id}/posts",method = RequestMethod.DELETE)
+	public ResponseEntity<Object> deletePost(@PathVariable int id)  {
+		 postService.deletePost(id);
+		return (ResponseEntity<Object>) ResponseEntity.status(200); 
+	}
 }
