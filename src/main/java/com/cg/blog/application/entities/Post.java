@@ -34,7 +34,7 @@ public class Post {
 	@Column(name = "title")
 	private String title;
 	
-//	@JsonBackReference
+	@JsonBackReference
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name= "blogger_id", referencedColumnName = "user_id")
 	private Blogger createdBy;
@@ -53,7 +53,7 @@ public class Post {
 	@Column(name = "created_date_time")
 	private LocalDateTime createdDateTime;
 	
-//	@JsonManagedReference
+	@JsonManagedReference(value = "post-back-reference")
 	@Column(name="comments")
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
 	private List<Comment> comments;

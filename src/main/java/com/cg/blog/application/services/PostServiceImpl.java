@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Post;
+import com.cg.blog.application.exceptions.IdNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.IPostRepository;
 import com.cg.blog.application.repositories.IUserRepository;
@@ -39,7 +40,7 @@ public class PostServiceImpl implements IPostService{
 		Optional<Blogger> bloggerOptional= bloggerRepository.findById(id);  
 		if(!bloggerOptional.isPresent())  
 		{  
-//		throw new IdNotFoundException("id: "+ id, null);  
+		throw new IdNotFoundException("id: "+ id + " Not Found");  
 		}  
 		Blogger blogger=bloggerOptional.get();     
 		//map the user to the post  
@@ -115,7 +116,7 @@ public class PostServiceImpl implements IPostService{
 	public List<Post> getPostByBlogger(int id) {
 		List<Post> list = new ArrayList<>();
         Blogger blogger = bloggerRepository.findById(id)
-                .orElseThrow(null);
+                .orElseThrow(() -> new IdNotFoundException("Id Not Found"));
         return blogger.getPosts();
 	}
 

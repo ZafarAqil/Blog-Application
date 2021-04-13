@@ -27,12 +27,12 @@ public class Comment {
 	@Column(name = "votes")
 	private int votes;
 
-//	@JsonBackReference
+	@JsonBackReference(value = "user-back-reference")
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name= "blogger_id", referencedColumnName = "user_id")
 	private Blogger blogger;
 
-//	@JsonBackReference
+	@JsonBackReference(value = "post-back-reference")
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name= "post_id", referencedColumnName = "postId")
 	private Post post;
