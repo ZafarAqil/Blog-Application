@@ -1,6 +1,7 @@
 package com.cg.blog.application.services;
 
 import java.util.List;
+import java.util.Set;
 
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Community;
@@ -17,7 +18,9 @@ public interface IBloggerService {
 
 	public List<Blogger> getAllBloggers();
 
-	public List<Blogger> viewBloggerList(Community community);
+	public Set<Blogger> getBloggerList(int communityId);
 	// public List<Customer> viewCustomerList(int theatreid);
+
+	public void joinCommunity(int communityId, int bloggerId);
 
 }

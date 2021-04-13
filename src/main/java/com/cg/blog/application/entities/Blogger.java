@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -35,7 +37,7 @@ public class Blogger extends User{
 	@Column(name = "upvoted")
 	@ManyToMany
 	@JoinTable(
-			  name = "blogger_communities", 
+			  name = "blogger_upvoted_posts", 
 			  joinColumns = @JoinColumn(name = "id"), 
 			  inverseJoinColumns = @JoinColumn(name = "postId"))
 	private List<Post> upvoted;
@@ -49,12 +51,13 @@ public class Blogger extends User{
 //	@Column(name = "awards_given")
 //	private Award awardsGiven;
 
+	@JsonIgnore
 	@Column(name = "communities")
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			  name = "blogger_communities", 
-			  joinColumns = @JoinColumn(name = "user_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "communityId"))
+			  joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"), 
+			  inverseJoinColumns = @JoinColumn(name = "communityId", referencedColumnName = "communityId"))
 	private	List<Community> communities;
 
 	public Blogger() {
