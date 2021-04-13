@@ -35,8 +35,8 @@ public class Post {
 	private String title;
 	
 	@JsonBackReference
-	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name= "blogger_id", referencedColumnName = "user_id")
+	@ManyToOne(fetch= FetchType.EAGER)
+	@JoinColumn(name= "blogger_id", referencedColumnName = "id")
 	private Blogger createdBy;
 	
 	@Column(name = "content")
@@ -76,6 +76,7 @@ public class Post {
 	@Column(name = "flair")
 	private String flair;
 	
+	@JsonBackReference(value = "community-post")
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name= "community_id", referencedColumnName = "communityId")
 	private Community community;

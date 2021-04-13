@@ -3,12 +3,9 @@ package com.cg.blog.application.entities;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -23,14 +20,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Component
 @Table(name = "bloggers")
-public class Blogger {
-
-	@Id
-	@Column(name = "user_id")
-	private int userId;
-
-	@Column(name = "blogger_name")
-	private String bloggerName;
+public class Blogger extends User{ 
 
 	@JsonManagedReference
 	@Column(name = "posts")
@@ -46,7 +36,7 @@ public class Blogger {
 	@ManyToMany
 	@JoinTable(
 			  name = "blogger_communities", 
-			  joinColumns = @JoinColumn(name = "user_id"), 
+			  joinColumns = @JoinColumn(name = "id"), 
 			  inverseJoinColumns = @JoinColumn(name = "postId"))
 	private List<Post> upvoted;
 
@@ -67,20 +57,14 @@ public class Blogger {
 			  inverseJoinColumns = @JoinColumn(name = "communityId"))
 	private	List<Community> communities;
 
-
-	@Column(name = "karma")
-	private int karma;
-
 	public Blogger() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Blogger(int userId, String bloggerName, List<Post> posts, List<Comment> comments, List<Post> upvoted,
-			List<Post> downvoted, Award awardsReceived, Award awardsGiven, List<Community> communities, int karma) {
-		super();
-		this.userId = userId;
-		this.bloggerName = bloggerName;
+	public Blogger(String name, String email, String password, String role, long karma, List<Post> posts, List<Comment> comments, List<Post> upvoted,
+			List<Post> downvoted, Award awardsReceived, Award awardsGiven, List<Community> communities) {
+		super(name, email, password, role, karma);
 		this.posts = posts;
 		this.comments = comments;
 		this.upvoted = upvoted;
@@ -88,13 +72,11 @@ public class Blogger {
 //		this.awardsReceived = awardsReceived;
 //		this.awardsGiven = awardsGiven;
 		this.communities = communities;
-		this.karma = karma;
 	}
 
-	public Blogger(String bloggerName, List<Post> posts, List<Comment> comments, List<Post> upvoted,
-			List<Post> downvoted, Award awardsReceived, Award awardsGiven, List<Community> communities, int karma) {
-		super();
-		this.bloggerName = bloggerName;
+	public Blogger(int id, String name, String email, String password, String role, long karma, List<Post> posts, List<Comment> comments, List<Post> upvoted,
+			List<Post> downvoted, Award awardsReceived, Award awardsGiven, List<Community> communities) {
+		super(id, name, email, password, role, karma);
 		this.posts = posts;
 		this.comments = comments;
 		this.upvoted = upvoted;
@@ -102,23 +84,6 @@ public class Blogger {
 //		this.awardsReceived = awardsReceived;
 //		this.awardsGiven = awardsGiven;
 		this.communities = communities;
-		this.karma = karma;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public String getBloggerName() {
-		return bloggerName;
-	}
-
-	public void setBloggerName(String bloggerName) {
-		this.bloggerName = bloggerName;
 	}
 
 	public List<Post> getPosts() {
@@ -177,13 +142,6 @@ public class Blogger {
 		this.communities = communities;
 	}
 
-	public int getKarma() {
-		return karma;
-	}
-
-	public void setKarma(int karma) {
-		this.karma = karma;
-	}
 
 //	@Override
 //	public String toString() {

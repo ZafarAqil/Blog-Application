@@ -29,7 +29,7 @@ public class Comment {
 
 	@JsonBackReference(value = "user-back-reference")
 	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name= "blogger_id", referencedColumnName = "user_id")
+	@JoinColumn(name= "blogger_id", referencedColumnName = "id")
 	private Blogger blogger;
 
 	@JsonBackReference(value = "post-back-reference")

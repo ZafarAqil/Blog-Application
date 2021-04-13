@@ -12,7 +12,7 @@ import com.cg.blog.application.exceptions.IdNotFoundException;
 
 public interface IBloggerRepository extends JpaRepository<Blogger, Integer> {
 
-	List<Post> getPostsByUserId(int id);
+	List<Post> getPostsById(int id);
 
 //	Optional<Blogger> findByBlogger(Blogger blogger);
 
