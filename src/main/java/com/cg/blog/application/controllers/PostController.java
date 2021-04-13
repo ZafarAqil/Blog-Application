@@ -20,9 +20,9 @@ public class PostController {
 	@Autowired
 	PostServiceImpl postService;
 	
-	@RequestMapping(value = "blogger/{id}/posts",method = RequestMethod.POST)
-	public ResponseEntity<Object> addPost(@PathVariable int id, @RequestBody Post post)  {
-		Post post1 = postService.addPost(id,post);
+	@RequestMapping(value = "post/{community_id}/{blogger_id}",method = RequestMethod.POST)
+	public ResponseEntity<Object> addPost(@PathVariable(name = "community_id") int communityId, @PathVariable(name = "blogger_id") int bloggerId,  @RequestBody Post post)  {
+		Post post1 = postService.addPost(communityId,bloggerId,post);
 		return ResponseEntity.status(201).body(post1);
 	}
 	

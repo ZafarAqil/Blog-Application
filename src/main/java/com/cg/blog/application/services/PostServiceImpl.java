@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cg.blog.application.entities.Blogger;
+import com.cg.blog.application.entities.Community;
 import com.cg.blog.application.entities.Post;
 import com.cg.blog.application.exceptions.IdNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
+import com.cg.blog.application.repositories.ICommunityRepository;
 import com.cg.blog.application.repositories.IPostRepository;
 import com.cg.blog.application.repositories.IUserRepository;
 
@@ -25,7 +27,8 @@ public class PostServiceImpl implements IPostService{
 	IPostRepository postRepository;
 	@Autowired
 	IUserRepository userRepository;
-	
+	@Autowired
+	ICommunityRepository communityRepository;
 	@Autowired
 	IBloggerRepository bloggerRepository;
 //	@Override
@@ -36,23 +39,21 @@ public class PostServiceImpl implements IPostService{
 	
 	
 	@Override
-	public Post addPost(int id, Post post)  {
-		Optional<Blogger> bloggerOptional= bloggerRepository.findById(id);  
-		if(!bloggerOptional.isPresent())  
-		{  
-		throw new IdNotFoundException("id: "+ id + " Not Found");  
-		}  
-		Blogger blogger=bloggerOptional.get();     
+	public Post addPost(int communityId, int bloggerId, Post post)  {
+		
+		Community community = communityRepository.findById(communityId).orElseThrow(() -> new IdNotFoundException("Community Not Found"));
+		Blogger blogger = bloggerRepository.findById(bloggerId).orElseThrow(() -> new IdNotFoundException("Blogger Not Found"));
+		
 		//map the user to the post  
 		post.setCreatedBy(blogger);  
-		
+		community.getPosts().add(post);
 		blogger.getPosts().add(post);
+		post.setCommunity(community);
 		
 		bloggerRepository.save(blogger);
 		//save post to the database  
 		postRepository.save(post);  
-		//getting the path of the post and append id of the post to the URI   
-		
+		communityRepository.save(community);
 		return post;
 	}
 

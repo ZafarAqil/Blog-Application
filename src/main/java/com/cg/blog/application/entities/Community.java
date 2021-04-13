@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -18,8 +19,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "communities")
@@ -65,18 +69,36 @@ public class Community {
 	private List<String> flairs;
     
 	@ManyToMany(mappedBy = "communities",fetch = FetchType.LAZY)
-	Set<Blogger> bloggers;
+	private Set<Blogger> bloggers;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Admin admin;
-
+	@JsonManagedReference(value = "community-post")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "community", fetch = FetchType.LAZY)
+	private List<Post> posts;
+	
 	public Community() {
 		super();
 	}
 
+	public Community(String communityDescription, int totalMembers, int onlineMembers, File image, LocalDate createdOn,
+			List<String> postRulesAllowed, List<String> postRulesDisallowed, List<String> banningPolicy,
+			List<String> flairs, Set<Blogger> bloggers, List<Post> posts) {
+		super();
+		this.communityDescription = communityDescription;
+		this.totalMembers = totalMembers;
+		this.onlineMembers = onlineMembers;
+		this.image = image;
+		this.createdOn = createdOn;
+		this.postRulesAllowed = postRulesAllowed;
+		this.postRulesDisallowed = postRulesDisallowed;
+		this.banningPolicy = banningPolicy;
+		this.flairs = flairs;
+		this.bloggers = bloggers;
+		this.posts = posts;
+	}
+
 	public Community(int communityId, String communityDescription, int totalMembers, int onlineMembers, File image,
-			LocalDate createdOn, List<String> postRulesAllowed, List<String> postRulesDisAllowed,
-			List<String> banningPolicy, List<String> flairs) {
+			LocalDate createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
+			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts) {
 		super();
 		this.communityId = communityId;
 		this.communityDescription = communityDescription;
@@ -85,24 +107,11 @@ public class Community {
 		this.image = image;
 		this.createdOn = createdOn;
 		this.postRulesAllowed = postRulesAllowed;
-		this.postRulesDisallowed = postRulesDisAllowed;
+		this.postRulesDisallowed = postRulesDisallowed;
 		this.banningPolicy = banningPolicy;
 		this.flairs = flairs;
-	}
-
-	public Community(String communityDescription, int totalMembers, int onlineMembers, File image, LocalDate createdOn,
-			List<String> postRulesAllowed, List<String> postRulesDisAllowed, List<String> banningPolicy,
-			List<String> flairs) {
-		super();
-		this.communityDescription = communityDescription;
-		this.totalMembers = totalMembers;
-		this.onlineMembers = onlineMembers;
-		this.image = image;
-		this.createdOn = createdOn;
-		this.postRulesAllowed = postRulesAllowed;
-		this.postRulesDisallowed = postRulesDisAllowed;
-		this.banningPolicy = banningPolicy;
-		this.flairs = flairs;
+		this.bloggers = bloggers;
+		this.posts = posts;
 	}
 
 	public int getCommunityId() {
@@ -183,6 +192,22 @@ public class Community {
 
 	public void setFlairs(List<String> flairs) {
 		this.flairs = flairs;
+	}
+
+	public Set<Blogger> getBloggers() {
+		return bloggers;
+	}
+
+	public void setBloggers(Set<Blogger> bloggers) {
+		this.bloggers = bloggers;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	@Override

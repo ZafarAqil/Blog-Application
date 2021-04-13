@@ -24,7 +24,7 @@ public class BloggerServiceImpl implements IBloggerService{
 	@Override
 	public Blogger updateBlogger(Blogger blogger, int bloggerId) throws IdNotFoundException {
 		bloggerRepository.findById(bloggerId).orElseThrow(() -> new IdNotFoundException("Id Not Found"));
-		blogger.setUserId(bloggerId);
+		blogger.setId(bloggerId);
 		Blogger updatedBlogger = bloggerRepository.save(blogger);
 		return updatedBlogger;
 	}
