@@ -2,17 +2,20 @@ package com.cg.blog.application.repositories;
 
 import java.util.List;
 
-import com.cg.blog.application.entities.Blogger;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.cg.blog.application.entities.Community;
 
-public interface ICommunityRepository {
-	public Community addCommunity(Community community);
+public interface ICommunityRepository extends JpaRepository<Community, Integer>{
 
-	public Community updateCommunity(Community community);
-
-	public Community deleteCommunity(Community community);
-
-	public List<Community> listAllCommunities(String searchString);
-
-	public List<Community> listAllCommunitiesByBlogger(Blogger blogger);
+	public List<Community> findByCommunityDescriptionContains(String searchString);
+//	public Community addCommunity(Community community);
+//
+//	public Community updateCommunity(Community community);
+//
+//	public Community deleteCommunity(Community community);
+//
+//	public List<Community> listAllCommunities(String searchString);
+//
+//	public List<Community> listAllCommunitiesByBlogger(Blogger blogger);
 }

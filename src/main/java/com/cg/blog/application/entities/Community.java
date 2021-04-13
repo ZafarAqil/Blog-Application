@@ -12,11 +12,13 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -24,7 +26,8 @@ import javax.persistence.Table;
 public class Community {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "communitySeq")
+	@SequenceGenerator(name = "communitySeq",sequenceName = "community_seq", allocationSize = 1)
 	private int communityId;
 	
 	@Column(name = "community_description")
@@ -42,28 +45,30 @@ public class Community {
 	@Column(name = "created_on")
 	private LocalDate createdOn;
 	
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "community_postRulesAllowed", joinColumns = @JoinColumn(name = "communityId"))
     @Column(name = "post_rules_allowed")
 	private List<String> postRulesAllowed;
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "comm_RulesDisallowed", joinColumns = @JoinColumn(name = "communityId"))
 	@Column(name = "post_rules_disallowed")
 	private List<String> postRulesDisallowed;
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "community_banning_policy", joinColumns = @JoinColumn(name = "communityId"))
 	@Column(name = "banning_policy")
 	private List<String> banningPolicy;
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "community_flairs", joinColumns = @JoinColumn(name = "communityId"))
 	private List<String> flairs;
     
-	@ManyToMany(mappedBy = "communities")
+	@ManyToMany(mappedBy = "communities",fetch = FetchType.LAZY)
 	Set<Blogger> bloggers;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Admin admin;
 
 	public Community() {
 		super();

@@ -18,8 +18,7 @@ public class UserServiceImpl implements IUserService{
 	@Autowired
 	Blogger blogger;
 	@Override
-	public User addNewUser(User user) {
-		// TODO Auto-generated method stub
+	public User addNewUser(User user) {	
 		return userRepository.save(user);	
 		}
 

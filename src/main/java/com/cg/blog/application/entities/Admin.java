@@ -1,26 +1,22 @@
 package com.cg.blog.application.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
-@Table(name = "administrators")
+@Table(name = "admin")
 public class Admin extends User{
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-
-	@Column
-	private String name;
 
 	@Column
 	private String contact;
-
+	
 	// Constructors
 
 	public Admin() {
@@ -28,36 +24,16 @@ public class Admin extends User{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Admin(int id, String name, String contact) {
-		super();
-		this.id = id;
-		this.name = name;
+	public Admin(int id, String name, String email, String password, String role, long karma, String contact) {
+		super(id, name, email, password, role, karma);
 		this.contact = contact;
 	}
-
-	public Admin(String name, String contact) {
-		super();
-		this.name = name;
+	public Admin(String name, String email, String password, String role, long karma, String contact) {
+		super(name, email, password, role, karma);
 		this.contact = contact;
 	}
 
 	// getters and setters
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getContact() {
 		return contact;
@@ -69,7 +45,7 @@ public class Admin extends User{
 
 	@Override
 	public String toString() {
-		return "Admin [id=" + id + ", name=" + name + ", contact=" + contact + "]";
+		return "Admin [contact=" + contact + ", toString()=" + super.toString() + "]";
 	}
 
 }

@@ -1,14 +1,14 @@
 package com.cg.blog.application.exceptions;
 
-public class IdNotFoundException extends Exception {
+public class IdNotFoundException extends RuntimeException {
 
 	public IdNotFoundException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public IdNotFoundException(String message, Throwable cause) {
-		super(message, cause);
+	public IdNotFoundException(String message) {
+		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
