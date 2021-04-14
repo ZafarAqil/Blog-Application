@@ -1,7 +1,5 @@
 package com.cg.blog.application.entities;
 
-
-
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,70 +23,69 @@ import org.hibernate.annotations.CreationTimestamp;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
 @Entity
 @Table(name = "post")
 public class Post {
-	
+
 	@Id
 	@GeneratedValue(generator = "postSeq")
-	@SequenceGenerator(name = "postSeq",sequenceName = "post_seq", allocationSize = 1)
+	@SequenceGenerator(name = "postSeq", sequenceName = "post_seq", allocationSize = 1)
 	private int postId;
-	
+
 	@Column(name = "title")
 	@NotNull
 	private String title;
-	
+
 	@Lob
 	@NotNull
 	@Column(name = "description")
 	private String description;
-	
+
 	@JsonBackReference
-	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name= "blogger_id", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "blogger_id", referencedColumnName = "id")
 	private Blogger createdBy;
-	
+
 	@Column(name = "content")
 	private PostType content;
-	
+
 //	@Column(name = "data")
 //  private List<Files> data;
-	
+
 	@JsonManagedReference(value = "award-post")
 	@Column(name = "awards_recieved")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 	private List<Award> awardsReceived;
-	
+
 	@CreationTimestamp
 	@Column(name = "created_date_time")
 	private LocalDateTime createdDateTime;
-	
+
 	@JsonManagedReference(value = "post-back-reference")
-	@Column(name="comments")
+	@Column(name = "comments")
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
 	private List<Comment> comments;
-	
-	@Column(name= "votes")
+
+	@Column(name = "votes")
 	private int votes;
-	
+
 	@Column(name = "not_safe_for_work")
 	private boolean notSafeForWork;
-	
+
 	@Column(name = "spoiler")
 	private boolean spoiler;
-	
+
 	@Column(name = "original_content")
 	private boolean originalContent;
-	
+
 	@Column(name = "flair")
 	private String flair;
-	
+
 	@JsonBackReference(value = "community-post")
-	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name= "community_id", referencedColumnName = "communityId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "community_id", referencedColumnName = "communityId")
 	private Community community;
-	
+
 	public Post() {
 		super();
 	}
@@ -112,8 +109,6 @@ public class Post {
 		this.flair = flair;
 		this.community = community;
 	}
-
-
 
 	public Post(@NotNull String title, @NotNull String description, Blogger createdBy, PostType content,
 			List<Award> awardsReceived, LocalDateTime createdDateTime, List<Comment> comments, int votes,

@@ -7,18 +7,20 @@ import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.User;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.IUserRepository;
+
 @Service
-public class UserServiceImpl implements IUserService{
+public class UserServiceImpl implements IUserService {
 	@Autowired
 	IUserRepository userRepository;
-	
+
 	@Autowired
 	IBloggerRepository bloggerRepository;
-	
+
 	@Autowired
 	Blogger blogger;
+
 	@Override
-	public User addNewUser(User user) {	
+	public User addNewUser(User user) {
 		Blogger blogger = new Blogger();
 		blogger.setId(user.getId());
 		blogger.setEmail(user.getEmail());
@@ -26,12 +28,11 @@ public class UserServiceImpl implements IUserService{
 		blogger.setName(user.getName());
 		bloggerRepository.save(blogger);
 		return userRepository.save(user);
-		}
-
+	}
 
 	@Override
 	public User signIn(User user) {
-		if(user.getPassword().equals(((User) userRepository.findByName(user.getName())).getPassword())) {
+		if (user.getPassword().equals(((User) userRepository.findByName(user.getName())).getPassword())) {
 //			blogger.setId(userRepository.findByName(user.getName()).getId());
 //			blogger.setEmail(userRepository.findByName(user.getName()).getEmail());
 //			blogger.setPassword(userRepository.findByName(user.getName()).getPassword());
@@ -41,8 +42,7 @@ public class UserServiceImpl implements IUserService{
 			return user;
 		}
 		return null;
-		
-		
+
 	}
 
 	@Override

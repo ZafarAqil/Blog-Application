@@ -21,33 +21,34 @@ public class CommunityController {
 
 	@Autowired
 	CommunityServiceImpl communityService;
-	
-	@RequestMapping(value = "/community",method = RequestMethod.POST)
-	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community)  {
+
+	@RequestMapping(value = "/community", method = RequestMethod.POST)
+	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community) {
 		Community createdCommunity = communityService.addCommunity(community);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
 
-	@RequestMapping(value = "/community/{community_id}",method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateCommunity(@RequestBody Community community, @PathVariable(name = "community_id") int communityId)  {
+	@RequestMapping(value = "/community/{community_id}", method = RequestMethod.PUT)
+	public ResponseEntity<Object> updateCommunity(@RequestBody Community community,
+			@PathVariable(name = "community_id") int communityId) {
 		Community createdCommunity = communityService.updateCommunity(community, communityId);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
-	
-	@RequestMapping(value = "/community/{community_id}",method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deleteCommunity(@PathVariable(name = "community_id") int communityId)  {
+
+	@RequestMapping(value = "/community/{community_id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> deleteCommunity(@PathVariable(name = "community_id") int communityId) {
 		communityService.deleteCommunity(communityId);
 		return ResponseEntity.status(200).body("Community Deleted");
 	}
-	
-	@RequestMapping(value = "/community/{search_string}",method = RequestMethod.GET)
-	public ResponseEntity<Object> listAllCommunities(@PathVariable(name = "search_string") String searchString)  {
+
+	@RequestMapping(value = "/community/{search_string}", method = RequestMethod.GET)
+	public ResponseEntity<Object> listAllCommunities(@PathVariable(name = "search_string") String searchString) {
 		List<Community> matchedCommunities = communityService.listAllCommunities(searchString);
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}
-	
-	@RequestMapping(value = "/community/blogger/{blogger_id}",method = RequestMethod.GET)
-	public ResponseEntity<Object> listAllCommunitiesByBlogger(@PathVariable(name = "blogger_id") int bloggerId)  {
+
+	@RequestMapping(value = "/community/blogger/{blogger_id}", method = RequestMethod.GET)
+	public ResponseEntity<Object> listAllCommunitiesByBlogger(@PathVariable(name = "blogger_id") int bloggerId) {
 		Set<Community> matchedCommunities = communityService.listAllCommunitiesByBlogger(bloggerId);
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}

@@ -19,11 +19,10 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
 @Entity
 @Component
 @Table(name = "bloggers")
-public class Blogger extends User{ 
+public class Blogger extends User {
 
 	@JsonManagedReference
 	@Column(name = "posts")
@@ -52,25 +51,23 @@ public class Blogger extends User{
 
 	@JsonManagedReference(value = "award-blogger")
 	@Column(name = "awards_given")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "blogger")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "blogger")
 	private List<Award> awardsGiven;
 
 	@JsonIgnore
 	@Column(name = "communities")
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			  name = "blogger_communities", 
-			  joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"), 
-			  inverseJoinColumns = @JoinColumn(name = "communityId", referencedColumnName = "communityId"))
-	private	Set<Community> communities;
+	@JoinTable(name = "blogger_communities", joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "communityId", referencedColumnName = "communityId"))
+	private Set<Community> communities;
 
 	public Blogger() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Blogger(String name, String email, String password, String role, long karma, List<Post> posts, List<Comment> comments, List<Post> upvoted,
-			List<Post> downvoted, List<Award> awardsReceived, List<Award> awardsGiven, Set<Community> communities) {
+	public Blogger(String name, String email, String password, String role, long karma, List<Post> posts,
+			List<Comment> comments, List<Post> upvoted, List<Post> downvoted, List<Award> awardsReceived,
+			List<Award> awardsGiven, Set<Community> communities) {
 		super(name, email, password, role, karma);
 		this.posts = posts;
 		this.comments = comments;
@@ -81,8 +78,9 @@ public class Blogger extends User{
 		this.communities = communities;
 	}
 
-	public Blogger(int id, String name, String email, String password, String role, long karma, List<Post> posts, List<Comment> comments, List<Post> upvoted,
-			List<Post> downvoted, List<Award> awardsReceived, List<Award> awardsGiven, Set<Community> communities) {
+	public Blogger(int id, String name, String email, String password, String role, long karma, List<Post> posts,
+			List<Comment> comments, List<Post> upvoted, List<Post> downvoted, List<Award> awardsReceived,
+			List<Award> awardsGiven, Set<Community> communities) {
 		super(id, name, email, password, role, karma);
 		this.posts = posts;
 		this.comments = comments;
@@ -144,11 +142,10 @@ public class Blogger extends User{
 	public void setCommunities(Set<Community> communities) {
 		this.communities = communities;
 	}
-	
+
 	public Set<Community> getCommunities() {
 		return communities;
 	}
-
 
 //	@Override
 //	public String toString() {

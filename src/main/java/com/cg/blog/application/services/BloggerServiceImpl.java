@@ -8,63 +8,68 @@ import org.springframework.stereotype.Service;
 
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Community;
-import com.cg.blog.application.exceptions.IdNotFoundException;
+import com.cg.blog.application.exceptions.BloggerNotFoundException;
+import com.cg.blog.application.exceptions.CommunityNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
 
 @Service
-public class BloggerServiceImpl implements IBloggerService{
+public class BloggerServiceImpl implements IBloggerService {
 
 	@Autowired
 	IBloggerRepository bloggerRepository;
 	@Autowired
 	ICommunityRepository communityRepository;
+
 	@Override
-	public Blogger addBlogger(Blogger blogger) {		
+	public Blogger addBlogger(Blogger blogger) {
 		return bloggerRepository.save(blogger);
 	}
 
 	@Override
-	public Blogger updateBlogger(Blogger blogger, int bloggerId) throws IdNotFoundException {
-		bloggerRepository.findById(bloggerId).orElseThrow(() -> new IdNotFoundException("Id Not Found"));
+	public Blogger updateBlogger(Blogger blogger, int bloggerId) throws BloggerNotFoundException {
+		bloggerRepository.findById(bloggerId).orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		blogger.setId(bloggerId);
 		Blogger updatedBlogger = bloggerRepository.save(blogger);
 		return updatedBlogger;
 	}
 
 	@Override
-	public void deleteBlogger(int bloggerId) throws IdNotFoundException {
-		bloggerRepository.findById(bloggerId).orElseThrow(() -> new IdNotFoundException("Id Not Found"));
+	public void deleteBlogger(int bloggerId) throws BloggerNotFoundException {
+		bloggerRepository.findById(bloggerId).orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		bloggerRepository.deleteById(bloggerId);
 	}
 
 	@Override
-	public Blogger getBlogger(int bloggerId) throws IdNotFoundException {
-		return bloggerRepository.findById(bloggerId).
-				orElseThrow(() -> new IdNotFoundException("Id Not Found"));
+	public Blogger getBlogger(int bloggerId) throws BloggerNotFoundException {
+		return bloggerRepository.findById(bloggerId)
+				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 	}
 
 	@Override
 	public List<Blogger> getAllBloggers() {
-		return  bloggerRepository.findAll();
+		return bloggerRepository.findAll();
 	}
 
 	@Override
-	public Set<Blogger> getBloggerList(int communityId) {
-		Community community = communityRepository.findById(communityId).orElseThrow(() -> new IdNotFoundException("Community Not Found"));
+	public Set<Blogger> getBloggerList(int communityId) throws CommunityNotFoundException {
+		Community community = communityRepository.findById(communityId)
+				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
 		return community.getBloggers();
 	}
 
 	@Override
-	public void joinCommunity(int communityId, int bloggerId) {
-		Community community = communityRepository.findById(communityId).orElseThrow(() -> new IdNotFoundException("Community Not Found"));
-		Blogger blogger = bloggerRepository.findById(bloggerId).orElseThrow(() -> new IdNotFoundException("Blogger Not Found"));
+	public void joinCommunity(int communityId, int bloggerId)
+			throws CommunityNotFoundException, BloggerNotFoundException {
+		Community community = communityRepository.findById(communityId)
+				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
+		Blogger blogger = bloggerRepository.findById(bloggerId)
+				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		community.getBloggers().add(blogger);
 		blogger.getCommunities().add(community);
-		community.setTotalMembers(community.getTotalMembers()+1);
+		community.setTotalMembers(community.getTotalMembers() + 1);
 		bloggerRepository.save(blogger);
 		communityRepository.save(community);
 	}
-	
 
 }

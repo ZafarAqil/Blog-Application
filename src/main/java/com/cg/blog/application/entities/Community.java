@@ -1,6 +1,5 @@
 package com.cg.blog.application.entities;
 
-
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,56 +30,56 @@ public class Community {
 
 	@Id
 	@GeneratedValue(generator = "communitySeq")
-	@SequenceGenerator(name = "communitySeq",sequenceName = "community_seq", allocationSize = 1)
+	@SequenceGenerator(name = "communitySeq", sequenceName = "community_seq", allocationSize = 1)
 	private int communityId;
-	
+
 	@Column(name = "title")
 	@NotNull
 	private String title;
-	
+
 	@Column(name = "community_description")
 	@NotNull
 	private String communityDescription;
-	
+
 	@Column(name = "total_members")
 	private int totalMembers;
-	
+
 //	@Column(name = "online_members")
 //	private int onlineMembers;
-	
+
 	@Column
 	private File image;
-	
+
 	@CreationTimestamp
 	@Column(name = "created_on")
 	private LocalDateTime createdOn;
-	
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "comm_post_allowed", joinColumns = @JoinColumn(name = "communityId"))
-    @Column(name = "post_rules_allowed")
+
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "comm_post_allowed", joinColumns = @JoinColumn(name = "communityId"))
+	@Column(name = "post_rules_allowed")
 	private List<String> postRulesAllowed;
-    
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "comm_post_disallowed", joinColumns = @JoinColumn(name = "communityId"))
+
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "comm_post_disallowed", joinColumns = @JoinColumn(name = "communityId"))
 	@Column(name = "post_rules_disallowed")
 	private List<String> postRulesDisallowed;
-    
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "comm_banning_policy", joinColumns = @JoinColumn(name = "communityId"))
+
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "comm_banning_policy", joinColumns = @JoinColumn(name = "communityId"))
 	@Column(name = "banning_policy")
 	private List<String> banningPolicy;
-    
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "community_flairs", joinColumns = @JoinColumn(name = "communityId"))
+
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "community_flairs", joinColumns = @JoinColumn(name = "communityId"))
 	private List<String> flairs;
-    
-	@ManyToMany(mappedBy = "communities",fetch = FetchType.LAZY)
+
+	@ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
 	private Set<Blogger> bloggers;
-	
+
 	@JsonManagedReference(value = "community-post")
 	@OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
 	private List<Post> posts;
-	
+
 	public Community() {
 		super();
 	}
@@ -101,7 +100,6 @@ public class Community {
 		this.bloggers = bloggers;
 		this.posts = posts;
 	}
-
 
 	public Community(int communityId, @NotNull String title, @NotNull String communityDescription, int totalMembers,
 			File image, LocalDateTime createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
@@ -234,4 +232,3 @@ public class Community {
 //	}
 
 }
-

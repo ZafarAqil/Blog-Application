@@ -1,6 +1,5 @@
 package com.cg.blog.application.entities;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,13 +27,13 @@ public class Comment {
 //	private int votes;
 
 	@JsonBackReference(value = "user-back-reference")
-	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name= "blogger_id", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "blogger_id", referencedColumnName = "id")
 	private Blogger blogger;
 
 	@JsonBackReference(value = "post-back-reference")
-	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name= "post_id", referencedColumnName = "postId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "post_id", referencedColumnName = "postId")
 	private Post post;
 
 	// constructors
@@ -60,8 +59,8 @@ public class Comment {
 		this.post = post;
 	}
 
-	//getters and setters
-	
+	// getters and setters
+
 	public int getCommentId() {
 		return commentId;
 	}
@@ -102,8 +101,8 @@ public class Comment {
 		this.post = post;
 	}
 
-	//toString
-	
+	// toString
+
 //	@Override
 //	public String toString() {
 //		return "Comment [commentId=" + commentId + ", commentDescription=" + commentDescription + ", votes=" + votes

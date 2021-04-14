@@ -16,21 +16,21 @@ import org.springframework.stereotype.Component;
 @Table(name = "votes")
 @Component
 public class Vote {
-    
+
 	@Id
 	@GeneratedValue(generator = "voteSeq")
 	@SequenceGenerator(name = "voteSeq", sequenceName = "vote_seq", allocationSize = 1)
-    private Long voteId;
-    private VoteType voteType;
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "postId", referencedColumnName = "postId")
-    private Post post;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id")
-    private Blogger blogger;
-	
-    public Vote() {
+	private Long voteId;
+	private VoteType voteType;
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "postId", referencedColumnName = "postId")
+	private Post post;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id", referencedColumnName = "id")
+	private Blogger blogger;
+
+	public Vote() {
 		super();
 	}
 
@@ -79,6 +79,6 @@ public class Vote {
 
 	public void setBlogger(Blogger blogger) {
 		this.blogger = blogger;
-	} 
-    
+	}
+
 }
