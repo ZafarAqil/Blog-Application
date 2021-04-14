@@ -13,10 +13,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -32,25 +36,31 @@ public class Post {
 	private int postId;
 	
 	@Column(name = "title")
+	@NotNull
 	private String title;
 	
+	@Lob
+	@NotNull
+	@Column(name = "description")
+	private String description;
+	
 	@JsonBackReference
-	@ManyToOne(fetch= FetchType.EAGER)
+	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name= "blogger_id", referencedColumnName = "id")
 	private Blogger createdBy;
 	
 	@Column(name = "content")
 	private PostType content;
 	
-	
 //	@Column(name = "data")
-//    private List<Files> data;
+//  private List<Files> data;
 	
 	@JsonManagedReference(value = "award-post")
 	@Column(name = "awards_recieved")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 	private List<Award> awardsReceived;
 	
+	@CreationTimestamp
 	@Column(name = "created_date_time")
 	private LocalDateTime createdDateTime;
 	
@@ -61,9 +71,6 @@ public class Post {
 	
 	@Column(name= "votes")
 	private int votes;
-	
-//	@Column(name= "vote_up")
-//	private boolean voteUp;
 	
 	@Column(name = "not_safe_for_work")
 	private boolean notSafeForWork;
@@ -82,28 +89,23 @@ public class Post {
 	@JoinColumn(name= "community_id", referencedColumnName = "communityId")
 	private Community community;
 	
-	
-	
-
 	public Post() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Post(int postId, String title, Blogger createdBy, PostType content, List<Files> data, List<Award> awardsReceived,
-			LocalDateTime createdDateTime, List<Comment> comments, int votes, boolean voteUp, boolean notSafeForWork,
-			boolean spoiler, boolean originalContent, String flair, Community community) {
+	public Post(int postId, @NotNull String title, @NotNull String description, Blogger createdBy, PostType content,
+			List<Award> awardsReceived, LocalDateTime createdDateTime, List<Comment> comments, int votes,
+			boolean notSafeForWork, boolean spoiler, boolean originalContent, String flair, Community community) {
 		super();
 		this.postId = postId;
 		this.title = title;
+		this.description = description;
 		this.createdBy = createdBy;
 		this.content = content;
-//		this.data = data;
 		this.awardsReceived = awardsReceived;
 		this.createdDateTime = createdDateTime;
 		this.comments = comments;
 		this.votes = votes;
-//		this.voteUp = voteUp;
 		this.notSafeForWork = notSafeForWork;
 		this.spoiler = spoiler;
 		this.originalContent = originalContent;
@@ -111,19 +113,20 @@ public class Post {
 		this.community = community;
 	}
 
-	public Post(String title, Blogger createdBy, PostType content, List<Files> data, List<Award> awardsReceived,
-			LocalDateTime createdDateTime, List<Comment> comments, int votes, boolean voteUp, boolean notSafeForWork,
-			boolean spoiler, boolean originalContent, String flair, Community community) {
+
+
+	public Post(@NotNull String title, @NotNull String description, Blogger createdBy, PostType content,
+			List<Award> awardsReceived, LocalDateTime createdDateTime, List<Comment> comments, int votes,
+			boolean notSafeForWork, boolean spoiler, boolean originalContent, String flair, Community community) {
 		super();
 		this.title = title;
+		this.description = description;
 		this.createdBy = createdBy;
 		this.content = content;
-//		this.data = data;
 		this.awardsReceived = awardsReceived;
 		this.createdDateTime = createdDateTime;
 		this.comments = comments;
 		this.votes = votes;
-//		this.voteUp = voteUp;
 		this.notSafeForWork = notSafeForWork;
 		this.spoiler = spoiler;
 		this.originalContent = originalContent;
@@ -203,14 +206,6 @@ public class Post {
 		this.votes = votes;
 	}
 
-//	public boolean isVoteUp() {
-//		return voteUp;
-//	}
-//
-//	public void setVoteUp(boolean voteUp) {
-//		this.voteUp = voteUp;
-//	}
-
 	public boolean isNotSafeForWork() {
 		return notSafeForWork;
 	}
@@ -249,6 +244,14 @@ public class Post {
 
 	public void setCommunity(Community community) {
 		this.community = community;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 //	@Override

@@ -2,6 +2,8 @@ package com.cg.blog.application.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +24,7 @@ public class PostController {
 	PostServiceImpl postService;
 	
 	@RequestMapping(value = "post/{community_id}/{blogger_id}",method = RequestMethod.POST)
-	public ResponseEntity<Object> addPost(@PathVariable(name = "community_id") int communityId, @PathVariable(name = "blogger_id") int bloggerId,  @RequestBody Post post)  {
+	public ResponseEntity<Object> addPost(@Valid @PathVariable(name = "community_id") int communityId, @PathVariable(name = "blogger_id") int bloggerId,  @RequestBody Post post)  {
 		Post post1 = postService.addPost(communityId,bloggerId,post);
 		return ResponseEntity.status(201).body(post1);
 	}

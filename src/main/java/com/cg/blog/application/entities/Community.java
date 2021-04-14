@@ -1,10 +1,8 @@
 package com.cg.blog.application.entities;
 
 
-
-
 import java.io.File;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +19,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -33,33 +34,39 @@ public class Community {
 	@SequenceGenerator(name = "communitySeq",sequenceName = "community_seq", allocationSize = 1)
 	private int communityId;
 	
+	@Column(name = "title")
+	@NotNull
+	private String title;
+	
 	@Column(name = "community_description")
+	@NotNull
 	private String communityDescription;
 	
 	@Column(name = "total_members")
 	private int totalMembers;
 	
-	@Column(name = "online_members")
-	private int onlineMembers;
+//	@Column(name = "online_members")
+//	private int onlineMembers;
 	
 	@Column
 	private File image;
 	
+	@CreationTimestamp
 	@Column(name = "created_on")
-	private LocalDate createdOn;
+	private LocalDateTime createdOn;
 	
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "community_postRulesAllowed", joinColumns = @JoinColumn(name = "communityId"))
+    @CollectionTable(name = "comm_post_allowed", joinColumns = @JoinColumn(name = "communityId"))
     @Column(name = "post_rules_allowed")
 	private List<String> postRulesAllowed;
     
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "comm_RulesDisallowed", joinColumns = @JoinColumn(name = "communityId"))
+    @CollectionTable(name = "comm_post_disallowed", joinColumns = @JoinColumn(name = "communityId"))
 	@Column(name = "post_rules_disallowed")
 	private List<String> postRulesDisallowed;
     
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "community_banning_policy", joinColumns = @JoinColumn(name = "communityId"))
+    @CollectionTable(name = "comm_banning_policy", joinColumns = @JoinColumn(name = "communityId"))
 	@Column(name = "banning_policy")
 	private List<String> banningPolicy;
     
@@ -78,13 +85,13 @@ public class Community {
 		super();
 	}
 
-	public Community(String communityDescription, int totalMembers, int onlineMembers, File image, LocalDate createdOn,
-			List<String> postRulesAllowed, List<String> postRulesDisallowed, List<String> banningPolicy,
-			List<String> flairs, Set<Blogger> bloggers, List<Post> posts) {
+	public Community(@NotNull String title, @NotNull String communityDescription, int totalMembers, File image,
+			LocalDateTime createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
+			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts) {
 		super();
+		this.title = title;
 		this.communityDescription = communityDescription;
 		this.totalMembers = totalMembers;
-		this.onlineMembers = onlineMembers;
 		this.image = image;
 		this.createdOn = createdOn;
 		this.postRulesAllowed = postRulesAllowed;
@@ -95,14 +102,15 @@ public class Community {
 		this.posts = posts;
 	}
 
-	public Community(int communityId, String communityDescription, int totalMembers, int onlineMembers, File image,
-			LocalDate createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
+
+	public Community(int communityId, @NotNull String title, @NotNull String communityDescription, int totalMembers,
+			File image, LocalDateTime createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
 			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts) {
 		super();
 		this.communityId = communityId;
+		this.title = title;
 		this.communityDescription = communityDescription;
 		this.totalMembers = totalMembers;
-		this.onlineMembers = onlineMembers;
 		this.image = image;
 		this.createdOn = createdOn;
 		this.postRulesAllowed = postRulesAllowed;
@@ -137,13 +145,13 @@ public class Community {
 		this.totalMembers = totalMembers;
 	}
 
-	public int getOnlineMembers() {
-		return onlineMembers;
-	}
-
-	public void setOnlineMembers(int onlineMembers) {
-		this.onlineMembers = onlineMembers;
-	}
+//	public int getOnlineMembers() {
+//		return onlineMembers;
+//	}
+//
+//	public void setOnlineMembers(int onlineMembers) {
+//		this.onlineMembers = onlineMembers;
+//	}
 
 	public File getImage() {
 		return image;
@@ -153,11 +161,11 @@ public class Community {
 		this.image = image;
 	}
 
-	public LocalDate getCreatedOn() {
+	public LocalDateTime getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(LocalDate createdOn) {
+	public void setCreatedOn(LocalDateTime createdOn) {
 		this.createdOn = createdOn;
 	}
 
@@ -209,13 +217,21 @@ public class Community {
 		this.posts = posts;
 	}
 
-	@Override
-	public String toString() {
-		return "Community [communityId=" + communityId + ", communityDescription=" + communityDescription
-				+ ", totalMembers=" + totalMembers + ", onlineMembers=" + onlineMembers + ", image=" + image
-				+ ", createdOn=" + createdOn + ", postRulesAllowed=" + postRulesAllowed + ", postRulesDisallowed="
-				+ postRulesDisallowed + ", banningPolicy=" + banningPolicy + ", flairs=" + flairs + "]";
+	public String getTitle() {
+		return title;
 	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+//	@Override
+//	public String toString() {
+//		return "Community [communityId=" + communityId + ", communityDescription=" + communityDescription
+//				+ ", totalMembers=" + totalMembers + ", onlineMembers=" + onlineMembers + ", image=" + image
+//				+ ", createdOn=" + createdOn + ", postRulesAllowed=" + postRulesAllowed + ", postRulesDisallowed="
+//				+ postRulesDisallowed + ", banningPolicy=" + banningPolicy + ", flairs=" + flairs + "]";
+//	}
 
 }
 

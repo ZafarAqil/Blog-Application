@@ -24,8 +24,8 @@ public class Comment {
 	@Column(name = "comment_description")
 	private String commentDescription;
 
-	@Column(name = "votes")
-	private int votes;
+//	@Column(name = "votes")
+//	private int votes;
 
 	@JsonBackReference(value = "user-back-reference")
 	@ManyToOne(fetch= FetchType.LAZY)
@@ -37,33 +37,27 @@ public class Comment {
 	@JoinColumn(name= "post_id", referencedColumnName = "postId")
 	private Post post;
 
-	@Column(name = "vote_up")
-	private boolean voteUp;
-
 	// constructors
 
 	public Comment() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Comment(int commentId, String commentDescription, int votes, Blogger blogger, Post post, boolean voteUp) {
+	public Comment(int commentId, String commentDescription, int votes, Blogger blogger, Post post) {
 		super();
 		this.commentId = commentId;
 		this.commentDescription = commentDescription;
-		this.votes = votes;
+//		this.votes = votes;
 		this.blogger = blogger;
 		this.post = post;
-		this.voteUp = voteUp;
 	}
 
-	public Comment(String commentDescription, int votes, Blogger blogger, Post post, boolean voteUp) {
+	public Comment(String commentDescription, int votes, Blogger blogger, Post post) {
 		super();
 		this.commentDescription = commentDescription;
-		this.votes = votes;
+//		this.votes = votes;
 		this.blogger = blogger;
 		this.post = post;
-		this.voteUp = voteUp;
 	}
 
 	//getters and setters
@@ -84,13 +78,13 @@ public class Comment {
 		this.commentDescription = commentDescription;
 	}
 
-	public int getVotes() {
-		return votes;
-	}
-
-	public void setVotes(int votes) {
-		this.votes = votes;
-	}
+//	public int getVotes() {
+//		return votes;
+//	}
+//
+//	public void setVotes(int votes) {
+//		this.votes = votes;
+//	}
 
 	public Blogger getBlogger() {
 		return blogger;
@@ -108,20 +102,12 @@ public class Comment {
 		this.post = post;
 	}
 
-	public boolean isVoteUp() {
-		return voteUp;
-	}
-
-	public void setVoteUp(boolean voteUp) {
-		this.voteUp = voteUp;
-	}
-
 	//toString
 	
-	@Override
-	public String toString() {
-		return "Comment [commentId=" + commentId + ", commentDescription=" + commentDescription + ", votes=" + votes
-				+ ", blogger=" + blogger + ", post=" + post + ", voteUp=" + voteUp + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Comment [commentId=" + commentId + ", commentDescription=" + commentDescription + ", votes=" + votes
+//				+ ", blogger=" + blogger + ", post=" + post + ", voteUp=" + voteUp + "]";
+//	}
 
 }
