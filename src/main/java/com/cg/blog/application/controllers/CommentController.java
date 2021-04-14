@@ -23,21 +23,21 @@ public class CommentController {
 
 	@RequestMapping(value = "blogger/{id}/posts/{pid}/comment", method = RequestMethod.POST)
 	public ResponseEntity<Object> addComment(@PathVariable int id, @PathVariable int pid, @RequestBody Comment comment) {
-		Comment comment1 = commentService.addComment(id, pid, comment);
-		return ResponseEntity.status(201).body(null);
+		Comment addedComment = commentService.addComment(id, pid, comment);
+		return ResponseEntity.status(201).body(addedComment);
 	}
 
 	@RequestMapping(value = "blogger/posts/{pid}/comment", method = RequestMethod.GET)
 	public ResponseEntity<Object> listAllCommentsByPost(@PathVariable int pid) {
 		List<Comment> comment1 = commentService.listAllCommentsByPost(pid);
-		return ResponseEntity.status(201).body(comment1);
+		return ResponseEntity.status(200).body(comment1);
 	}
 
 	@Transactional
 	@RequestMapping(value = "blogger/comment/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> deleteCommentById(@PathVariable int id) {
 		commentService.deleteCommentById(id);
-		return ResponseEntity.status(201).body("Successfully Delete!");
+		return ResponseEntity.status(200).body("Successfully Delete!");
 	}
 	
 	

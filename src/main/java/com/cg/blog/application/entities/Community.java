@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -23,6 +22,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -78,7 +78,7 @@ public class Community {
 	private Set<Blogger> bloggers;
 	
 	@JsonManagedReference(value = "community-post")
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "community", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
 	private List<Post> posts;
 	
 	public Community() {

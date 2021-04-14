@@ -1,4 +1,4 @@
-package com.cg.blog.application;
+package com.cg.blog.application.exceptions;
 
 import java.util.HashMap;
 import java.util.Map; 

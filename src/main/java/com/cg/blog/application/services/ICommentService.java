@@ -11,6 +11,6 @@ public interface ICommentService {
 
 	public List<Comment> listAllCommentsByPost(int pid);
 
-	public void upVote(boolean upVote);
+//	public void upVote(boolean upVote);
 
 }

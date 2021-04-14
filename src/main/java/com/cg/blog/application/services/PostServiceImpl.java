@@ -39,11 +39,6 @@ public class PostServiceImpl implements IPostService {
 	@Autowired
 	IAwardRepository awardRepository;
 	
-//	@Override
-//	public Post addPost(Post post) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 	@Override
 	public Post addPost(int communityId, int bloggerId, Post post) {
@@ -53,67 +48,32 @@ public class PostServiceImpl implements IPostService {
 		Blogger blogger = bloggerRepository.findById(bloggerId)
 				.orElseThrow(() -> new IdNotFoundException("Blogger Not Found"));
 
-		// map the user to the post
 		post.setCreatedBy(blogger);
 		community.getPosts().add(post);
 		blogger.getPosts().add(post);
 		post.setCommunity(community);
 
 		bloggerRepository.save(blogger);
-		// save post to the database
-		postRepository.save(post);
 		communityRepository.save(community);
-		return post;
+		return postRepository.save(post);
 	}
 
-	@Override
-	public Post updatePost(int id, Post post) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-//	@Transactional
-//	@Override
-//	public void deletePost(int id) {
-//		Optional<Post> postOptional= postRepository.findById(id);  
-//		if(!postOptional.isPresent())  
-//		{  
-////		throw new PostFoundException("id: "+ id, null);  
-//		}  
-//	    
-//		//save post to the database  
-//		postRepository.delete(postOptional.get()) ;
-//		//getting the path of the post and append id of the post to the URI   
-//	
-//	}
 
 	@Transactional
 	@Override
 	public void deletePost(int id) {
-		Optional<Post> postOptional = postRepository.findById(id);
-		if (!postOptional.isPresent()) {
-//        throw new PostFoundException("id: "+ id, null);
-		}
+		Post post = postRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Post Not Found"));
+		
+		postRepository.delete(post) ;
 
-		// save post to the database
-//        postRepository.delete(postOptional.get()) ;
-
-		postOptional.get().getCreatedBy().getPosts().remove(postOptional.get());
-		// getting the path of the post and append id of the post to the URI
+		post.getCreatedBy().getPosts().remove(post);
 
 	}
 
 	@Override
 	public List<Post> getPostBySearchString(String searchStr) {
-		// TODO Auto-generated method stub
-		return null;
+		return postRepository.findByTitleContainsIgnoreCase(searchStr);
 	}
-
-//	@Override
-//	public List<Post> getPostByBlogger(Blogger blogger) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 	@Override
 	public void votePost(VoteType voteType, int bloggerId, int postId) {
@@ -144,12 +104,10 @@ public class PostServiceImpl implements IPostService {
 		return blogger.getPosts();
 	}
 
-	public Post UpdatePost(int id, Post post) {
+	public Post updatePost(int id, Post post) {
 		postRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Post Not Found"));
 		post.setPostId(id);
-		// save post to the database
 		postRepository.saveAndFlush(post);
-		// getting the path of the post and append id of the post to the URI
 		return post;
 	}
 

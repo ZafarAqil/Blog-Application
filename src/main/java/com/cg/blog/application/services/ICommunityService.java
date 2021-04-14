@@ -1,8 +1,8 @@
 package com.cg.blog.application.services;
 
 import java.util.List;
+import java.util.Set;
 
-import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Community;
 
 public interface ICommunityService {
@@ -14,5 +14,5 @@ public interface ICommunityService {
 
 	public List<Community> listAllCommunities(String searchString);
 
-	public List<Community> listAllCommunitiesByBlogger(Blogger blogger);
+	public Set<Community> listAllCommunitiesByBlogger(int bloggerId);
 }
