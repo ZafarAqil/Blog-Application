@@ -1,15 +1,14 @@
 package com.cg.blog.application.services;
 
-import java.net.URI;
 import java.util.List;
 
-import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Post;
+import com.cg.blog.application.entities.VoteType;
 
 public interface IPostService {
 
 
-	public Post updatePost(Post post);
+	public Post updatePost(int id, Post post);
 
 	public void deletePost(int id);
 
@@ -17,7 +16,7 @@ public interface IPostService {
 
 	public List<Post> getPostByBlogger(int id);
 
-	public void upVote(boolean upVote);
+	public void votePost(VoteType voteType, int bloggerId, int postId);
 
 
 	Post addPost(int communityId, int bloggerId, Post post);

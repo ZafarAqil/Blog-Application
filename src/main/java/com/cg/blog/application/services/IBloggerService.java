@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.cg.blog.application.entities.Blogger;
-import com.cg.blog.application.entities.Community;
 import com.cg.blog.application.exceptions.IdNotFoundException;
 
 public interface IBloggerService {
