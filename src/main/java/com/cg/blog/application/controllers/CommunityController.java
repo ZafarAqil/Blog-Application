@@ -2,6 +2,8 @@ package com.cg.blog.application.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +22,7 @@ public class CommunityController {
 	CommunityServiceImpl communityService;
 	
 	@RequestMapping(value = "/community",method = RequestMethod.POST)
-	public ResponseEntity<Object> addCommunity(@RequestBody Community community)  {
+	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community)  {
 		Community createdCommunity = communityService.addCommunity(community);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}

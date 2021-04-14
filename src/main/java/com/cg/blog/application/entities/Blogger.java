@@ -1,12 +1,11 @@
 package com.cg.blog.application.entities;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -17,7 +16,6 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -64,7 +62,7 @@ public class Blogger extends User{
 			  name = "blogger_communities", 
 			  joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"), 
 			  inverseJoinColumns = @JoinColumn(name = "communityId", referencedColumnName = "communityId"))
-	private	List<Community> communities;
+	private	Set<Community> communities;
 
 	public Blogger() {
 		super();
@@ -72,7 +70,7 @@ public class Blogger extends User{
 	}
 
 	public Blogger(String name, String email, String password, String role, long karma, List<Post> posts, List<Comment> comments, List<Post> upvoted,
-			List<Post> downvoted, List<Award> awardsReceived, List<Award> awardsGiven, List<Community> communities) {
+			List<Post> downvoted, List<Award> awardsReceived, List<Award> awardsGiven, Set<Community> communities) {
 		super(name, email, password, role, karma);
 		this.posts = posts;
 		this.comments = comments;
@@ -84,7 +82,7 @@ public class Blogger extends User{
 	}
 
 	public Blogger(int id, String name, String email, String password, String role, long karma, List<Post> posts, List<Comment> comments, List<Post> upvoted,
-			List<Post> downvoted, List<Award> awardsReceived, List<Award> awardsGiven, List<Community> communities) {
+			List<Post> downvoted, List<Award> awardsReceived, List<Award> awardsGiven, Set<Community> communities) {
 		super(id, name, email, password, role, karma);
 		this.posts = posts;
 		this.comments = comments;
@@ -127,10 +125,6 @@ public class Blogger extends User{
 //		this.downvoted = downvoted;
 //	}
 
-	public List<Community> getCommunities() {
-		return communities;
-	}
-
 	public List<Award> getAwardsReceived() {
 		return awardsReceived;
 	}
@@ -147,8 +141,12 @@ public class Blogger extends User{
 		this.awardsGiven = awardsGiven;
 	}
 
-	public void setCommunities(List<Community> communities) {
+	public void setCommunities(Set<Community> communities) {
 		this.communities = communities;
+	}
+	
+	public Set<Community> getCommunities() {
+		return communities;
 	}
 
 
