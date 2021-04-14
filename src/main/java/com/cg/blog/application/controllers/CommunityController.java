@@ -38,7 +38,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value = "/community/{search_string}",method = RequestMethod.GET)
-	public ResponseEntity<Object> lsitAllCommunities(@PathVariable(name = "search_string") String searchString)  {
+	public ResponseEntity<Object> listAllCommunities(@PathVariable(name = "search_string") String searchString)  {
 		List<Community> matchedCommunities = communityService.listAllCommunities(searchString);
 		return ResponseEntity.status(201).body(matchedCommunities);
 	}

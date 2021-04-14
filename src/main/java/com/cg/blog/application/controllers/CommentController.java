@@ -1,6 +1,5 @@
 package com.cg.blog.application.controllers;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.blog.application.entities.Comment;
-import com.cg.blog.application.entities.Post;
 import com.cg.blog.application.services.CommentServiceImpl;
 
 @RestController
@@ -24,7 +22,7 @@ public class CommentController {
 	CommentServiceImpl commentService;
 
 	@RequestMapping(value = "blogger/{id}/posts/{pid}/comment", method = RequestMethod.POST)
-	public ResponseEntity<Object> addPost(@PathVariable int id, @PathVariable int pid, @RequestBody Comment comment) {
+	public ResponseEntity<Object> addComment(@PathVariable int id, @PathVariable int pid, @RequestBody Comment comment) {
 		Comment comment1 = commentService.addComment(id, pid, comment);
 		return ResponseEntity.status(201).body(null);
 	}

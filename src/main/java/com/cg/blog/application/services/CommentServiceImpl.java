@@ -1,7 +1,5 @@
 package com.cg.blog.application.services;
 
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,8 +7,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Comment;
 import com.cg.blog.application.entities.Post;

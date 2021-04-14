@@ -46,10 +46,11 @@ public class Post {
 //	@Column(name = "data")
 //    private List<Files> data;
 	
-//	@Column(name = "awards_recieved")
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-//	private List<Award> awardsReceived;
-//	
+	@JsonManagedReference(value = "award-post")
+	@Column(name = "awards_recieved")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+	private List<Award> awardsReceived;
+	
 	@Column(name = "created_date_time")
 	private LocalDateTime createdDateTime;
 	
@@ -61,8 +62,8 @@ public class Post {
 	@Column(name= "votes")
 	private int votes;
 	
-	@Column(name= "vote_up")
-	private boolean voteUp;
+//	@Column(name= "vote_up")
+//	private boolean voteUp;
 	
 	@Column(name = "not_safe_for_work")
 	private boolean notSafeForWork;
@@ -98,11 +99,11 @@ public class Post {
 		this.createdBy = createdBy;
 		this.content = content;
 //		this.data = data;
-//		this.awardsReceived = awardsReceived;
+		this.awardsReceived = awardsReceived;
 		this.createdDateTime = createdDateTime;
 		this.comments = comments;
 		this.votes = votes;
-		this.voteUp = voteUp;
+//		this.voteUp = voteUp;
 		this.notSafeForWork = notSafeForWork;
 		this.spoiler = spoiler;
 		this.originalContent = originalContent;
@@ -118,11 +119,11 @@ public class Post {
 		this.createdBy = createdBy;
 		this.content = content;
 //		this.data = data;
-//		this.awardsReceived = awardsReceived;
+		this.awardsReceived = awardsReceived;
 		this.createdDateTime = createdDateTime;
 		this.comments = comments;
 		this.votes = votes;
-		this.voteUp = voteUp;
+//		this.voteUp = voteUp;
 		this.notSafeForWork = notSafeForWork;
 		this.spoiler = spoiler;
 		this.originalContent = originalContent;
@@ -170,13 +171,13 @@ public class Post {
 //		this.data = data;
 //	}
 
-//	public List<Award> getAwardsReceived() {
-//		return awardsReceived;
-//	}
-//
-//	public void setAwardsReceived(List<Award> awardsReceived) {
-//		this.awardsReceived = awardsReceived;
-//	}
+	public List<Award> getAwardsReceived() {
+		return awardsReceived;
+	}
+
+	public void setAwardsReceived(List<Award> awardsReceived) {
+		this.awardsReceived = awardsReceived;
+	}
 
 	public LocalDateTime getCreatedDateTime() {
 		return createdDateTime;
@@ -202,13 +203,13 @@ public class Post {
 		this.votes = votes;
 	}
 
-	public boolean isVoteUp() {
-		return voteUp;
-	}
-
-	public void setVoteUp(boolean voteUp) {
-		this.voteUp = voteUp;
-	}
+//	public boolean isVoteUp() {
+//		return voteUp;
+//	}
+//
+//	public void setVoteUp(boolean voteUp) {
+//		this.voteUp = voteUp;
+//	}
 
 	public boolean isNotSafeForWork() {
 		return notSafeForWork;
