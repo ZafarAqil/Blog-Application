@@ -1,6 +1,7 @@
 package com.cg.blog.application.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -42,7 +43,13 @@ public class CommunityController {
 	@RequestMapping(value = "/community/{search_string}",method = RequestMethod.GET)
 	public ResponseEntity<Object> listAllCommunities(@PathVariable(name = "search_string") String searchString)  {
 		List<Community> matchedCommunities = communityService.listAllCommunities(searchString);
-		return ResponseEntity.status(201).body(matchedCommunities);
+		return ResponseEntity.status(200).body(matchedCommunities);
+	}
+	
+	@RequestMapping(value = "/community/blogger/{blogger_id}",method = RequestMethod.GET)
+	public ResponseEntity<Object> listAllCommunitiesByBlogger(@PathVariable(name = "blogger_id") int bloggerId)  {
+		Set<Community> matchedCommunities = communityService.listAllCommunitiesByBlogger(bloggerId);
+		return ResponseEntity.status(200).body(matchedCommunities);
 	}
 
 }

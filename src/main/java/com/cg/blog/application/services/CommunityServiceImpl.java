@@ -1,7 +1,7 @@
 package com.cg.blog.application.services;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Community;
 import com.cg.blog.application.exceptions.IdNotFoundException;
+import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
 
 @Service
@@ -18,6 +19,8 @@ public class CommunityServiceImpl implements ICommunityService{
 
 	@Autowired
 	ICommunityRepository communityRepository;
+	@Autowired
+	IBloggerRepository bloggerRepository;
 	
 	@Override
 	public Community addCommunity(Community community) {
@@ -44,14 +47,13 @@ public class CommunityServiceImpl implements ICommunityService{
 
 	@Override
 	public List<Community> listAllCommunities(String searchString) {
-		
-		return communityRepository.findByCommunityDescriptionContains(searchString);
+		return communityRepository.findByTitleContainsIgnoreCase(searchString);
 	}
 
 	@Override
-	public List<Community> listAllCommunitiesByBlogger(Blogger blogger) {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Community> listAllCommunitiesByBlogger(int bloggerId) {
+		Blogger blogger = bloggerRepository.findById(bloggerId).orElseThrow(() -> new IdNotFoundException("Blogger Not Found"));
+		return blogger.getCommunities();
 	}
 
 }

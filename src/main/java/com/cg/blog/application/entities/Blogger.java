@@ -27,7 +27,7 @@ public class Blogger extends User{
 
 	@JsonManagedReference
 	@Column(name = "posts")
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "createdBy")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
 	private List<Post> posts;
 
 	@JsonManagedReference(value = "user-back-reference")

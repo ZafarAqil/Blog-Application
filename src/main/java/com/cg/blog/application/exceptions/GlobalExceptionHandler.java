@@ -1,14 +1,12 @@
-package com.cg.blog.application;
+package com.cg.blog.application.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.cg.blog.application.exceptions.IdNotFoundException;
-
 @ControllerAdvice
-public class CustomExceptionHandler {
+public class GlobalExceptionHandler {
 
 	@ExceptionHandler(IdNotFoundException.class)
 	public final ResponseEntity<Object> handleIdNotFoundException(IdNotFoundException e){
