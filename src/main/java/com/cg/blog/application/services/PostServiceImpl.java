@@ -15,7 +15,10 @@ import com.cg.blog.application.entities.Community;
 import com.cg.blog.application.entities.Post;
 import com.cg.blog.application.entities.Vote;
 import com.cg.blog.application.entities.VoteType;
-import com.cg.blog.application.exceptions.IdNotFoundException;
+import com.cg.blog.application.exceptions.BloggerNotFoundException;
+import com.cg.blog.application.exceptions.CommunityNotFoundException;
+import com.cg.blog.application.exceptions.InvalidVoteException;
+import com.cg.blog.application.exceptions.PostNotFoundException;
 import com.cg.blog.application.repositories.IAwardRepository;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
@@ -38,15 +41,15 @@ public class PostServiceImpl implements IPostService {
 	IVoteRepository voteRepository;
 	@Autowired
 	IAwardRepository awardRepository;
-	
 
 	@Override
-	public Post addPost(int communityId, int bloggerId, Post post) {
+	public Post addPost(int communityId, int bloggerId, Post post)
+			throws CommunityNotFoundException, BloggerNotFoundException {
 
 		Community community = communityRepository.findById(communityId)
-				.orElseThrow(() -> new IdNotFoundException("Community Not Found"));
+				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
 		Blogger blogger = bloggerRepository.findById(bloggerId)
-				.orElseThrow(() -> new IdNotFoundException("Blogger Not Found"));
+				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 
 		post.setCreatedBy(blogger);
 		community.getPosts().add(post);
@@ -58,13 +61,12 @@ public class PostServiceImpl implements IPostService {
 		return postRepository.save(post);
 	}
 
-
 	@Transactional
 	@Override
-	public void deletePost(int id) {
-		Post post = postRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Post Not Found"));
-		
-		postRepository.delete(post) ;
+	public void deletePost(int id) throws PostNotFoundException {
+		Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+
+		postRepository.delete(post);
 
 		post.getCreatedBy().getPosts().remove(post);
 
@@ -76,17 +78,18 @@ public class PostServiceImpl implements IPostService {
 	}
 
 	@Override
-	public void votePost(VoteType voteType, int bloggerId, int postId) {
+	public void votePost(VoteType voteType, int bloggerId, int postId)
+			throws BloggerNotFoundException, PostNotFoundException, InvalidVoteException {
 
 		Blogger blogger = bloggerRepository.findById(bloggerId)
-				.orElseThrow(() -> new IdNotFoundException("Blogger Not Found"));
-		Post post = postRepository.findById(postId).orElseThrow(() -> new IdNotFoundException("Post not found"));
+				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post not found"));
 
 		Optional<Vote> recentVote = voteRepository.findTopByPostAndBloggerOrderByVoteIdDesc(post, blogger);
 		if (recentVote.isPresent() && recentVote.get().getVoteType().equals(voteType)) {
-			throw new IdNotFoundException("You have already " + voteType + "'d for this post");
+			throw new InvalidVoteException("You have already " + voteType + "'d for this post");
 		}
-		if(VoteType.UPVOTE.equals(voteType)) {
+		if (VoteType.UPVOTE.equals(voteType)) {
 			post.setVotes(post.getVotes() + 1);
 		} else {
 			post.setVotes(post.getVotes() - 1);
@@ -99,33 +102,36 @@ public class PostServiceImpl implements IPostService {
 	}
 
 	@Override
-	public List<Post> getPostByBlogger(int id) {
-		Blogger blogger = bloggerRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Id Not Found"));
+	public List<Post> getPostByBlogger(int id) throws BloggerNotFoundException {
+		Blogger blogger = bloggerRepository.findById(id)
+				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		return blogger.getPosts();
 	}
 
-	public Post updatePost(int id, Post post) {
-		postRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Post Not Found"));
+	public Post updatePost(int id, Post post) throws PostNotFoundException {
+		postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
 		post.setPostId(id);
 		postRepository.saveAndFlush(post);
 		return post;
 	}
 
-	public void giveAwardPost(AwardType awardType, int bloggerId, int postId) {
-		Blogger blogger = bloggerRepository.findById(bloggerId).orElseThrow(() -> new IdNotFoundException("Blogger Not Found"));
-		Post post = postRepository.findById(postId).orElseThrow(() -> new IdNotFoundException("Post not found"));
+	public void giveAwardPost(AwardType awardType, int bloggerId, int postId)
+			throws BloggerNotFoundException, PostNotFoundException {
+		Blogger blogger = bloggerRepository.findById(bloggerId)
+				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post not found"));
 
 		Award award = new Award();
 		award.setAwardType(awardType);
 		award.setBlogger(blogger);
 		award.setPost(post);
 		awardRepository.save(award);
-		
-		Blogger receivingblogger = bloggerRepository.findById(post.getCreatedBy().getId()).orElseThrow(() -> new IdNotFoundException("Blogger Not Found"));
+
+		Blogger receivingblogger = bloggerRepository.findById(post.getCreatedBy().getId())
+				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		receivingblogger.getAwardsReceived().add(award);
 		bloggerRepository.save(receivingblogger);
-		
-		
+
 	}
 
 }

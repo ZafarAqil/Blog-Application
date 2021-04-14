@@ -3,13 +3,17 @@ package com.cg.blog.application.services;
 import java.util.List;
 
 import com.cg.blog.application.entities.Comment;
+import com.cg.blog.application.exceptions.BloggerNotFoundException;
+import com.cg.blog.application.exceptions.CommentNotFoundException;
+import com.cg.blog.application.exceptions.PostNotFoundException;
 
 public interface ICommentService {
-	public Comment addComment(int id, int pid, Comment comment);
 
-	public void deleteCommentById(int id);
+	public Comment addComment(int id, int pid, Comment comment) throws PostNotFoundException, BloggerNotFoundException;
 
-	public List<Comment> listAllCommentsByPost(int pid);
+	public void deleteCommentById(int id) throws CommentNotFoundException;
+
+	public List<Comment> listAllCommentsByPost(int pid) throws PostNotFoundException;
 
 //	public void upVote(boolean upVote);
 

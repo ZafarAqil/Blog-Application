@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Comment;
 import com.cg.blog.application.entities.Post;
-import com.cg.blog.application.exceptions.IdNotFoundException;
+import com.cg.blog.application.exceptions.BloggerNotFoundException;
+import com.cg.blog.application.exceptions.CommentNotFoundException;
+import com.cg.blog.application.exceptions.PostNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommentRepository;
 import com.cg.blog.application.repositories.IPostRepository;
@@ -30,9 +32,10 @@ public class CommentServiceImpl implements ICommentService {
 	ICommentRepository commentRepository;
 
 	@Override
-	public Comment addComment(int id, int pid, Comment comment) {
-		Blogger blogger = bloggerRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Blogger Not Found"));
-		Post post= postRepository.findById(pid).orElseThrow(() -> new IdNotFoundException("Post Not Found"));
+	public Comment addComment(int id, int pid, Comment comment) throws PostNotFoundException, BloggerNotFoundException {
+		Blogger blogger = bloggerRepository.findById(id)
+				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+		Post post = postRepository.findById(pid).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
 
 		comment.setBlogger(blogger);
 		comment.setPost(post);
@@ -49,8 +52,9 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Transactional
 	@Override
-	public void deleteCommentById(int id) {
-		Comment comment = commentRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Comment Not Found"));
+	public void deleteCommentById(int id) throws CommentNotFoundException {
+		Comment comment = commentRepository.findById(id)
+				.orElseThrow(() -> new CommentNotFoundException("Comment Not Found"));
 
 		commentRepository.delete(comment);
 		comment.getBlogger().getComments().remove(comment);
@@ -59,8 +63,8 @@ public class CommentServiceImpl implements ICommentService {
 	}
 
 	@Override
-	public List<Comment> listAllCommentsByPost(int pid) {
-		Post post1 = postRepository.findById(pid).orElseThrow(null);
+	public List<Comment> listAllCommentsByPost(int pid) throws PostNotFoundException {
+		Post post1 = postRepository.findById(pid).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
 		return post1.getComments();
 	}
 

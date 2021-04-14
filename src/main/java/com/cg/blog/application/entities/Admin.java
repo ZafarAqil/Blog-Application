@@ -4,14 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "admin")
-public class Admin extends User{
+public class Admin extends User {
 
 	@Column
 	private String contact;
-	
+
 	// Constructors
 
 	public Admin() {
@@ -23,6 +22,7 @@ public class Admin extends User{
 		super(id, name, email, password, role, karma);
 		this.contact = contact;
 	}
+
 	public Admin(String name, String email, String password, String role, long karma, String contact) {
 		super(name, email, password, role, karma);
 		this.contact = contact;

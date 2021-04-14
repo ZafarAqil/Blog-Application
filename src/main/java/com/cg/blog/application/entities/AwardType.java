@@ -17,5 +17,5 @@ public enum AwardType {
 	public void setValue(int value) {
 		this.value = value;
 	}
-	
+
 }

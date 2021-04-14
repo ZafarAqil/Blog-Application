@@ -22,7 +22,8 @@ public class CommentController {
 	CommentServiceImpl commentService;
 
 	@RequestMapping(value = "blogger/{id}/posts/{pid}/comment", method = RequestMethod.POST)
-	public ResponseEntity<Object> addComment(@PathVariable int id, @PathVariable int pid, @RequestBody Comment comment) {
+	public ResponseEntity<Object> addComment(@PathVariable int id, @PathVariable int pid,
+			@RequestBody Comment comment) {
 		Comment addedComment = commentService.addComment(id, pid, comment);
 		return ResponseEntity.status(201).body(addedComment);
 	}
@@ -39,6 +40,5 @@ public class CommentController {
 		commentService.deleteCommentById(id);
 		return ResponseEntity.status(200).body("Successfully Delete!");
 	}
-	
-	
+
 }

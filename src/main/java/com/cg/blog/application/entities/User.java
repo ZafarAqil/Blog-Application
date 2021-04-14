@@ -1,7 +1,5 @@
 package com.cg.blog.application.entities;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,10 +22,9 @@ public class User {
 
 	@Id
 	@GeneratedValue(generator = "userSeq")
-	@SequenceGenerator(name = "userSeq",sequenceName = "user_seq", allocationSize = 1)
+	@SequenceGenerator(name = "userSeq", sequenceName = "user_seq", allocationSize = 1)
 	private int id;
-	
-	
+
 	@NotEmpty
 	@Size(min = 2, message = "user name should have at least 2 characters")
 	@Column(name = "name", nullable = false)

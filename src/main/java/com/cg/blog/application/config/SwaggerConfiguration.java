@@ -14,23 +14,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
-    @Bean
-    public Docket redditCloneApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(getApiInfo());
-    }
+	@Bean
+	public Docket redditCloneApi() {
+		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any()).build().apiInfo(getApiInfo());
+	}
 
-    private ApiInfo getApiInfo() {
-        return new ApiInfoBuilder()
-                .title("Reddit API")
-                .version("1.0")
-                .description("API for Reddit Blog Application")
-                .contact(new Contact("Group 4", "cg.com", "xyz@email.com"))
-                .license("Apache License Version 2.0")
-                .build();
-    }
+	private ApiInfo getApiInfo() {
+		return new ApiInfoBuilder().title("Reddit API").version("1.0").description("API for Reddit Blog Application")
+				.contact(new Contact("Group 4", "cg.com", "xyz@email.com")).license("Apache License Version 2.0")
+				.build();
+	}
 }
