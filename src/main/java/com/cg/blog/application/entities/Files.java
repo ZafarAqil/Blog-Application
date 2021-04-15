@@ -1,5 +1,5 @@
 package com.cg.blog.application.entities;
 
 public class Files {
-	private String url;
+//	private String url;
 }

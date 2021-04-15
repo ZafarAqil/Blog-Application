@@ -64,7 +64,7 @@ public class Blogger extends User {
 	@Column(name = "mod_communities")
 	@OneToMany(fetch = FetchType.LAZY)
 	private Set<Community> modCommunities;
-	
+
 	public Blogger() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -165,7 +165,7 @@ public class Blogger extends User {
 
 	@Override
 	public boolean equals(Object obj) {
-		Blogger blogger = (Blogger)obj;
+		Blogger blogger = (Blogger) obj;
 		return this.getId() == blogger.getId();
 	}
 //	@Override

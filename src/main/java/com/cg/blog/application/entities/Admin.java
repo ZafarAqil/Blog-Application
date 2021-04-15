@@ -105,7 +105,7 @@ public class Admin {
 
 	@Override
 	public boolean equals(Object obj) {
-		Admin admin = (Admin)obj;
+		Admin admin = (Admin) obj;
 		return this.id == admin.id;
 	}
 

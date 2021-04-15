@@ -81,6 +81,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return entity;
 	}
 
+	@ExceptionHandler(AuthenticationFailedException.class)
+	public ResponseEntity<Object> handleExceptions(AuthenticationFailedException exception, WebRequest webRequest) {
+		logger.error(exception.getMessage());
+		ExceptionResponse response = new ExceptionResponse();
+		response.setDateTime(LocalDateTime.now());
+		response.setMessage(exception.getMessage());
+		ResponseEntity<Object> entity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		return entity;
+	}
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {

@@ -21,23 +21,22 @@ public class AdminServiceImpl implements IAdminService {
 	ICommunityRepository communityRepository;
 
 	@Override
-	public Admin adminSignUp(Admin admin) {	
-		return adminRepository.save(admin);	
+	public Admin adminSignUp(Admin admin) {
+		return adminRepository.save(admin);
 	}
 
 	@Override
-	public Community addCommunity(@Valid Community community, int adminId) {
+	public Community addCommunity(@Valid Community community, int adminId) throws AdminNotFoundException {
 		adminRepository.findById(adminId).orElseThrow(() -> new AdminNotFoundException("Admin Not Found"));
 		Community createdCommunity = communityRepository.save(community);
 		return createdCommunity;
 	}
 
 	@Override
-	public void deleteCommunity(int communityId, int adminId) {
+	public void deleteCommunity(int communityId, int adminId) throws AdminNotFoundException {
 		adminRepository.findById(adminId).orElseThrow(() -> new AdminNotFoundException("Admin Not Found"));
-		Community community = communityRepository.findById(communityId).orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
-
+		Community community = communityRepository.findById(communityId)
+				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
 		communityRepository.delete(community);
 	}
-
 }
