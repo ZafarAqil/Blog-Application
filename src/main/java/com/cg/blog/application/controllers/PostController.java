@@ -23,46 +23,46 @@ public class PostController {
 	@Autowired
 	PostServiceImpl postService;
 
-	@RequestMapping(value = "post/{community_id}/{blogger_id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/community/{community_id}/blogger/{blogger_id}/post", method = RequestMethod.POST)
 	public ResponseEntity<Object> addPost(@Valid @PathVariable(name = "community_id") int communityId,
 			@PathVariable(name = "blogger_id") int bloggerId, @RequestBody Post post) {
 		Post createdPost = postService.addPost(communityId, bloggerId, post);
 		return ResponseEntity.status(201).body(createdPost);
 	}
 
-	@RequestMapping(value = "blogger/posts/{id}", method = RequestMethod.GET)
-	public ResponseEntity<List<Post>> getPostByBlogger(@PathVariable int id) {
-		List<Post> postList = postService.getPostByBlogger(id);
+	@RequestMapping(value = "/community/blogger/{blogger_id}/posts", method = RequestMethod.GET)
+	public ResponseEntity<List<Post>> getPostByBlogger(@PathVariable(name = "blogger_id") int bloggerId) {
+		List<Post> postList = postService.getPostByBlogger(bloggerId);
 		return ResponseEntity.status(200).body(postList);
 	}
 
-	@RequestMapping(value = "blogger/{id}/posts", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updatePost(@PathVariable int id, @RequestBody Post post) {
-		Post updatedPost = postService.updatePost(id, post);
+	@RequestMapping(value = "/community/blogger/post/{post_id}", method = RequestMethod.PUT)
+	public ResponseEntity<Object> updatePost(@PathVariable(name = "post_id") int postId, @RequestBody Post post) {
+		Post updatedPost = postService.updatePost(postId, post);
 		return ResponseEntity.status(201).body(updatedPost);
 	}
 
-	@RequestMapping(value = "blogger/{id}/posts", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/community/blogger/post/{post_id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> deletePost(@PathVariable int id) {
 		postService.deletePost(id);
 		return ResponseEntity.status(200).body("Post Deleted");
 	}
 
-	@RequestMapping(value = "post/vote/{blogger_id}/{post_id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/community/blogger/{blogger_id}/post/{post_id}/vote", method = RequestMethod.PUT)
 	public ResponseEntity<Object> votePost(@RequestBody VoteType voteType,
 			@PathVariable(name = "blogger_id") int bloggerId, @PathVariable(name = "post_id") int postId) {
 		postService.votePost(voteType, bloggerId, postId);
 		return ResponseEntity.status(200).body("Vote Submitted");
 	}
 
-	@RequestMapping(value = "post/award/{blogger_id}/{post_id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/community/blogger/{blogger_id}/post/{post_id}/award", method = RequestMethod.PUT)
 	public ResponseEntity<Object> giveAward(@RequestBody AwardType awardType,
 			@PathVariable(name = "blogger_id") int bloggerId, @PathVariable(name = "post_id") int postId) {
 		postService.giveAwardPost(awardType, bloggerId, postId);
 		return ResponseEntity.status(200).body("Award Given");
 	}
 
-	@RequestMapping(value = "posts/{search_string}", method = RequestMethod.GET)
+	@RequestMapping(value = "/community/posts/{search_string}", method = RequestMethod.GET)
 	public ResponseEntity<List<Post>> getPostBySearchString(@PathVariable(name = "search_string") String searchString) {
 		List<Post> matchedPosts = postService.getPostBySearchString(searchString);
 		return ResponseEntity.status(200).body(matchedPosts);

@@ -63,8 +63,8 @@ public class PostServiceImpl implements IPostService {
 
 	@Transactional
 	@Override
-	public void deletePost(int id) throws PostNotFoundException {
-		Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+	public void deletePost(int postId) throws PostNotFoundException {
+		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
 
 		postRepository.delete(post);
 
@@ -73,8 +73,8 @@ public class PostServiceImpl implements IPostService {
 	}
 
 	@Override
-	public List<Post> getPostBySearchString(String searchStr) {
-		return postRepository.findByTitleContainsIgnoreCase(searchStr);
+	public List<Post> getPostBySearchString(String searchString) {
+		return postRepository.findByTitleContainsIgnoreCase(searchString);
 	}
 
 	@Override
@@ -102,15 +102,15 @@ public class PostServiceImpl implements IPostService {
 	}
 
 	@Override
-	public List<Post> getPostByBlogger(int id) throws BloggerNotFoundException {
-		Blogger blogger = bloggerRepository.findById(id)
+	public List<Post> getPostByBlogger(int bloggerId) throws BloggerNotFoundException {
+		Blogger blogger = bloggerRepository.findById(bloggerId)
 				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		return blogger.getPosts();
 	}
 
-	public Post updatePost(int id, Post post) throws PostNotFoundException {
-		postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
-		post.setPostId(id);
+	public Post updatePost(int postId, Post post) throws PostNotFoundException {
+		postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+		post.setPostId(postId);
 		postRepository.saveAndFlush(post);
 		return post;
 	}

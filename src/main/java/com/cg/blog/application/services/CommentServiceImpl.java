@@ -32,10 +32,10 @@ public class CommentServiceImpl implements ICommentService {
 	ICommentRepository commentRepository;
 
 	@Override
-	public Comment addComment(int id, int pid, Comment comment) throws PostNotFoundException, BloggerNotFoundException {
-		Blogger blogger = bloggerRepository.findById(id)
+	public Comment addComment(int bloggerId, int postId, Comment comment) throws PostNotFoundException, BloggerNotFoundException {
+		Blogger blogger = bloggerRepository.findById(bloggerId)
 				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
-		Post post = postRepository.findById(pid).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
 
 		comment.setBlogger(blogger);
 		comment.setPost(post);
@@ -52,8 +52,8 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Transactional
 	@Override
-	public void deleteCommentById(int id) throws CommentNotFoundException {
-		Comment comment = commentRepository.findById(id)
+	public void deleteCommentById(int commentId) throws CommentNotFoundException {
+		Comment comment = commentRepository.findById(commentId)
 				.orElseThrow(() -> new CommentNotFoundException("Comment Not Found"));
 
 		commentRepository.delete(comment);
@@ -63,8 +63,8 @@ public class CommentServiceImpl implements ICommentService {
 	}
 
 	@Override
-	public List<Comment> listAllCommentsByPost(int pid) throws PostNotFoundException {
-		Post post1 = postRepository.findById(pid).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+	public List<Comment> listAllCommentsByPost(int postId) throws PostNotFoundException {
+		Post post1 = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
 		return post1.getComments();
 	}
 

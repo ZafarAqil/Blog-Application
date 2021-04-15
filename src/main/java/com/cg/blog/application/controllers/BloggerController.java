@@ -47,7 +47,7 @@ public class BloggerController {
 		return ResponseEntity.status(200).body(blogger);
 	}
 
-	@RequestMapping(value = "/blogger", method = RequestMethod.GET)
+	@RequestMapping(value = "/bloggers", method = RequestMethod.GET)
 	public ResponseEntity<Object> getAllBloggers() {
 		List<Blogger> bloggers = bloggerService.getAllBloggers();
 		return ResponseEntity.status(200).body(bloggers);
@@ -57,10 +57,10 @@ public class BloggerController {
 	public ResponseEntity<Object> joinCommunity(@PathVariable(name = "blogger_id") int bloggerId,
 			@PathVariable(name = "community_id") int communityId) {
 		bloggerService.joinCommunity(communityId, bloggerId);
-		return ResponseEntity.status(200).body("Joined Community");
+		return ResponseEntity.status(201).body("Joined Community");
 	}
 
-	@RequestMapping(value = "/getBloggersByCommunity/{community_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/community/{community_id}/bloggers", method = RequestMethod.GET)
 	public ResponseEntity<Object> getBloggerList(@PathVariable("community_id") int communityId) {
 		Set<Blogger> bloggers = bloggerService.getBloggerList(communityId);
 		return ResponseEntity.status(200).body(bloggers);

@@ -63,7 +63,7 @@ public class CommunityServiceImpl implements ICommunityService {
 	}
 
 	@Override
-	public List<Community> listAllCommunities(String searchString) {
+	public List<Community> listAllCommunitiesBySearchString(String searchString) {
 		return communityRepository.findByTitleContainsIgnoreCase(searchString);
 	}
 
