@@ -8,11 +8,11 @@ import com.cg.blog.application.exceptions.BloggerNotFoundException;
 import com.cg.blog.application.exceptions.CommunityNotFoundException;
 
 public interface ICommunityService {
-	public Community addCommunity(Community community);
+	public Community addCommunity(Community community, int moderatorId);
 
-	public Community updateCommunity(Community communit, int communityId) throws CommunityNotFoundException;
+	public Community updateCommunity(Community community, int communityId, int moderatorId) throws CommunityNotFoundException;
 
-	public void deleteCommunity(int communityId) throws CommunityNotFoundException;
+	public void deleteCommunity(int communityId, int moderatorId) throws CommunityNotFoundException;
 
 	public List<Community> listAllCommunities(String searchString);
 

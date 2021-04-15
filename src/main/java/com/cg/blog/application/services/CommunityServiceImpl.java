@@ -24,27 +24,42 @@ public class CommunityServiceImpl implements ICommunityService {
 	IBloggerRepository bloggerRepository;
 
 	@Override
-	public Community addCommunity(Community community) {
+	public Community addCommunity(Community community, int moderatorId) {
+		Blogger blogger = bloggerRepository.findById(moderatorId)
+				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+		community.setModeratedBy(blogger);
+		blogger.getModCommunities().add(community);
 		Community createdCommunity = communityRepository.save(community);
 		return createdCommunity;
 	}
 
+	
 	@Override
-	public Community updateCommunity(Community community, int communityId) throws CommunityNotFoundException {
-		communityRepository.findById(communityId)
+	public Community updateCommunity(Community community, int communityId, int moderatorId) throws CommunityNotFoundException {
+		Community oldCommunity = communityRepository.findById(communityId)
 				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
-		community.setCommunityId(communityId);
-		Community updatedCommunity = communityRepository.save(community);
+		Blogger moderator = bloggerRepository.findById(moderatorId)
+				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+		if(!oldCommunity.getModeratedBy().equals(moderator)) throw new CommunityNotFoundException("Unauthorized Access");
 
-		return updatedCommunity;
+		community.setCommunityId(communityId);
+		community.setModeratedBy(moderator);
+		return communityRepository.save(community);
+
 	}
 
 	@Transactional
 	@Override
-	public void deleteCommunity(int communityId) throws CommunityNotFoundException {
+	public void deleteCommunity(int communityId, int moderatorId) throws CommunityNotFoundException {
 
-		communityRepository.findById(communityId)
+		Community community = communityRepository.findById(communityId)
 				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
+		Blogger moderator = bloggerRepository.findById(moderatorId)
+				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+
+		if(!community.getModeratedBy().equals(moderator)) throw new CommunityNotFoundException("Unauthorized Access");
+		
+		moderator.getModCommunities().remove(community);
 		communityRepository.deleteById(communityId);
 	}
 

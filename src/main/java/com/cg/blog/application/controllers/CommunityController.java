@@ -22,22 +22,22 @@ public class CommunityController {
 	@Autowired
 	CommunityServiceImpl communityService;
 
-	@RequestMapping(value = "/community", method = RequestMethod.POST)
-	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community) {
-		Community createdCommunity = communityService.addCommunity(community);
+	@RequestMapping(value = "/community/{moderator_id}", method = RequestMethod.POST)
+	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community, @PathVariable(name = "moderator_id") int moderatorId) {
+		Community createdCommunity = communityService.addCommunity(community, moderatorId);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
 
-	@RequestMapping(value = "/community/{community_id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/community/{community_id}/{moderator_id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateCommunity(@RequestBody Community community,
-			@PathVariable(name = "community_id") int communityId) {
-		Community createdCommunity = communityService.updateCommunity(community, communityId);
+			@PathVariable(name = "community_id") int communityId,  @PathVariable(name = "moderator_id") int moderatorId) {
+		Community createdCommunity = communityService.updateCommunity(community, communityId, moderatorId);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
 
-	@RequestMapping(value = "/community/{community_id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deleteCommunity(@PathVariable(name = "community_id") int communityId) {
-		communityService.deleteCommunity(communityId);
+	@RequestMapping(value = "/community/{community_id}/{moderator_id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> deleteCommunity(@PathVariable(name = "community_id") int communityId,  @PathVariable(name = "moderator_id") int moderatorId) {
+		communityService.deleteCommunity(communityId, moderatorId);
 		return ResponseEntity.status(200).body("Community Deleted");
 	}
 
