@@ -127,10 +127,13 @@ public class PostServiceImpl implements IPostService {
 		award.setPost(post);
 		awardRepository.save(award);
 
-		Blogger receivingblogger = bloggerRepository.findById(post.getCreatedBy().getId())
+		post.getAwardsReceived().add(award);
+		postRepository.save(post);
+
+		Blogger receivingBlogger = bloggerRepository.findById(post.getCreatedBy().getId())
 				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
-		receivingblogger.getAwardsReceived().add(award);
-		bloggerRepository.save(receivingblogger);
+		receivingBlogger.getAwardsReceived().add(award);
+		bloggerRepository.save(receivingBlogger);
 
 	}
 

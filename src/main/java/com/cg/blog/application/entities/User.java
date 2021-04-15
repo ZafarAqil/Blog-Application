@@ -31,7 +31,6 @@ public class User {
 	private String name;
 	@NotEmpty
 	@Email
-
 	private String email;
 	@NotEmpty
 	@Size(min = 8, message = "password should have at least 8 characters")
