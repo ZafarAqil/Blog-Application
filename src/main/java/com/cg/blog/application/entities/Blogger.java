@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -60,6 +61,11 @@ public class Blogger extends User {
 	@JoinTable(name = "blogger_communities", joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "communityId", referencedColumnName = "communityId"))
 	private Set<Community> communities;
 
+	@JsonManagedReference(value = "moderator-community")
+	@Column(name = "mod_communities")
+	@OneToMany(fetch = FetchType.LAZY)
+	private Set<Community> modCommunities;
+	
 	public Blogger() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -67,7 +73,7 @@ public class Blogger extends User {
 
 	public Blogger(String name, String email, String password, String role, long karma, List<Post> posts,
 			List<Comment> comments, List<Post> upvoted, List<Post> downvoted, List<Award> awardsReceived,
-			List<Award> awardsGiven, Set<Community> communities) {
+			List<Award> awardsGiven, Set<Community> communities, Set<Community> moderatesCommunities) {
 		super(name, email, password, role, karma);
 		this.posts = posts;
 		this.comments = comments;
@@ -76,11 +82,12 @@ public class Blogger extends User {
 		this.awardsReceived = awardsReceived;
 		this.awardsGiven = awardsGiven;
 		this.communities = communities;
+		this.modCommunities = moderatesCommunities;
 	}
 
 	public Blogger(int id, String name, String email, String password, String role, long karma, List<Post> posts,
 			List<Comment> comments, List<Post> upvoted, List<Post> downvoted, List<Award> awardsReceived,
-			List<Award> awardsGiven, Set<Community> communities) {
+			List<Award> awardsGiven, Set<Community> communities, Set<Community> moderatesCommunities) {
 		super(id, name, email, password, role, karma);
 		this.posts = posts;
 		this.comments = comments;
@@ -89,6 +96,8 @@ public class Blogger extends User {
 		this.awardsReceived = awardsReceived;
 		this.awardsGiven = awardsGiven;
 		this.communities = communities;
+		this.modCommunities = moderatesCommunities;
+
 	}
 
 	public List<Post> getPosts() {
@@ -147,6 +156,19 @@ public class Blogger extends User {
 		return communities;
 	}
 
+	public Set<Community> getModCommunities() {
+		return modCommunities;
+	}
+
+	public void setModCommunities(Set<Community> moderatesCommunities) {
+		this.modCommunities = moderatesCommunities;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Blogger blogger = (Blogger)obj;
+		return this.getId() == blogger.getId();
+	}
 //	@Override
 //	public String toString() {
 //		return "Blogger [userId=" + userId + ", bloggerName=" + bloggerName + ", posts=" + posts + ", comments="

@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -22,6 +23,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -81,13 +83,18 @@ public class Community {
 	@OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
 	private List<Post> posts;
 
+	@JsonBackReference(value = "moderator-community")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "blogger_id", referencedColumnName = "id")
+	private Blogger moderatedBy;
+	
 	public Community() {
 		super();
 	}
 
 	public Community(@NotNull String title, @NotNull String communityDescription, int totalMembers, File image,
 			LocalDateTime createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
-			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts) {
+			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts, Blogger moderatedBy) {
 		super();
 		this.title = title;
 		this.communityDescription = communityDescription;
@@ -100,11 +107,12 @@ public class Community {
 		this.flairs = flairs;
 		this.bloggers = bloggers;
 		this.posts = posts;
+		this.moderatedBy = moderatedBy;
 	}
 
 	public Community(int communityId, @NotNull String title, @NotNull String communityDescription, int totalMembers,
 			File image, LocalDateTime createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
-			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts) {
+			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts, Blogger moderatedBy) {
 		super();
 		this.communityId = communityId;
 		this.title = title;
@@ -118,6 +126,7 @@ public class Community {
 		this.flairs = flairs;
 		this.bloggers = bloggers;
 		this.posts = posts;
+		this.moderatedBy = moderatedBy;
 	}
 
 	public int getCommunityId() {
@@ -222,6 +231,14 @@ public class Community {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public Blogger getModeratedBy() {
+		return moderatedBy;
+	}
+
+	public void setModeratedBy(Blogger moderatedBy) {
+		this.moderatedBy = moderatedBy;
 	}
 
 	@Override
