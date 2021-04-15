@@ -21,24 +21,24 @@ public class CommentController {
 	@Autowired
 	CommentServiceImpl commentService;
 
-	@RequestMapping(value = "blogger/{id}/posts/{pid}/comment", method = RequestMethod.POST)
-	public ResponseEntity<Object> addComment(@PathVariable int id, @PathVariable int pid,
+	@RequestMapping(value = "/blogger/{blogger_id}/posts/{post_id}/comment", method = RequestMethod.POST)
+	public ResponseEntity<Object> addComment(@PathVariable(name = "blogger_id") int bloggerId, @PathVariable(name = "post_id") int postId,
 			@RequestBody Comment comment) {
-		Comment addedComment = commentService.addComment(id, pid, comment);
+		Comment addedComment = commentService.addComment(bloggerId, postId, comment);
 		return ResponseEntity.status(201).body(addedComment);
 	}
 
-	@RequestMapping(value = "blogger/posts/{pid}/comment", method = RequestMethod.GET)
-	public ResponseEntity<Object> listAllCommentsByPost(@PathVariable int pid) {
-		List<Comment> comment1 = commentService.listAllCommentsByPost(pid);
-		return ResponseEntity.status(200).body(comment1);
+	@RequestMapping(value = "/post/{post_id}/comments", method = RequestMethod.GET)
+	public ResponseEntity<Object> listAllCommentsByPost(@PathVariable(name = "post_id") int postId) {
+		List<Comment> comments = commentService.listAllCommentsByPost(postId);
+		return ResponseEntity.status(200).body(comments);
 	}
 
 	@Transactional
-	@RequestMapping(value = "blogger/comment/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deleteCommentById(@PathVariable int id) {
-		commentService.deleteCommentById(id);
-		return ResponseEntity.status(200).body("Successfully Delete!");
+	@RequestMapping(value = "/comment/{comment_id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> deleteCommentById(@PathVariable(name = "comment_id") int commentId) {
+		commentService.deleteCommentById(commentId);
+		return ResponseEntity.status(200).body("Comment Successfully Deleted!");
 	}
 
 }

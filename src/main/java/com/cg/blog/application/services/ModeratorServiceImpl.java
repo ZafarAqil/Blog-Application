@@ -22,10 +22,10 @@ public class ModeratorServiceImpl implements IModeratorService {
 
 	@Transactional
 	@Override
-	public void deletePost(int moderator_id, int post_id) throws PostNotFoundException {
-		Post post = postRepository.findById(post_id).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+	public void deletePost(int moderatorId, int postId) throws PostNotFoundException {
+		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
 
-		if (!(post.getCommunity().getModeratedBy().getId() == moderator_id))
+		if (!(post.getCommunity().getModeratedBy().getId() == moderatorId))
 			throw new CommunityNotFoundException("Not Authorised!");
 
 		postRepository.delete(post);

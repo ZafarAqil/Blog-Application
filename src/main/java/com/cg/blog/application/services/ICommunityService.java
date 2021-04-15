@@ -14,7 +14,7 @@ public interface ICommunityService {
 
 	public void deleteCommunity(int communityId, int moderatorId) throws CommunityNotFoundException;
 
-	public List<Community> listAllCommunities(String searchString);
+	public List<Community> listAllCommunitiesBySearchString(String searchString);
 
 	public Set<Community> listAllCommunitiesByBlogger(int bloggerId) throws BloggerNotFoundException;
 }

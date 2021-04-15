@@ -15,13 +15,13 @@ public interface IPostService {
 	public Post addPost(int communityId, int bloggerId, Post post)
 			throws CommunityNotFoundException, BloggerNotFoundException;
 
-	public Post updatePost(int id, Post post) throws PostNotFoundException;
+	public Post updatePost(int postId, Post post) throws PostNotFoundException;
 
-	public void deletePost(int id) throws PostNotFoundException;
+	public void deletePost(int postId) throws PostNotFoundException;
 
-	public List<Post> getPostBySearchString(String searchStr);
+	public List<Post> getPostBySearchString(String searchString);
 
-	public List<Post> getPostByBlogger(int id) throws BloggerNotFoundException;
+	public List<Post> getPostByBlogger(int bloggerId) throws BloggerNotFoundException;
 
 	public void votePost(VoteType voteType, int bloggerId, int postId)
 			throws BloggerNotFoundException, PostNotFoundException, InvalidVoteException;

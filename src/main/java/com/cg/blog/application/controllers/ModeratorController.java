@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.blog.application.services.BloggerServiceImpl;
-import com.cg.blog.application.services.IModeratorService;
+import com.cg.blog.application.services.ModeratorServiceImpl;
 
 @RestController
 public class ModeratorController {
@@ -17,12 +17,12 @@ public class ModeratorController {
 	BloggerServiceImpl bloggerService;
 	
 	@Autowired
-	IModeratorService moderatorService;
+	ModeratorServiceImpl moderatorService;
 	
-	@RequestMapping(value = "moderator/{moderator_id}/posts/{post_id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deletePost(@PathVariable int moderator_id, @PathVariable int post_id) {
-		moderatorService.deletePost(moderator_id, post_id);
-		return ResponseEntity.status(200).body("Post Deleted");
+	@RequestMapping(value = "/moderator/{moderator_id}/posts/{post_id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> deletePost(@PathVariable(name = "moderator_id") int moderatorId, @PathVariable(name = "post_id") int postId) {
+		moderatorService.deletePost(moderatorId, postId);
+		return ResponseEntity.status(200).body("Post Successfully Deleted");
 	}
 	
 }

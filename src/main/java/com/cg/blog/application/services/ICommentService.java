@@ -9,11 +9,11 @@ import com.cg.blog.application.exceptions.PostNotFoundException;
 
 public interface ICommentService {
 
-	public Comment addComment(int id, int pid, Comment comment) throws PostNotFoundException, BloggerNotFoundException;
+	public Comment addComment(int bloggerId, int postId, Comment comment) throws PostNotFoundException, BloggerNotFoundException;
 
-	public void deleteCommentById(int id) throws CommentNotFoundException;
+	public void deleteCommentById(int commentId) throws CommentNotFoundException;
 
-	public List<Comment> listAllCommentsByPost(int pid) throws PostNotFoundException;
+	public List<Comment> listAllCommentsByPost(int postId) throws PostNotFoundException;
 
 //	public void upVote(boolean upVote);
 

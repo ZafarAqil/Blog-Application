@@ -38,12 +38,12 @@ public class CommunityController {
 	@RequestMapping(value = "/community/{community_id}/{moderator_id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> deleteCommunity(@PathVariable(name = "community_id") int communityId,  @PathVariable(name = "moderator_id") int moderatorId) {
 		communityService.deleteCommunity(communityId, moderatorId);
-		return ResponseEntity.status(200).body("Community Deleted");
+		return ResponseEntity.status(200).body("Community Succesfully Deleted");
 	}
 
 	@RequestMapping(value = "/community/{search_string}", method = RequestMethod.GET)
-	public ResponseEntity<Object> listAllCommunities(@PathVariable(name = "search_string") String searchString) {
-		List<Community> matchedCommunities = communityService.listAllCommunities(searchString);
+	public ResponseEntity<Object> listAllCommunitiesBySearchString(@PathVariable(name = "search_string") String searchString) {
+		List<Community> matchedCommunities = communityService.listAllCommunitiesBySearchString(searchString);
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}
 
@@ -52,5 +52,5 @@ public class CommunityController {
 		Set<Community> matchedCommunities = communityService.listAllCommunitiesByBlogger(bloggerId);
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}
-
+	//TODO: getAllCommunities and getCommunity/{}
 }
