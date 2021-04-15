@@ -103,7 +103,7 @@ public class Comment {
 
 	@Override
 	public boolean equals(Object obj) {
-		Comment comment = (Comment)obj;
+		Comment comment = (Comment) obj;
 		return (this.commentId == comment.commentId);
 	}
 

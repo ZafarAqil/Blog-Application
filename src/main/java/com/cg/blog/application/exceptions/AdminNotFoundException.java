@@ -1,7 +1,8 @@
 package com.cg.blog.application.exceptions;
 
-public class AdminNotFoundException  extends RuntimeException {
+public class AdminNotFoundException extends RuntimeException {
 
+	private static final long serialVersionUID = 1L;
 	private String message;
 
 	public AdminNotFoundException(String message) {
@@ -13,5 +14,5 @@ public class AdminNotFoundException  extends RuntimeException {
 	public String getMessage() {
 		return message;
 	}
-	
+
 }

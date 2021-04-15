@@ -2,14 +2,15 @@ package com.cg.blog.application.exceptions;
 
 public class ModeratorApprovalException extends Exception {
 
-	public ModeratorApprovalException() {
-		super();
-		// TODO Auto-generated constructor stub
+	private static final long serialVersionUID = 1L;
+	private String message;
+
+	public ModeratorApprovalException(String message) {
+		this.message = message;
 	}
 
-	public ModeratorApprovalException(String message, Throwable cause) {
-		super(message, cause);
-		// TODO Auto-generated constructor stub
+	@Override
+	public String getMessage() {
+		return message;
 	}
-
 }

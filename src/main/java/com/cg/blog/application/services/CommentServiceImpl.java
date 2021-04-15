@@ -32,7 +32,8 @@ public class CommentServiceImpl implements ICommentService {
 	ICommentRepository commentRepository;
 
 	@Override
-	public Comment addComment(int bloggerId, int postId, Comment comment) throws PostNotFoundException, BloggerNotFoundException {
+	public Comment addComment(int bloggerId, int postId, Comment comment)
+			throws PostNotFoundException, BloggerNotFoundException {
 		Blogger blogger = bloggerRepository.findById(bloggerId)
 				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));

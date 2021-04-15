@@ -2,14 +2,15 @@ package com.cg.blog.application.exceptions;
 
 public class NotEnoughPointsException extends Exception {
 
-	public NotEnoughPointsException() {
-		super();
-		// TODO Auto-generated constructor stub
+	private static final long serialVersionUID = 1L;
+	private String message;
+
+	public NotEnoughPointsException(String message) {
+		this.message = message;
 	}
 
-	public NotEnoughPointsException(String message, Throwable cause) {
-		super(message, cause);
-		// TODO Auto-generated constructor stub
+	@Override
+	public String getMessage() {
+		return message;
 	}
-
 }

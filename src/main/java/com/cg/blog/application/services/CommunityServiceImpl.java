@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Community;
+import com.cg.blog.application.exceptions.AuthenticationFailedException;
 import com.cg.blog.application.exceptions.BloggerNotFoundException;
 import com.cg.blog.application.exceptions.CommunityNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
@@ -24,7 +25,8 @@ public class CommunityServiceImpl implements ICommunityService {
 	IBloggerRepository bloggerRepository;
 
 	@Override
-	public Community addCommunity(Community community, int moderatorId) {
+	public Community addCommunity(Community community, int moderatorId)
+			throws CommunityNotFoundException, BloggerNotFoundException {
 		Blogger blogger = bloggerRepository.findById(moderatorId)
 				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		community.setModeratedBy(blogger);
@@ -33,32 +35,34 @@ public class CommunityServiceImpl implements ICommunityService {
 		return createdCommunity;
 	}
 
-	
 	@Override
-	public Community updateCommunity(Community community, int communityId, int moderatorId) throws CommunityNotFoundException {
+	public Community updateCommunity(Community community, int communityId, int moderatorId)
+			throws CommunityNotFoundException, BloggerNotFoundException, AuthenticationFailedException {
 		Community oldCommunity = communityRepository.findById(communityId)
 				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
 		Blogger moderator = bloggerRepository.findById(moderatorId)
 				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
-		if(!oldCommunity.getModeratedBy().equals(moderator)) throw new CommunityNotFoundException("Unauthorized Access");
+		// checking if blogger is a moderator of this community
+		if (!oldCommunity.getModeratedBy().equals(moderator))
+			throw new AuthenticationFailedException("Unauthorized Access");
 
 		community.setCommunityId(communityId);
 		community.setModeratedBy(moderator);
 		return communityRepository.save(community);
-
 	}
 
 	@Transactional
 	@Override
-	public void deleteCommunity(int communityId, int moderatorId) throws CommunityNotFoundException {
-
+	public void deleteCommunity(int communityId, int moderatorId)
+			throws CommunityNotFoundException, BloggerNotFoundException, AuthenticationFailedException {
 		Community community = communityRepository.findById(communityId)
 				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
 		Blogger moderator = bloggerRepository.findById(moderatorId)
 				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+		// checking if blogger is a moderator of this community
+		if (!community.getModeratedBy().equals(moderator))
+			throw new AuthenticationFailedException("Unauthorized Access");
 
-		if(!community.getModeratedBy().equals(moderator)) throw new CommunityNotFoundException("Unauthorized Access");
-		
 		communityRepository.deleteById(communityId);
 	}
 
@@ -73,5 +77,4 @@ public class CommunityServiceImpl implements ICommunityService {
 				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		return blogger.getCommunities();
 	}
-
 }

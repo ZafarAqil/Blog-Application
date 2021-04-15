@@ -87,14 +87,15 @@ public class Community {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "blogger_id", referencedColumnName = "id")
 	private Blogger moderatedBy;
-	
+
 	public Community() {
 		super();
 	}
 
 	public Community(@NotNull String title, @NotNull String communityDescription, int totalMembers, File image,
 			LocalDateTime createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
-			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts, Blogger moderatedBy) {
+			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts,
+			Blogger moderatedBy) {
 		super();
 		this.title = title;
 		this.communityDescription = communityDescription;
@@ -112,7 +113,8 @@ public class Community {
 
 	public Community(int communityId, @NotNull String title, @NotNull String communityDescription, int totalMembers,
 			File image, LocalDateTime createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
-			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts, Blogger moderatedBy) {
+			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts,
+			Blogger moderatedBy) {
 		super();
 		this.communityId = communityId;
 		this.title = title;
@@ -243,7 +245,7 @@ public class Community {
 
 	@Override
 	public boolean equals(Object obj) {
-		Community community = (Community)obj;
+		Community community = (Community) obj;
 		return (this.getCommunityId() == community.getCommunityId());
 	}
 
