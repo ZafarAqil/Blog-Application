@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -84,7 +85,7 @@ public class Community {
 	private List<Post> posts;
 
 	@JsonBackReference(value = "moderator-community")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "blogger_id", referencedColumnName = "id")
 	private Blogger moderatedBy;
 	
