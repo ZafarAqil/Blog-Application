@@ -101,6 +101,12 @@ public class Comment {
 		this.post = post;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Comment comment = (Comment)obj;
+		return (this.commentId == comment.commentId);
+	}
+
 	// toString
 
 //	@Override
