@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
@@ -12,10 +13,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.cg.blog.application.entities.AwardType;
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Community;
 import com.cg.blog.application.entities.Post;
 import com.cg.blog.application.entities.PostType;
+import com.cg.blog.application.entities.VoteType;
 import com.cg.blog.application.exceptions.CommunityNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
@@ -41,7 +45,7 @@ public class PostServiceTests {
 	Community community;
 	Blogger blogger;
 	Post post;
-	
+
 	@BeforeAll
 	public void setUp() {
 		community = new Community();
@@ -74,15 +78,77 @@ public class PostServiceTests {
 		postRepo.saveAndFlush(post);
 
 	}
-	
+
 	@Transactional
 	@Test
 	public void testAddPost() {
-		assertEquals(postService.addPost(1, 1, post), post);
+		assertEquals(post, postService.addPost(1, 1, post));
 	}
 
 	@Test
 	public void testFailAddPost() {
 		assertThrows(CommunityNotFoundException.class, () -> postService.addPost(99, 1, post));
 	}
+
+	@Transactional
+	@Test
+	public void testDeletePost() {
+		Post otherPost = new Post();
+		otherPost.setPostId(2);
+		otherPost.setTitle("SampleTitle");
+		otherPost.setDescription("SomethingUseless");
+		otherPost.setContent(PostType.TEXT);
+		otherPost.setNotSafeForWork(false);
+		otherPost.setSpoiler(false);
+		otherPost.setOriginalContent(false);
+		otherPost.setFlair("OC");
+		otherPost.setCreatedBy(blogger);
+		otherPost.setCommunity(community);
+		postRepo.saveAndFlush(otherPost);
+		postRepo.deleteById(2);
+		assertThrows(NoSuchElementException.class, () -> postRepo.findById(2).get());
+	}
+
+	@Transactional
+	@Test
+	public void testUpdatePost() {
+		Post otherPost = new Post();
+		otherPost.setPostId(1);
+		otherPost.setTitle("NewTitle");
+		otherPost.setDescription("SomethingUseless");
+		otherPost.setContent(PostType.TEXT);
+		otherPost.setNotSafeForWork(false);
+		otherPost.setSpoiler(false);
+		otherPost.setOriginalContent(false);
+		otherPost.setFlair("OC");
+		otherPost.setCreatedBy(blogger);
+		otherPost.setCommunity(community);
+		assertEquals("NewTitle", postService.updatePost(1, otherPost).getTitle());
+	}
+
+	@Test
+	public void testGetPostBySearchString() {
+		assertEquals("SampleTitle", postService.getPostBySearchString("SampleTitle").get(0).getTitle());
+	}
+
+	@Transactional
+	@Test
+	public void testGetPostByBlogger() {
+		assertEquals(post, postService.getPostByBlogger(1).get(0));
+	}
+
+	@Transactional
+	@Test
+	public void testGiveAwardPost() {
+		postService.giveAwardPost(AwardType.GOLD, 1, 1);
+		assertEquals(AwardType.GOLD, postRepo.findById(1).get().getAwardsReceived().get(0).getAwardType());
+	}
+
+	@Transactional
+	@Test
+	public void testVotePost() {
+		postService.votePost(VoteType.UPVOTE, 1, 1);
+		assertEquals(1, postRepo.findById(1).get().getVotes());
+	}
+
 }

@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,11 +35,11 @@ public class Community {
 	private int communityId;
 
 	@Column(name = "title")
-	@NotNull
+	@NotEmpty(message = "Community title cannot be null")
 	private String title;
 
 	@Column(name = "community_description")
-	@NotNull
+	@NotEmpty(message = "Community description cannot be null")
 	private String communityDescription;
 
 	@Column(name = "total_members")
@@ -221,6 +222,12 @@ public class Community {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Community community = (Community)obj;
+		return (this.getCommunityId() == community.getCommunityId());
 	}
 
 //	@Override
