@@ -103,4 +103,10 @@ public class Admin {
 		this.contact = contact;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Admin admin = (Admin)obj;
+		return this.id == admin.id;
+	}
+
 }
