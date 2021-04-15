@@ -1,13 +1,15 @@
 package com.cg.blog.application.testing;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.cg.blog.application.entities.Blogger;
@@ -21,6 +23,7 @@ import com.cg.blog.application.repositories.IPostRepository;
 import com.cg.blog.application.services.PostServiceImpl;
 
 @SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PostServiceTests {
 
 	@Autowired
@@ -35,10 +38,13 @@ public class PostServiceTests {
 	@Autowired
 	IBloggerRepository bloggerRepository;
 
-	@Transactional
-	@Test
-	public void testAddPost() {
-		Community community = new Community();
+	Community community;
+	Blogger blogger;
+	Post post;
+	
+	@BeforeAll
+	public void setUp() {
+		community = new Community();
 		community.setCommunityId(1);
 		community.setTitle("community");
 		community.setCommunityDescription("Description");
@@ -46,7 +52,7 @@ public class PostServiceTests {
 		community.setPosts(posts);
 		community = communityRepository.saveAndFlush(community);
 
-		Blogger blogger = new Blogger();
+		blogger = new Blogger();
 		blogger.setId(1);
 		blogger.setName("name");
 		blogger.setPassword("aaaaaaaa");
@@ -54,42 +60,7 @@ public class PostServiceTests {
 		blogger.setPosts(posts);
 		blogger = bloggerRepository.saveAndFlush(blogger);
 
-		Post post = new Post();
-		post.setPostId(1);
-		post.setTitle("SampleTitle");
-		post.setDescription("SomethingUseless");
-		post.setContent(PostType.TEXT);
-		post.setNotSafeForWork(false);
-		post.setSpoiler(false);
-		post.setOriginalContent(false);
-		post.setFlair("OC");
-		post.setCreatedBy(blogger);
-		post.setCommunity(community);
-		post = postRepo.saveAndFlush(post);
-
-		assertThat(postService.addPost(1, 1, post)).isEqualTo(post);
-	}
-
-	@Transactional
-	@Test
-	public void testFailAddPost() {
-		Community community = new Community();
-		community.setCommunityId(1);
-		community.setTitle("community");
-		community.setCommunityDescription("Description");
-		List<Post> posts = new ArrayList<Post>();
-		community.setPosts(posts);
-		community = communityRepository.saveAndFlush(community);
-
-		Blogger blogger = new Blogger();
-		blogger.setId(1);
-		blogger.setName("name");
-		blogger.setPassword("aaaaaaaa");
-		blogger.setEmail("xyz@gmail.com");
-		blogger.setPosts(posts);
-		blogger = bloggerRepository.saveAndFlush(blogger);
-
-		final Post post = new Post();
+		post = new Post();
 		post.setPostId(1);
 		post.setTitle("SampleTitle");
 		post.setDescription("SomethingUseless");
@@ -102,14 +73,16 @@ public class PostServiceTests {
 		post.setCommunity(community);
 		postRepo.saveAndFlush(post);
 
+	}
+	
+	@Transactional
+	@Test
+	public void testAddPost() {
+		assertEquals(postService.addPost(1, 1, post), post);
+	}
+
+	@Test
+	public void testFailAddPost() {
 		assertThrows(CommunityNotFoundException.class, () -> postService.addPost(99, 1, post));
-//        Boolean thrown = false;
-//        try {
-//            postService.addPost(3, 1, post);
-//        }
-//        catch(CommunityNotFoundException e) {
-//            thrown = true;
-//        }
-//        assertTrue(thrown);
 	}
 }
