@@ -249,6 +249,12 @@ public class Post {
 		this.description = description;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Post otherPost = (Post) obj;
+		return (this.postId == otherPost.postId);
+	}
+
 //	@Override
 //	public String toString() {
 //		return "Post [postId=" + postId + ", title=" + title + ", createdBy=" + createdBy + ", content=" + content
