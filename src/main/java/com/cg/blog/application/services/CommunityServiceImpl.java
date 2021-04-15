@@ -59,7 +59,6 @@ public class CommunityServiceImpl implements ICommunityService {
 
 		if(!community.getModeratedBy().equals(moderator)) throw new CommunityNotFoundException("Unauthorized Access");
 		
-		moderator.getModCommunities().remove(community);
 		communityRepository.deleteById(communityId);
 	}
 

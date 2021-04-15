@@ -31,6 +31,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return entity;
 	}
 
+	@ExceptionHandler(AdminNotFoundException.class)
+	public ResponseEntity<Object> handleExceptions(AdminNotFoundException exception, WebRequest webRequest) {
+		logger.error(exception.getMessage());
+		ExceptionResponse response = new ExceptionResponse();
+		response.setDateTime(LocalDateTime.now());
+		response.setMessage(exception.getMessage());
+		ResponseEntity<Object> entity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		return entity;
+	}
+
 	@ExceptionHandler(PostNotFoundException.class)
 	public ResponseEntity<Object> handleExceptions(PostNotFoundException exception, WebRequest webRequest) {
 		logger.error(exception.getMessage());
