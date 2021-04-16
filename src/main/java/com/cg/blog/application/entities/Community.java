@@ -84,8 +84,8 @@ public class Community {
 	@OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
 	private List<Post> posts;
 
-//	@JsonBackReference(value = "moderator-community")
-	@JsonIgnore
+	@JsonBackReference(value = "moderator-community")
+//	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "blogger_id", referencedColumnName = "id")
 	private Blogger moderatedBy;

@@ -68,4 +68,9 @@ public class PostController {
 		return ResponseEntity.status(200).body(matchedPosts);
 	}
 
+	@RequestMapping(value = "/community/{community_id}/posts", method = RequestMethod.GET)
+	public ResponseEntity<List<Post>> getPostsByCommunity(@PathVariable(name = "community_id") int communityId) {
+		List<Post> postList = postService.getPostsByCommunity(communityId);
+		return ResponseEntity.status(200).body(postList);
+	}
 }

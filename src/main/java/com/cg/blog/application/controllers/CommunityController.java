@@ -44,23 +44,29 @@ public class CommunityController {
 		return ResponseEntity.status(200).body("Community Succesfully Deleted");
 	}
 
-	@RequestMapping(value = "/community/{search_string}", method = RequestMethod.GET)
-	public ResponseEntity<Object> listAllCommunitiesBySearchString(
+	@RequestMapping(value = "/community/search/{search_string}/", method = RequestMethod.GET)
+	public ResponseEntity<Object> getAllCommunitiesBySearchString(
 			@PathVariable(name = "search_string") String searchString) {
-		List<Community> matchedCommunities = communityService.listAllCommunitiesBySearchString(searchString);
+		List<Community> matchedCommunities = communityService.getAllCommunitiesBySearchString(searchString);
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}
 
 	@RequestMapping(value = "/community/blogger/{blogger_id}", method = RequestMethod.GET)
-	public ResponseEntity<Object> listAllCommunitiesByBlogger(@PathVariable(name = "blogger_id") int bloggerId) {
-		Set<Community> matchedCommunities = communityService.listAllCommunitiesByBlogger(bloggerId);
+	public ResponseEntity<Object> getAllCommunitiesSubscribedByBlogger(@PathVariable(name = "blogger_id") int bloggerId) {
+		Set<Community> matchedCommunities = communityService.getAllCommunitiesByBlogger(bloggerId);
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}
 
-	@RequestMapping(value = "/community", method = RequestMethod.GET)
-	public ResponseEntity<Object> listAllCommunities() {
-		List<String> matchedCommunities = communityService.listAllCommunities();
+	@RequestMapping(value = "/communities", method = RequestMethod.GET)
+	public ResponseEntity<Object> getAllCommunities() {
+		List<String> matchedCommunities = communityService.getAllCommunities();
 		return ResponseEntity.status(200).body(matchedCommunities);
+	}
+	
+	@RequestMapping(value = "/community/{community_id}", method = RequestMethod.GET)
+	public ResponseEntity<Object> getCommunity(@PathVariable(name = "community_id") int communityId) {
+		Community community = communityService.getCommunity(communityId);
+		return ResponseEntity.status(200).body(community);
 	}
 
 	// TODO: getAllCommunities and getCommunity/{}

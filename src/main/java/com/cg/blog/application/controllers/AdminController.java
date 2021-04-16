@@ -25,17 +25,19 @@ public class AdminController {
 		Admin createdAdmin = adminService.adminSignUp(admin);
 		return ResponseEntity.status(201).body(createdAdmin);
 	}
-	@RequestMapping(value = "/admin/{admin_id}", method = RequestMethod.POST)
-	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community, @PathVariable(name = "admin_id") int adminId) {
+
+	@RequestMapping(value = "/admin/{admin_id}/community/", method = RequestMethod.POST)
+	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community,
+			@PathVariable(name = "admin_id") int adminId) {
 		Community createdCommunity = adminService.addCommunity(community, adminId);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
 
-	@RequestMapping(value = "/admin/{admin_id}/{community_id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deleteCommunity(@PathVariable(name = "community_id") int communityId,  @PathVariable(name = "admin_id") int adminId) {
+	@RequestMapping(value = "/admin/{admin_id}/community/{community_id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> deleteCommunity(@PathVariable(name = "community_id") int communityId,
+			@PathVariable(name = "admin_id") int adminId) {
 		adminService.deleteCommunity(communityId, adminId);
 		return ResponseEntity.status(200).body("Community Deleted");
 	}
 
-	
 }

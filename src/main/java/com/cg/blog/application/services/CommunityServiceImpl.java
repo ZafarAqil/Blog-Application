@@ -70,18 +70,26 @@ public class CommunityServiceImpl implements ICommunityService {
 	}
 
 	@Override
-	public List<Community> listAllCommunitiesBySearchString(String searchString) {
+	public List<Community> getAllCommunitiesBySearchString(String searchString) {
 		return communityRepository.findByTitleContainsIgnoreCase(searchString);
 	}
 
 	@Override
-	public Set<Community> listAllCommunitiesByBlogger(int bloggerId) throws BloggerNotFoundException {
+	public Set<Community> getAllCommunitiesByBlogger(int bloggerId) throws BloggerNotFoundException {
 		Blogger blogger = bloggerRepository.findById(bloggerId)
 				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		return blogger.getCommunities();
 	}
 
-	public List<String> listAllCommunities() {
-		return communityRepository.findAll().stream().map(community -> community.getTitle()).collect(Collectors.toList());
+	@Override
+	public List<String> getAllCommunities() {
+		return communityRepository.findAll().stream().map(community -> community.getTitle())
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Community getCommunity(int communityId) {
+		return communityRepository.findById(communityId)
+				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
 	}
 }
