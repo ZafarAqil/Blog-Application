@@ -24,6 +24,7 @@ public class CommunityServiceImpl implements ICommunityService {
 	@Autowired
 	IBloggerRepository bloggerRepository;
 
+	@Transactional
 	@Override
 	public Community addCommunity(Community community, int moderatorId)
 			throws CommunityNotFoundException, BloggerNotFoundException {
@@ -32,6 +33,7 @@ public class CommunityServiceImpl implements ICommunityService {
 		community.setModeratedBy(blogger);
 		blogger.getModCommunities().add(community);
 		Community createdCommunity = communityRepository.save(community);
+		bloggerRepository.save(blogger);
 		return createdCommunity;
 	}
 

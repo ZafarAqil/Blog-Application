@@ -16,4 +16,6 @@ public interface ICommentService {
 
 	public List<Comment> listAllCommentsByPost(int postId) throws PostNotFoundException;
 
+	public Comment updateComment(int commentId, Comment comment);
+
 }
