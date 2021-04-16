@@ -25,7 +25,7 @@ public class ModeratorServiceImpl implements IModeratorService {
 	public void deletePost(int moderatorId, int postId) throws PostNotFoundException, AuthenticationFailedException {
 		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
 		// checking if moderator has access to the community
-		if (!(post.getCommunity().getModeratedBy().getId() == moderatorId))
+		if (post.getCommunity().getModeratedBy().getId() != moderatorId)
 			throw new AuthenticationFailedException("Unauthorized Access");
 
 		postRepository.delete(post);

@@ -16,7 +16,7 @@ import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.services.BloggerServiceImpl;
 
 @SpringBootTest
-public class BloggerServiceTests {
+class BloggerServiceTests {
 
 	@Autowired
 	BloggerServiceImpl bloggerService;
@@ -25,7 +25,7 @@ public class BloggerServiceTests {
 	IBloggerRepository bloggerRepository;
 
 	@Test
-	public void testAddBlogger() {
+	void testAddBlogger() {
 		Blogger blogger = new Blogger();
 		blogger.setId(100);
 		blogger.setName("Pravin");
@@ -36,7 +36,7 @@ public class BloggerServiceTests {
 	}
 
 	@Test
-	public void testUpdateBlogger() {
+	void testUpdateBlogger() {
 		Blogger blogger = new Blogger();
 		blogger.setId(100);
 		blogger.setName("Pravin");
@@ -49,7 +49,7 @@ public class BloggerServiceTests {
 	}
 
 	@Test
-	public void testDeleteBlogger() {
+	void testDeleteBlogger() {
 		Blogger blogger = new Blogger();
 		blogger.setId(100);
 		blogger.setName("Pravin");

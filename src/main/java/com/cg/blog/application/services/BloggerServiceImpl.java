@@ -28,15 +28,16 @@ public class BloggerServiceImpl implements IBloggerService {
 
 	@Override
 	public Blogger updateBlogger(Blogger blogger, int bloggerId) throws BloggerNotFoundException {
-		bloggerRepository.findById(bloggerId).orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+		if(!bloggerRepository.findById(bloggerId).isPresent())
+			throw new BloggerNotFoundException("Blogger Not Found"); 	
 		blogger.setId(bloggerId);
-		Blogger updatedBlogger = bloggerRepository.save(blogger);
-		return updatedBlogger;
+		return bloggerRepository.save(blogger);
 	}
 
 	@Override
 	public void deleteBlogger(int bloggerId) throws BloggerNotFoundException {
-		bloggerRepository.findById(bloggerId).orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+		if(!bloggerRepository.findById(bloggerId).isPresent())
+			throw new BloggerNotFoundException("Blogger Not Found"); 	
 		bloggerRepository.deleteById(bloggerId);
 	}
 

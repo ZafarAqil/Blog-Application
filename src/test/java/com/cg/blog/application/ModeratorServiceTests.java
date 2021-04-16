@@ -27,7 +27,7 @@ import com.cg.blog.application.services.ModeratorServiceImpl;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ModeratorServiceTests {
+class ModeratorServiceTests {
 
 	@Autowired
 	ModeratorServiceImpl moderatorService;
@@ -46,8 +46,8 @@ public class ModeratorServiceTests {
 	Post post;
 
 	@BeforeAll
-	public void setUp() {
-		
+	void setUp() {
+
 		community = new Community();
 		community.setCommunityId(1);
 		community.setTitle("community");
@@ -65,10 +65,10 @@ public class ModeratorServiceTests {
 		blogger.setPosts(posts);
 		Set<Community> moderatesCommunities = new HashSet<Community>();
 		blogger.setModCommunities(moderatesCommunities);
-		
+
 		community.setModeratedBy(blogger);
 		blogger.getModCommunities().add(community);
-		
+
 		community = communityRepository.saveAndFlush(community);
 		blogger = bloggerService.addBlogger(blogger);
 
@@ -89,7 +89,7 @@ public class ModeratorServiceTests {
 
 	@Transactional
 	@Test
-	public void testDeletePost() {		
+	void testDeletePost() {
 		moderatorService.deletePost(1, 1);
 		assertThrows(NoSuchElementException.class, () -> postRepo.findById(1).get());
 	}

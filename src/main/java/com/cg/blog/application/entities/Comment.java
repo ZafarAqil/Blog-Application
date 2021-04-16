@@ -23,9 +23,6 @@ public class Comment {
 	@Column(name = "comment_description")
 	private String commentDescription;
 
-//	@Column(name = "votes")
-//	private int votes;
-
 	@JsonBackReference(value = "user-back-reference")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "blogger_id", referencedColumnName = "id")
@@ -42,19 +39,17 @@ public class Comment {
 		super();
 	}
 
-	public Comment(int commentId, String commentDescription, int votes, Blogger blogger, Post post) {
+	public Comment(int commentId, String commentDescription, Blogger blogger, Post post) {
 		super();
 		this.commentId = commentId;
 		this.commentDescription = commentDescription;
-//		this.votes = votes;
 		this.blogger = blogger;
 		this.post = post;
 	}
 
-	public Comment(String commentDescription, int votes, Blogger blogger, Post post) {
+	public Comment(String commentDescription, Blogger blogger, Post post) {
 		super();
 		this.commentDescription = commentDescription;
-//		this.votes = votes;
 		this.blogger = blogger;
 		this.post = post;
 	}
@@ -77,14 +72,6 @@ public class Comment {
 		this.commentDescription = commentDescription;
 	}
 
-//	public int getVotes() {
-//		return votes;
-//	}
-//
-//	public void setVotes(int votes) {
-//		this.votes = votes;
-//	}
-
 	public Blogger getBlogger() {
 		return blogger;
 	}
@@ -103,16 +90,24 @@ public class Comment {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+
+		if (this.getClass() != obj.getClass())
+			return false;
+
 		Comment comment = (Comment) obj;
-		return (this.commentId == comment.commentId);
+		return (this.getCommentId() == comment.getCommentId());
 	}
 
-	// toString
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 
-//	@Override
-//	public String toString() {
-//		return "Comment [commentId=" + commentId + ", commentDescription=" + commentDescription + ", votes=" + votes
-//				+ ", blogger=" + blogger + ", post=" + post + ", voteUp=" + voteUp + "]";
-//	}
-
+	@Override
+	public String toString() {
+		return "Comment [commentId=" + commentId + ", commentDescription=" + commentDescription + ", blogger=" + blogger
+				+ ", post=" + post + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+	}
 }

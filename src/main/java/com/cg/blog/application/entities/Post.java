@@ -1,6 +1,5 @@
 package com.cg.blog.application.entities;
 
-//import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,13 +49,10 @@ public class Post {
 	@Column(name = "content")
 	private PostType content;
 
-//	@Column(name = "data")
-//  private List<Files> data;
-
 	@JsonManagedReference(value = "award-post")
 	@Column(name = "awards_recieved")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-	private List<Award> awardsReceived = new ArrayList<Award>();
+	private List<Award> awardsReceived = new ArrayList<>();
 
 	@CreationTimestamp
 	@Column(name = "created_date_time")
@@ -162,14 +158,6 @@ public class Post {
 		this.content = content;
 	}
 
-//	public List<Files> getData() {
-//		return data;
-//	}
-//
-//	public void setData(List<Files> data) {
-//		this.data = data;
-//	}
-
 	public List<Award> getAwardsReceived() {
 		return awardsReceived;
 	}
@@ -252,17 +240,27 @@ public class Post {
 
 	@Override
 	public boolean equals(Object obj) {
-		Post otherPost = (Post) obj;
+		if (obj == null)
+			return false;
+
+		if (this.getClass() != obj.getClass())
+			return false;
+
+		Post otherPost = (Post)obj;
 		return (this.postId == otherPost.postId);
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Post [postId=" + postId + ", title=" + title + ", createdBy=" + createdBy + ", content=" + content
-//				+ ", data=" + data + ", awardsReceived=" + awardsReceived + ", createdDateTime=" + createdDateTime
-//				+ ", comments=" + comments + ", votes=" + votes + ", voteUp=" + voteUp + ", notSafeForWork="
-//				+ notSafeForWork + ", spoiler=" + spoiler + ", originalContent=" + originalContent + ", flair=" + flair
-//				+ ", community=" + community + "]";
-//	}
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 
+	@Override
+	public String toString() {
+		return "Post [postId=" + postId + ", title=" + title + ", description=" + description + ", createdBy="
+				+ createdBy + ", content=" + content + ", awardsReceived=" + awardsReceived + ", createdDateTime="
+				+ createdDateTime + ", comments=" + comments + ", votes=" + votes + ", notSafeForWork=" + notSafeForWork
+				+ ", spoiler=" + spoiler + ", originalContent=" + originalContent + ", flair=" + flair + ", community="
+				+ community + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+	}
 }

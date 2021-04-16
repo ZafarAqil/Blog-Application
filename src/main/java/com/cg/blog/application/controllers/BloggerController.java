@@ -23,13 +23,13 @@ public class BloggerController {
 	BloggerServiceImpl bloggerService;
 
 	@RequestMapping(value = "/blogger", method = RequestMethod.POST)
-	public ResponseEntity<Object> addBlogger(@Valid @RequestBody Blogger blogger) {
+	public ResponseEntity<Object> addBlogger(@Valid @RequestBody Blogger blogger) { //NOSONAR
 		Blogger addedBlogger = bloggerService.addBlogger(blogger);
 		return ResponseEntity.status(201).body(addedBlogger);
 	}
 
-	@RequestMapping(value = "/blogger/{blogger_id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateBlogger(@Valid @RequestBody Blogger blogger,
+	@RequestMapping(value = "/blogger/{blogger_id}", method = RequestMethod.PUT) 
+	public ResponseEntity<Object> updateBlogger(@Valid @RequestBody Blogger blogger, //NOSONAR
 			@PathVariable(name = "blogger_id") int bloggerId) {
 		Blogger updatedBlogger = bloggerService.updateBlogger(blogger, bloggerId);
 		return ResponseEntity.status(201).body(updatedBlogger);

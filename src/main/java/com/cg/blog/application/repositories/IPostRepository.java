@@ -10,16 +10,4 @@ public interface IPostRepository extends JpaRepository<Post,Integer> {
 
 	public List<Post> findByTitleContainsIgnoreCase(String searchStr);
 
-//	public Post addPost(Post post);
-//
-//	public Post updatePost(Post post);
-//
-//	public Post deletePost(int id);
-//
-//	public List<Post> getPostBySearchString(String searchStr);
-//
-//	public List<Post> getPostByBlogger(Blogger blogger);
-//
-//	public void upVote(boolean upVote);
-
 }

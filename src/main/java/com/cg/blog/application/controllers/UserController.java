@@ -3,7 +3,6 @@ package com.cg.blog.application.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,15 +20,15 @@ public class UserController {
 	IUserService userService;
 
 	@PostMapping("/signUp")
-	public ResponseEntity<User> addBlogger(@Valid @RequestBody User user) {
+	public ResponseEntity<User> addBlogger(@Valid @RequestBody User user) { //NOSONAR
 		User savedUser = userService.addNewUser(user);
-		return new ResponseEntity<User>(savedUser, HttpStatus.CREATED);
+		return ResponseEntity.status(201).body(savedUser);
 	}
 
 	@PostMapping("/signIn")
-	public ResponseEntity<User> signIn(@RequestBody User user) {
+	public ResponseEntity<User> signIn(@RequestBody User user) { //NOSONAR
 		User savedUser = userService.signIn(user);
-		return new ResponseEntity<User>(savedUser, HttpStatus.CREATED);
+		return ResponseEntity.status(200).body(savedUser);
 	}
 
 }

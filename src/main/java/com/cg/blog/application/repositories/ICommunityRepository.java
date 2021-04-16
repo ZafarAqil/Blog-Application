@@ -8,14 +8,5 @@ import com.cg.blog.application.entities.Community;
 public interface ICommunityRepository extends JpaRepository<Community, Integer>{
 
 	public List<Community> findByTitleContainsIgnoreCase(String searchString);
-//	public Community addCommunity(Community community);
-//
-//	public Community updateCommunity(Community community);
-//
-//	public Community deleteCommunity(Community community);
-//
-//	public List<Community> listAllCommunities(String searchString);
-//
-//	public List<Community> listAllCommunitiesByBlogger(Blogger blogger);
 
 }
