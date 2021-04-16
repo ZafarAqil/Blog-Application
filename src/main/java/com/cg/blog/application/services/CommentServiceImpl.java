@@ -65,8 +65,27 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public List<Comment> listAllCommentsByPost(int postId) throws PostNotFoundException {
-		Post post1 = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
-		return post1.getComments();
+		Post returnedPost = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+		return returnedPost.getComments();
+	}
+
+	@Transactional
+	@Override
+	public Comment updateComment(int commentId, Comment comment) {
+		Comment oldComment = commentRepository.findById(commentId).orElseThrow(() -> new CommentNotFoundException("Comment Not Found"));
+		
+		comment.setCommentId(commentId);
+		comment.setBlogger(oldComment.getBlogger());
+		comment.setPost(oldComment.getPost());
+
+		oldComment.getBlogger().getComments().remove(oldComment);
+		oldComment.getBlogger().getComments().add(comment);
+		oldComment.getPost().getComments().remove(oldComment);
+		oldComment.getPost().getComments().add(comment);
+
+		bloggerRepository.save(oldComment.getBlogger());
+		postRepository.save(oldComment.getPost());
+		return commentRepository.save(comment);
 	}
 
 	// TODO: updateComment

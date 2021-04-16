@@ -25,6 +25,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -83,8 +84,9 @@ public class Community {
 	@OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
 	private List<Post> posts;
 
-	@JsonBackReference(value = "moderator-community")
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JsonBackReference(value = "moderator-community")
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "blogger_id", referencedColumnName = "id")
 	private Blogger moderatedBy;
 

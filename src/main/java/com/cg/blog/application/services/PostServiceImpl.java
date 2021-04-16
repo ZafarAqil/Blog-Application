@@ -109,8 +109,18 @@ public class PostServiceImpl implements IPostService {
 	}
 
 	public Post updatePost(int postId, Post post) throws PostNotFoundException {
-		postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+		Post oldPost = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+
 		post.setPostId(postId);
+		post.setCreatedBy(oldPost.getCreatedBy());
+		post.setComments(oldPost.getComments());
+		post.setCommunity(oldPost.getCommunity());
+		
+		oldPost.getCommunity().getPosts().add(post);
+		oldPost.getCreatedBy().getPosts().add(post);
+		
+		bloggerRepository.save(oldPost.getCreatedBy());
+		communityRepository.save(oldPost.getCommunity());
 		postRepository.saveAndFlush(post);
 		return post;
 	}

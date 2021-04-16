@@ -2,6 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.4.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id "org.sonarqube" version "3.1.1"
+    id "jacoco"
 }
 
 group = 'com.cg.blog.application'
@@ -27,4 +29,31 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+jacoco{
+    toolVersion = "0.8.6"
+}
+
+ 
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.enabled true
+        csv.enabled false
+       // html.enabled true
+       // html.destination file("build/reports/jacoco/html")
+    }
+}
+
+ 
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "Blog Application"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.login", "fc6d6a0aa2f92f9efc974064ad5842f4fb5d535e"
+    }
 }
