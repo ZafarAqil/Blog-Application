@@ -24,8 +24,7 @@ public class PostController {
 	PostServiceImpl postService;
 
 	@RequestMapping(value = "/community/{community_id}/blogger/{blogger_id}/post", method = RequestMethod.POST)
-	public ResponseEntity<Object> addPost(@Valid @PathVariable(name = "community_id") int communityId,
-			@PathVariable(name = "blogger_id") int bloggerId, @RequestBody Post post) {
+	public ResponseEntity<Object> addPost(@Valid @PathVariable(name = "community_id") int communityId, @PathVariable(name = "blogger_id") int bloggerId, @RequestBody Post post) { //NOSONAR
 		Post createdPost = postService.addPost(communityId, bloggerId, post);
 		return ResponseEntity.status(201).body(createdPost);
 	}
@@ -37,14 +36,14 @@ public class PostController {
 	}
 
 	@RequestMapping(value = "/community/blogger/post/{post_id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updatePost(@PathVariable(name = "post_id") int postId, @RequestBody Post post) {
+	public ResponseEntity<Object> updatePost(@PathVariable(name = "post_id") int postId, @RequestBody Post post) { //NOSONAR
 		Post updatedPost = postService.updatePost(postId, post);
 		return ResponseEntity.status(201).body(updatedPost);
 	}
 
 	@RequestMapping(value = "/community/blogger/post/{post_id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deletePost(@PathVariable int id) {
-		postService.deletePost(id);
+	public ResponseEntity<Object> deletePost(@PathVariable(name = "post_id") int postId) {
+		postService.deletePost(postId);
 		return ResponseEntity.status(200).body("Post Deleted");
 	}
 

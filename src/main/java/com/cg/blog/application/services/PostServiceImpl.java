@@ -65,11 +65,8 @@ public class PostServiceImpl implements IPostService {
 	@Override
 	public void deletePost(int postId) throws PostNotFoundException {
 		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
-
 		postRepository.delete(post);
-
 		post.getCreatedBy().getPosts().remove(post);
-
 	}
 
 	@Override

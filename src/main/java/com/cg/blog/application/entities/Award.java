@@ -34,7 +34,6 @@ public class Award {
 
 	public Award() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Award(int awardId, AwardType awardType, Blogger blogger, Post post) {
@@ -89,15 +88,5 @@ public class Award {
 		return "Award [awardId=" + awardId + ", awardType=" + awardType + ", blogger=" + blogger + ", post=" + post
 				+ "]";
 	}
-
-//	private List<AwardType> coin;
-//
-//	public List<AwardType> getCoin() {
-//		return coin;
-//	}
-//
-//	public void setCoin(List<AwardType> coin) {
-//		this.coin = coin;
-//	}
 
 }

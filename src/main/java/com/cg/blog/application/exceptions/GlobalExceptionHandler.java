@@ -19,76 +19,69 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-	Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+	Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 	@ExceptionHandler(BloggerNotFoundException.class)
 	public ResponseEntity<Object> handleExceptions(BloggerNotFoundException exception, WebRequest webRequest) {
-		logger.error(exception.getMessage());
+		log.error(exception.getMessage());
 		ExceptionResponse response = new ExceptionResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		ResponseEntity<Object> entity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-		return entity;
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(AdminNotFoundException.class)
 	public ResponseEntity<Object> handleExceptions(AdminNotFoundException exception, WebRequest webRequest) {
-		logger.error(exception.getMessage());
+		log.error(exception.getMessage());
 		ExceptionResponse response = new ExceptionResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		ResponseEntity<Object> entity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-		return entity;
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(PostNotFoundException.class)
 	public ResponseEntity<Object> handleExceptions(PostNotFoundException exception, WebRequest webRequest) {
-		logger.error(exception.getMessage());
+		log.error(exception.getMessage());
 		ExceptionResponse response = new ExceptionResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		ResponseEntity<Object> entity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-		return entity;
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(CommentNotFoundException.class)
 	public ResponseEntity<Object> handleExceptions(CommentNotFoundException exception, WebRequest webRequest) {
-		logger.error(exception.getMessage());
+		log.error(exception.getMessage());
 		ExceptionResponse response = new ExceptionResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		ResponseEntity<Object> entity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-		return entity;
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(CommunityNotFoundException.class)
 	public ResponseEntity<Object> handleExceptions(CommunityNotFoundException exception, WebRequest webRequest) {
-		logger.error(exception.getMessage());
+		log.error(exception.getMessage());
 		ExceptionResponse response = new ExceptionResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		ResponseEntity<Object> entity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-		return entity;
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(InvalidVoteException.class)
 	public ResponseEntity<Object> handleExceptions(InvalidVoteException exception, WebRequest webRequest) {
-		logger.error(exception.getMessage());
+		log.error(exception.getMessage());
 		ExceptionResponse response = new ExceptionResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		ResponseEntity<Object> entity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-		return entity;
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(AuthenticationFailedException.class)
 	public ResponseEntity<Object> handleExceptions(AuthenticationFailedException exception, WebRequest webRequest) {
-		logger.error(exception.getMessage());
+		log.error(exception.getMessage());
 		ExceptionResponse response = new ExceptionResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		ResponseEntity<Object> entity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-		return entity;
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@Override
@@ -96,12 +89,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		Map<String, String> errors = new HashMap<>();
-		ex.getBindingResult().getAllErrors().forEach((error) -> {
+		ex.getBindingResult().getAllErrors().forEach(error -> {
 
 			String fieldName = ((FieldError) error).getField();
 			String message = error.getDefaultMessage();
 			errors.put(fieldName, message);
 		});
-		return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 	}
 }

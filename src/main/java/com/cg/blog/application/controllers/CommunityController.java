@@ -23,16 +23,13 @@ public class CommunityController {
 	CommunityServiceImpl communityService;
 
 	@RequestMapping(value = "/community/{moderator_id}", method = RequestMethod.POST)
-	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community,
-			@PathVariable(name = "moderator_id") int moderatorId) {
+	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community,	@PathVariable(name = "moderator_id") int moderatorId) { //NOSONAR
 		Community createdCommunity = communityService.addCommunity(community, moderatorId);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
 
 	@RequestMapping(value = "/community/{community_id}/{moderator_id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateCommunity(@RequestBody Community community,
-			@PathVariable(name = "community_id") int communityId,
-			@PathVariable(name = "moderator_id") int moderatorId) {
+	public ResponseEntity<Object> updateCommunity(@RequestBody Community community, @PathVariable(name = "community_id") int communityId, @PathVariable(name = "moderator_id") int moderatorId) { //NOSONAR
 		Community createdCommunity = communityService.updateCommunity(community, communityId, moderatorId);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
@@ -69,5 +66,4 @@ public class CommunityController {
 		return ResponseEntity.status(200).body(community);
 	}
 
-	// TODO: getAllCommunities and getCommunity/{}
 }

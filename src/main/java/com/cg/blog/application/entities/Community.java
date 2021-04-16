@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -48,9 +47,6 @@ public class Community {
 	@Column(name = "total_members")
 	private int totalMembers;
 
-//	@Column(name = "online_members")
-//	private int onlineMembers;
-
 	@Column
 	private File image;
 
@@ -84,8 +80,8 @@ public class Community {
 	@OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
 	private List<Post> posts;
 
-	@JsonBackReference(value = "moderator-community")
-//	@JsonIgnore
+//	@JsonBackReference(value = "moderator-community")
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "blogger_id", referencedColumnName = "id")
 	private Blogger moderatedBy;
@@ -156,14 +152,6 @@ public class Community {
 	public void setTotalMembers(int totalMembers) {
 		this.totalMembers = totalMembers;
 	}
-
-//	public int getOnlineMembers() {
-//		return onlineMembers;
-//	}
-//
-//	public void setOnlineMembers(int onlineMembers) {
-//		this.onlineMembers = onlineMembers;
-//	}
 
 	public File getImage() {
 		return image;
@@ -247,16 +235,29 @@ public class Community {
 
 	@Override
 	public boolean equals(Object obj) {
-		Community community = (Community) obj;
+		if (obj == null)
+			return false;
+
+		if (this.getClass() != obj.getClass())
+			return false;
+
+		Community community = (Community)obj;
 		return (this.getCommunityId() == community.getCommunityId());
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Community [communityId=" + communityId + ", communityDescription=" + communityDescription
-//				+ ", totalMembers=" + totalMembers + ", onlineMembers=" + onlineMembers + ", image=" + image
-//				+ ", createdOn=" + createdOn + ", postRulesAllowed=" + postRulesAllowed + ", postRulesDisallowed="
-//				+ postRulesDisallowed + ", banningPolicy=" + banningPolicy + ", flairs=" + flairs + "]";
-//	}
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "Community [communityId=" + communityId + ", title=" + title + ", communityDescription="
+				+ communityDescription + ", totalMembers=" + totalMembers + ", image=" + image + ", createdOn="
+				+ createdOn + ", postRulesAllowed=" + postRulesAllowed + ", postRulesDisallowed=" + postRulesDisallowed
+				+ ", banningPolicy=" + banningPolicy + ", flairs=" + flairs + ", bloggers=" + bloggers + ", posts="
+				+ posts + ", moderatedBy=" + moderatedBy + ", getClass()=" + getClass() + ", toString()="
+				+ super.toString() + "]";
+	}
 
 }

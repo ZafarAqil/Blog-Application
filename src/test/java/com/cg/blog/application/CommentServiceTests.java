@@ -28,7 +28,7 @@ import com.cg.blog.application.services.CommentServiceImpl;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CommentServiceTests {
+class CommentServiceTests {
 
 	@Autowired
 	CommentServiceImpl commentService;
@@ -49,9 +49,9 @@ public class CommentServiceTests {
 	Blogger blogger;
 	Post post;
 	Comment comment;
-	
+
 	@BeforeAll
-	public void setUp() {
+	void setUp() {
 		community = new Community();
 		community.setCommunityId(1);
 		community.setTitle("community");
@@ -88,22 +88,22 @@ public class CommentServiceTests {
 		comment.setPost(post);
 		commentRepository.saveAndFlush(comment);
 	}
-	
+
 	@Transactional
 	@Test
-	public void testAddComment() {
-		assertEquals(comment, commentService.addComment(1,1,comment));
+	void testAddComment() {
+		assertEquals(comment, commentService.addComment(1, 1, comment));
 	}
 
 	@Transactional
 	@Test
-	public void testListAllCommentsByPost() {
+	void testListAllCommentsByPost() {
 		assertEquals(comment, commentService.listAllCommentsByPost(1).get(0));
 	}
-	
+
 	@Transactional
 	@Test
-	public void testDeleteCommentById() {
+	void testDeleteCommentById() {
 		commentService.deleteCommentById(1);
 		assertThrows(NoSuchElementException.class, () -> commentRepository.findById(1).get());
 	}

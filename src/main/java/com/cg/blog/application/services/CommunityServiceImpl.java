@@ -46,7 +46,7 @@ public class CommunityServiceImpl implements ICommunityService {
 		Blogger moderator = bloggerRepository.findById(moderatorId)
 				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		// checking if blogger is a moderator of this community
-		if (!oldCommunity.getModeratedBy().equals(moderator))
+		if (oldCommunity.getModeratedBy().getId() != moderator.getId())
 			throw new AuthenticationFailedException("Unauthorized Access");
 
 		community.setCommunityId(communityId);
@@ -83,7 +83,7 @@ public class CommunityServiceImpl implements ICommunityService {
 
 	@Override
 	public List<String> getAllCommunities() {
-		return communityRepository.findAll().stream().map(community -> community.getTitle())
+		return communityRepository.findAll().stream().map(Community::getTitle)
 				.collect(Collectors.toList());
 	}
 

@@ -23,7 +23,7 @@ public class CommentController {
 
 	@RequestMapping(value = "/blogger/{blogger_id}/posts/{post_id}/comment", method = RequestMethod.POST)
 	public ResponseEntity<Object> addComment(@PathVariable(name = "blogger_id") int bloggerId, @PathVariable(name = "post_id") int postId,
-			@RequestBody Comment comment) {
+			@RequestBody Comment comment) { //NOSONAR
 		Comment addedComment = commentService.addComment(bloggerId, postId, comment);
 		return ResponseEntity.status(201).body(addedComment);
 	}
@@ -42,7 +42,7 @@ public class CommentController {
 	}
 
 	@RequestMapping(value = "/comment/{comment_id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateComment(@PathVariable(name = "comment_id") int commentId, @RequestBody Comment comment) {
+	public ResponseEntity<Object> updateComment(@PathVariable(name = "comment_id") int commentId, @RequestBody Comment comment) { //NOSONAR
 		Comment updatedComment = commentService.updateComment(commentId, comment);
 		return ResponseEntity.status(201).body(updatedComment);
 	}

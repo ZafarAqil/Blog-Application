@@ -35,7 +35,6 @@ public class Admin {
 
 	public Admin() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Admin(int id, @NotEmpty @Size(min = 2, message = "user name should have at least 2 characters") String name,
@@ -105,8 +104,20 @@ public class Admin {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+
+		if (this.getClass() != obj.getClass())
+			return false;
+
 		Admin admin = (Admin) obj;
-		return this.id == admin.id;
+		
+		return this.getId() == admin.getId() ;
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
 	}
 
 }

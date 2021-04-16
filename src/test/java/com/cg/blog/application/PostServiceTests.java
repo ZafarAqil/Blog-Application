@@ -28,7 +28,7 @@ import com.cg.blog.application.services.PostServiceImpl;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class PostServiceTests {
+class PostServiceTests {
 
 	@Autowired
 	PostServiceImpl postService;
@@ -47,7 +47,7 @@ public class PostServiceTests {
 	Post post;
 
 	@BeforeAll
-	public void setUp() {
+	void setUp() {
 		community = new Community();
 		community.setCommunityId(1);
 		community.setTitle("community");
@@ -81,18 +81,18 @@ public class PostServiceTests {
 
 	@Transactional
 	@Test
-	public void testAddPost() {
+	void testAddPost() {
 		assertEquals(post, postService.addPost(1, 1, post));
 	}
 
 	@Test
-	public void testFailAddPost() {
+	void testFailAddPost() {
 		assertThrows(CommunityNotFoundException.class, () -> postService.addPost(99, 1, post));
 	}
 
 	@Transactional
 	@Test
-	public void testDeletePost() {
+	void testDeletePost() {
 		Post otherPost = new Post();
 		otherPost.setPostId(2);
 		otherPost.setTitle("SampleTitle");
@@ -111,7 +111,7 @@ public class PostServiceTests {
 
 	@Transactional
 	@Test
-	public void testUpdatePost() {
+	void testUpdatePost() {
 		Post otherPost = new Post();
 		otherPost.setPostId(1);
 		otherPost.setTitle("NewTitle");
@@ -127,26 +127,26 @@ public class PostServiceTests {
 	}
 
 	@Test
-	public void testGetPostBySearchString() {
+	void testGetPostBySearchString() {
 		assertEquals("SampleTitle", postService.getPostBySearchString("SampleTitle").get(0).getTitle());
 	}
 
 	@Transactional
 	@Test
-	public void testGetPostByBlogger() {
+	void testGetPostByBlogger() {
 		assertEquals(post, postService.getPostByBlogger(1).get(0));
 	}
 
 	@Transactional
 	@Test
-	public void testGiveAwardPost() {
+	void testGiveAwardPost() {
 		postService.giveAwardPost(AwardType.GOLD, 1, 1);
 		assertEquals(AwardType.GOLD, postRepo.findById(1).get().getAwardsReceived().get(0).getAwardType());
 	}
 
 	@Transactional
 	@Test
-	public void testVotePost() {
+	void testVotePost() {
 		postService.votePost(VoteType.UPVOTE, 1, 1);
 		assertEquals(1, postRepo.findById(1).get().getVotes());
 	}

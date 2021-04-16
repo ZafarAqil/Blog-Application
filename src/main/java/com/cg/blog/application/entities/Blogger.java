@@ -34,17 +34,6 @@ public class Blogger extends User {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "blogger")
 	private List<Comment> comments;
 
-//	@Column(name = "upvoted")
-//	@ManyToMany
-//	@JoinTable(
-//			  name = "blogger_upvoted_posts", 
-//			  joinColumns = @JoinColumn(name = "id"), 
-//			  inverseJoinColumns = @JoinColumn(name = "postId"))
-//	private List<Post> upvoted;
-
-//	@Column(name = "downvoted")
-//	private List<Post> downvoted;
-
 	@ElementCollection(fetch = FetchType.LAZY)
 	@Column(name = "awards_recieved")
 	private List<Award> awardsReceived;
@@ -60,25 +49,22 @@ public class Blogger extends User {
 	@JoinTable(name = "blogger_communities", joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "communityId", referencedColumnName = "communityId"))
 	private Set<Community> communities;
 
-	@JsonManagedReference(value = "moderator-community")
-//	@JsonIgnore
+//	@JsonManagedReference(value = "moderator-community")
+	@JsonIgnore
 	@Column(name = "mod_communities")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "moderatedBy", cascade = CascadeType.ALL)
 	private Set<Community> modCommunities;
 
 	public Blogger() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Blogger(String name, String email, String password, String role, long karma, List<Post> posts,
-			List<Comment> comments, List<Post> upvoted, List<Post> downvoted, List<Award> awardsReceived,
-			List<Award> awardsGiven, Set<Community> communities, Set<Community> moderatesCommunities) {
+			List<Comment> comments, List<Award> awardsReceived, List<Award> awardsGiven, Set<Community> communities,
+			Set<Community> moderatesCommunities) {
 		super(name, email, password, role, karma);
 		this.posts = posts;
 		this.comments = comments;
-//		this.upvoted = upvoted;
-//		this.downvoted = downvoted;
 		this.awardsReceived = awardsReceived;
 		this.awardsGiven = awardsGiven;
 		this.communities = communities;
@@ -86,13 +72,11 @@ public class Blogger extends User {
 	}
 
 	public Blogger(int id, String name, String email, String password, String role, long karma, List<Post> posts,
-			List<Comment> comments, List<Post> upvoted, List<Post> downvoted, List<Award> awardsReceived,
-			List<Award> awardsGiven, Set<Community> communities, Set<Community> moderatesCommunities) {
+			List<Comment> comments, List<Award> awardsReceived, List<Award> awardsGiven, Set<Community> communities,
+			Set<Community> moderatesCommunities) {
 		super(id, name, email, password, role, karma);
 		this.posts = posts;
 		this.comments = comments;
-//		this.upvoted = upvoted;
-//		this.downvoted = downvoted;
 		this.awardsReceived = awardsReceived;
 		this.awardsGiven = awardsGiven;
 		this.communities = communities;
@@ -115,22 +99,6 @@ public class Blogger extends User {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-
-//	public List<Post> getUpvoted() {
-//		return upvoted;
-//	}
-//
-//	public void setUpvoted(List<Post> upvoted) {
-//		this.upvoted = upvoted;
-//	}
-
-//	public List<Post> getDownvoted() {
-//		return downvoted;
-//	}
-//
-//	public void setDownvoted(List<Post> downvoted) {
-//		this.downvoted = downvoted;
-//	}
 
 	public List<Award> getAwardsReceived() {
 		return awardsReceived;
@@ -166,13 +134,27 @@ public class Blogger extends User {
 
 	@Override
 	public boolean equals(Object obj) {
-		Blogger blogger = (Blogger) obj;
+		if (obj == null)
+			return false;
+
+		if (this.getClass() != obj.getClass())
+			return false;
+		Blogger blogger = (Blogger)obj;
 		return this.getId() == blogger.getId();
 	}
-//	@Override
-//	public String toString() {
-//		return "Blogger [userId=" + userId + ", bloggerName=" + bloggerName + ", posts=" + posts + ", comments="
-//				+ comments + ", upvoted=" + upvoted + ", downvoted=" + downvoted + ", awardsReceived=" + awardsReceived
-//				+ ", awardsGiven=" + awardsGiven + ", communities=" + communities + ", karma=" + karma + "]";
-//	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "Blogger [posts=" + posts + ", comments=" + comments + ", awardsReceived=" + awardsReceived
+				+ ", awardsGiven=" + awardsGiven + ", communities=" + communities + ", modCommunities=" + modCommunities
+				+ ", getId()=" + getId() + ", getName()=" + getName() + ", getEmail()=" + getEmail()
+				+ ", getPassword()=" + getPassword() + ", getRole()=" + getRole() + ", getKarma()=" + getKarma()
+				+ ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
+	}
+
 }

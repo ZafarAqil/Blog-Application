@@ -27,7 +27,7 @@ import com.cg.blog.application.services.AdminServiceImpl;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class AdminServiceTests {
+class AdminServiceTests {
 
 	@Autowired
 	IAdminRepository adminRepository;
@@ -38,16 +38,15 @@ public class AdminServiceTests {
 	@Autowired
 	AdminServiceImpl adminService;
 
-	
 	Community community;
 	Admin admin;
 
 	@BeforeAll
-	public void setUp() {
-		
-		admin = new Admin(1,"admin","admin@gmail.com","password","8888888888");		
+	void setUp() {
+
+		admin = new Admin(1, "admin", "admin@gmail.com", "password", "8888888888");
 		adminRepository.saveAndFlush(admin);
-		
+
 		community = new Community();
 		community.setCommunityId(1);
 		community.setTitle("community");
@@ -58,24 +57,23 @@ public class AdminServiceTests {
 		community.setBloggers(bloggers);
 		communityRepository.saveAndFlush(community);
 	}
-	
+
 	@Test
-	public void testAdminSignUp() {
+	void testAdminSignUp() {
 		assertEquals(admin, adminService.adminSignUp(admin));
 	}
 
 	@Transactional
 	@Test
-	public void testAddCommunity() {
-		assertEquals(community, adminService.addCommunity(community,1));
+	void testAddCommunity() {
+		assertEquals(community, adminService.addCommunity(community, 1));
 	}
-	
+
 	@Transactional
 	@Test
-	public void testDeleteCommunity() {
-		adminService.deleteCommunity(1,1);
+	void testDeleteCommunity() {
+		adminService.deleteCommunity(1, 1);
 		assertThrows(NoSuchElementException.class, () -> communityRepository.findById(1).get());
 	}
 
-	
 }
