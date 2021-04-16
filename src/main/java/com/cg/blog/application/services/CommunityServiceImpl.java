@@ -20,6 +20,10 @@ import com.cg.blog.application.repositories.ICommunityRepository;
 @Service
 public class CommunityServiceImpl implements ICommunityService {
 
+	private static final String BLOGGER_NOT_FOUND = "Blogger Not Found";
+	private static final String COMMUNITY_NOT_FOUND = "Community Not Found";
+	private static final String UNAUTHORIZED_ACCESS = "Unauthorized Access";
+
 	@Autowired
 	ICommunityRepository communityRepository;
 	@Autowired
@@ -30,7 +34,7 @@ public class CommunityServiceImpl implements ICommunityService {
 	public Community addCommunity(Community community, int moderatorId)
 			throws CommunityNotFoundException, BloggerNotFoundException {
 		Blogger blogger = bloggerRepository.findById(moderatorId)
-				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		community.setModeratedBy(blogger);
 		blogger.getModCommunities().add(community);
 		Community createdCommunity = communityRepository.save(community);
@@ -42,12 +46,12 @@ public class CommunityServiceImpl implements ICommunityService {
 	public Community updateCommunity(Community community, int communityId, int moderatorId)
 			throws CommunityNotFoundException, BloggerNotFoundException, AuthenticationFailedException {
 		Community oldCommunity = communityRepository.findById(communityId)
-				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
+				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 		Blogger moderator = bloggerRepository.findById(moderatorId)
-				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		// checking if blogger is a moderator of this community
 		if (oldCommunity.getModeratedBy().getId() != moderator.getId())
-			throw new AuthenticationFailedException("Unauthorized Access");
+			throw new AuthenticationFailedException(UNAUTHORIZED_ACCESS);
 
 		community.setCommunityId(communityId);
 		community.setModeratedBy(moderator);
@@ -59,12 +63,12 @@ public class CommunityServiceImpl implements ICommunityService {
 	public void deleteCommunity(int communityId, int moderatorId)
 			throws CommunityNotFoundException, BloggerNotFoundException, AuthenticationFailedException {
 		Community community = communityRepository.findById(communityId)
-				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
+				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 		Blogger moderator = bloggerRepository.findById(moderatorId)
-				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		// checking if blogger is a moderator of this community
 		if (!community.getModeratedBy().equals(moderator))
-			throw new AuthenticationFailedException("Unauthorized Access");
+			throw new AuthenticationFailedException(UNAUTHORIZED_ACCESS);
 
 		communityRepository.deleteById(communityId);
 	}
@@ -77,19 +81,18 @@ public class CommunityServiceImpl implements ICommunityService {
 	@Override
 	public Set<Community> getAllCommunitiesByBlogger(int bloggerId) throws BloggerNotFoundException {
 		Blogger blogger = bloggerRepository.findById(bloggerId)
-				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		return blogger.getCommunities();
 	}
 
 	@Override
 	public List<String> getAllCommunities() {
-		return communityRepository.findAll().stream().map(Community::getTitle)
-				.collect(Collectors.toList());
+		return communityRepository.findAll().stream().map(Community::getTitle).collect(Collectors.toList());
 	}
 
 	@Override
-	public Community getCommunity(int communityId) {
+	public Community getCommunity(int communityId) throws CommunityNotFoundException {
 		return communityRepository.findById(communityId)
-				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
+				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 	}
 }

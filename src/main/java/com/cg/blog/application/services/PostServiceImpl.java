@@ -42,14 +42,18 @@ public class PostServiceImpl implements IPostService {
 	@Autowired
 	IAwardRepository awardRepository;
 
+	private static final String BLOGGER_NOT_FOUND = "Blogger Not Found";
+	private static final String COMMUNITY_NOT_FOUND = "Community Not Found";
+	private static final String POST_NOT_FOUND = "Post Not Found";
+
 	@Override
 	public Post addPost(int communityId, int bloggerId, Post post)
 			throws CommunityNotFoundException, BloggerNotFoundException {
 
 		Community community = communityRepository.findById(communityId)
-				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
+				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 		Blogger blogger = bloggerRepository.findById(bloggerId)
-				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 
 		post.setCreatedBy(blogger);
 		community.getPosts().add(post);
@@ -64,7 +68,7 @@ public class PostServiceImpl implements IPostService {
 	@Transactional
 	@Override
 	public void deletePost(int postId) throws PostNotFoundException {
-		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
 		postRepository.delete(post);
 		post.getCreatedBy().getPosts().remove(post);
 	}
@@ -79,12 +83,12 @@ public class PostServiceImpl implements IPostService {
 			throws BloggerNotFoundException, PostNotFoundException, InvalidVoteException {
 
 		Blogger blogger = bloggerRepository.findById(bloggerId)
-				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
-		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post not found"));
+				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
+		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
 
 		Optional<Vote> recentVote = voteRepository.findTopByPostAndBloggerOrderByVoteIdDesc(post, blogger);
 		if (recentVote.isPresent() && recentVote.get().getVoteType().equals(voteType)) {
-			throw new InvalidVoteException("You have already " + voteType + "'d for this post");
+			throw new InvalidVoteException("You have already " + voteType + "'D this post");
 		}
 		if (VoteType.UPVOTE.equals(voteType)) {
 			post.setVotes(post.getVotes() + 1);
@@ -101,13 +105,13 @@ public class PostServiceImpl implements IPostService {
 	@Override
 	public List<Post> getPostByBlogger(int bloggerId) throws BloggerNotFoundException {
 		Blogger blogger = bloggerRepository.findById(bloggerId)
-				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		return blogger.getPosts();
 	}
 
 	@Override
 	public Post updatePost(int postId, Post post) throws PostNotFoundException {
-		Post oldPost = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+		Post oldPost = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
 
 		post.setPostId(postId);
 		post.setCreatedBy(oldPost.getCreatedBy());
@@ -127,8 +131,8 @@ public class PostServiceImpl implements IPostService {
 	public void giveAwardPost(AwardType awardType, int bloggerId, int postId)
 			throws BloggerNotFoundException, PostNotFoundException {
 		Blogger blogger = bloggerRepository.findById(bloggerId)
-				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
-		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post not found"));
+				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
+		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
 
 		Award award = new Award();
 		award.setAwardType(awardType);
@@ -140,7 +144,7 @@ public class PostServiceImpl implements IPostService {
 		postRepository.save(post);
 
 		Blogger receivingBlogger = bloggerRepository.findById(post.getCreatedBy().getId())
-				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		receivingBlogger.getAwardsReceived().add(award);
 		bloggerRepository.save(receivingBlogger);
 
@@ -149,7 +153,7 @@ public class PostServiceImpl implements IPostService {
 	@Override
 	public List<Post> getPostsByCommunity(int communityId) {
 		Community community = communityRepository.findById(communityId)
-				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
+				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 		return community.getPosts();
 	}
 
