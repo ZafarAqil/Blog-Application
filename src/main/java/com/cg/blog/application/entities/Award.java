@@ -24,7 +24,7 @@ public class Award {
 
 	@JsonBackReference(value = "award-blogger")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", referencedColumnName = "id")
+	@JoinColumn(name = "blogger_id", referencedColumnName = "id")
 	private Blogger blogger;
 
 	@JsonBackReference(value = "award-post")

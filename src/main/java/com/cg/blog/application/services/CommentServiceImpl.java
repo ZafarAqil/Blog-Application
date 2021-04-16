@@ -88,6 +88,4 @@ public class CommentServiceImpl implements ICommentService {
 		return commentRepository.save(comment);
 	}
 
-	// TODO: updateComment
-
 }

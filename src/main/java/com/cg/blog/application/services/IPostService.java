@@ -29,4 +29,6 @@ public interface IPostService {
 	public void giveAwardPost(AwardType awardType, int bloggerId, int postId)
 			throws BloggerNotFoundException, PostNotFoundException;
 
+	public List<Post> getPostsByCommunity(int communityId);
+
 }

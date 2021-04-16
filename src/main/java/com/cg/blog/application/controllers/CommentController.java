@@ -35,8 +35,8 @@ public class CommentController {
 	}
 
 	@Transactional
-	@RequestMapping(value = "/comment/{comment_id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deleteCommentById(@PathVariable(name = "comment_id") int commentId) {
+	@RequestMapping(value = "/blogger/{blogger_id}/posts/{post_id}/comment/{comment_id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> deleteCommentById(@PathVariable(name = "blogger_id") int bloggerId, @PathVariable(name = "post_id") int postId, @PathVariable(name = "comment_id") int commentId) {
 		commentService.deleteCommentById(commentId);
 		return ResponseEntity.status(200).body("Comment Successfully Deleted!");
 	}

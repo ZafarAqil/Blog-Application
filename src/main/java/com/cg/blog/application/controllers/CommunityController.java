@@ -23,26 +23,30 @@ public class CommunityController {
 	CommunityServiceImpl communityService;
 
 	@RequestMapping(value = "/community/{moderator_id}", method = RequestMethod.POST)
-	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community, @PathVariable(name = "moderator_id") int moderatorId) {
+	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community,
+			@PathVariable(name = "moderator_id") int moderatorId) {
 		Community createdCommunity = communityService.addCommunity(community, moderatorId);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
 
 	@RequestMapping(value = "/community/{community_id}/{moderator_id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateCommunity(@RequestBody Community community,
-			@PathVariable(name = "community_id") int communityId,  @PathVariable(name = "moderator_id") int moderatorId) {
+			@PathVariable(name = "community_id") int communityId,
+			@PathVariable(name = "moderator_id") int moderatorId) {
 		Community createdCommunity = communityService.updateCommunity(community, communityId, moderatorId);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
 
 	@RequestMapping(value = "/community/{community_id}/{moderator_id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deleteCommunity(@PathVariable(name = "community_id") int communityId,  @PathVariable(name = "moderator_id") int moderatorId) {
+	public ResponseEntity<Object> deleteCommunity(@PathVariable(name = "community_id") int communityId,
+			@PathVariable(name = "moderator_id") int moderatorId) {
 		communityService.deleteCommunity(communityId, moderatorId);
 		return ResponseEntity.status(200).body("Community Succesfully Deleted");
 	}
 
 	@RequestMapping(value = "/community/{search_string}", method = RequestMethod.GET)
-	public ResponseEntity<Object> listAllCommunitiesBySearchString(@PathVariable(name = "search_string") String searchString) {
+	public ResponseEntity<Object> listAllCommunitiesBySearchString(
+			@PathVariable(name = "search_string") String searchString) {
 		List<Community> matchedCommunities = communityService.listAllCommunitiesBySearchString(searchString);
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}
@@ -52,5 +56,12 @@ public class CommunityController {
 		Set<Community> matchedCommunities = communityService.listAllCommunitiesByBlogger(bloggerId);
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}
-	//TODO: getAllCommunities and getCommunity/{}
+
+	@RequestMapping(value = "/community", method = RequestMethod.GET)
+	public ResponseEntity<Object> listAllCommunities() {
+		List<String> matchedCommunities = communityService.listAllCommunities();
+		return ResponseEntity.status(200).body(matchedCommunities);
+	}
+
+	// TODO: getAllCommunities and getCommunity/{}
 }

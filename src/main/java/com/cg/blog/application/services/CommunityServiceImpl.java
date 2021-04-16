@@ -2,6 +2,7 @@ package com.cg.blog.application.services;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -78,5 +79,9 @@ public class CommunityServiceImpl implements ICommunityService {
 		Blogger blogger = bloggerRepository.findById(bloggerId)
 				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
 		return blogger.getCommunities();
+	}
+
+	public List<String> listAllCommunities() {
+		return communityRepository.findAll().stream().map(community -> community.getTitle()).collect(Collectors.toList());
 	}
 }
