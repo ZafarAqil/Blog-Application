@@ -108,6 +108,7 @@ public class PostServiceImpl implements IPostService {
 		return blogger.getPosts();
 	}
 
+	@Override
 	public Post updatePost(int postId, Post post) throws PostNotFoundException {
 		Post oldPost = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
 
@@ -125,6 +126,7 @@ public class PostServiceImpl implements IPostService {
 		return post;
 	}
 
+	@Override
 	public void giveAwardPost(AwardType awardType, int bloggerId, int postId)
 			throws BloggerNotFoundException, PostNotFoundException {
 		Blogger blogger = bloggerRepository.findById(bloggerId)
@@ -145,6 +147,13 @@ public class PostServiceImpl implements IPostService {
 		receivingBlogger.getAwardsReceived().add(award);
 		bloggerRepository.save(receivingBlogger);
 
+	}
+
+	@Override
+	public List<Post> getPostsByCommunity(int communityId) {
+		Community community = communityRepository.findById(communityId)
+				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
+		return community.getPosts();
 	}
 
 }

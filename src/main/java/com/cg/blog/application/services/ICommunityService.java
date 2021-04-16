@@ -21,4 +21,7 @@ public interface ICommunityService {
 	public List<Community> listAllCommunitiesBySearchString(String searchString);
 
 	public Set<Community> listAllCommunitiesByBlogger(int bloggerId) throws BloggerNotFoundException;
+	
+	public List<String> listAllCommunities();
+
 }
