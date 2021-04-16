@@ -14,6 +14,9 @@ import com.cg.blog.application.repositories.IPostRepository;
 @Service
 public class ModeratorServiceImpl implements IModeratorService {
 
+	private static final String UNAUTHORIZED_ACCESS = "Unauthorized Access";
+	private static final String POST_NOT_FOUND = "Post Not Found";
+
 	@Autowired
 	IBloggerRepository bloggerRepository;
 
@@ -23,13 +26,10 @@ public class ModeratorServiceImpl implements IModeratorService {
 	@Transactional
 	@Override
 	public void deletePost(int moderatorId, int postId) throws PostNotFoundException, AuthenticationFailedException {
-		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post Not Found"));
+		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
 		// checking if moderator has access to the community
 		if (post.getCommunity().getModeratedBy().getId() != moderatorId)
-			throw new AuthenticationFailedException("Unauthorized Access");
-
+			throw new AuthenticationFailedException(UNAUTHORIZED_ACCESS);
 		postRepository.delete(post);
-
 	}
-
 }

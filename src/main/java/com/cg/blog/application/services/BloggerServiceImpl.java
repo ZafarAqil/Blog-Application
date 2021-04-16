@@ -16,6 +16,9 @@ import com.cg.blog.application.repositories.ICommunityRepository;
 @Service
 public class BloggerServiceImpl implements IBloggerService {
 
+	private static final String BLOGGER_NOT_FOUND = "Blogger Not Found";
+	private static final String COMMUNITY_NOT_FOUND = "Community Not Found";
+
 	@Autowired
 	IBloggerRepository bloggerRepository;
 	@Autowired
@@ -28,23 +31,22 @@ public class BloggerServiceImpl implements IBloggerService {
 
 	@Override
 	public Blogger updateBlogger(Blogger blogger, int bloggerId) throws BloggerNotFoundException {
-		if(!bloggerRepository.findById(bloggerId).isPresent())
-			throw new BloggerNotFoundException("Blogger Not Found"); 	
+		if (!bloggerRepository.findById(bloggerId).isPresent())
+			throw new BloggerNotFoundException(BLOGGER_NOT_FOUND);
 		blogger.setId(bloggerId);
 		return bloggerRepository.save(blogger);
 	}
 
 	@Override
 	public void deleteBlogger(int bloggerId) throws BloggerNotFoundException {
-		if(!bloggerRepository.findById(bloggerId).isPresent())
-			throw new BloggerNotFoundException("Blogger Not Found"); 	
+		if (!bloggerRepository.findById(bloggerId).isPresent())
+			throw new BloggerNotFoundException(BLOGGER_NOT_FOUND);
 		bloggerRepository.deleteById(bloggerId);
 	}
 
 	@Override
 	public Blogger getBlogger(int bloggerId) throws BloggerNotFoundException {
-		return bloggerRepository.findById(bloggerId)
-				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+		return bloggerRepository.findById(bloggerId).orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class BloggerServiceImpl implements IBloggerService {
 	@Override
 	public Set<Blogger> getBloggerList(int communityId) throws CommunityNotFoundException {
 		Community community = communityRepository.findById(communityId)
-				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
+				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 		return community.getBloggers();
 	}
 
@@ -63,9 +65,9 @@ public class BloggerServiceImpl implements IBloggerService {
 	public void joinCommunity(int communityId, int bloggerId)
 			throws CommunityNotFoundException, BloggerNotFoundException {
 		Community community = communityRepository.findById(communityId)
-				.orElseThrow(() -> new CommunityNotFoundException("Community Not Found"));
+				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 		Blogger blogger = bloggerRepository.findById(bloggerId)
-				.orElseThrow(() -> new BloggerNotFoundException("Blogger Not Found"));
+				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		community.getBloggers().add(blogger);
 		blogger.getCommunities().add(community);
 		community.setTotalMembers(community.getTotalMembers() + 1);
