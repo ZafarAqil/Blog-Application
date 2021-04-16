@@ -92,14 +92,14 @@ public class CommunityServiceTests {
 
 	@Test
 	public void testListAllCommunitiesBySearchString() {
-		assertEquals(community, communityService.listAllCommunitiesBySearchString("community").get(0));
+		assertEquals(community, communityService.getAllCommunitiesBySearchString("community").get(0));
 	}
 
 	@Transactional
 	@Test
 	public void testListAllCommunitiesByBlogger() {
 		bloggerService.joinCommunity(1, 1);
-		assertEquals(1, communityService.listAllCommunitiesByBlogger(1).size());
+		assertEquals(1, communityService.getAllCommunitiesByBlogger(1).size());
 	}
 
 	@Transactional

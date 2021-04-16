@@ -116,10 +116,10 @@ public class PostServiceImpl implements IPostService {
 		post.setCreatedBy(oldPost.getCreatedBy());
 		post.setComments(oldPost.getComments());
 		post.setCommunity(oldPost.getCommunity());
-		
+
 		oldPost.getCommunity().getPosts().add(post);
 		oldPost.getCreatedBy().getPosts().add(post);
-		
+
 		bloggerRepository.save(oldPost.getCreatedBy());
 		communityRepository.save(oldPost.getCommunity());
 		postRepository.saveAndFlush(post);

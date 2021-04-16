@@ -18,10 +18,14 @@ public interface ICommunityService {
 	public void deleteCommunity(int communityId, int moderatorId)
 			throws CommunityNotFoundException, BloggerNotFoundException, AuthenticationFailedException;
 
-	public List<Community> listAllCommunitiesBySearchString(String searchString);
+	public List<Community> getAllCommunitiesBySearchString(String searchString);
 
-	public Set<Community> listAllCommunitiesByBlogger(int bloggerId) throws BloggerNotFoundException;
+	public Set<Community> getAllCommunitiesByBlogger(int bloggerId) throws BloggerNotFoundException;
 	
-	public List<String> listAllCommunities();
+	public List<String> getAllCommunities();
+
+	public Community getCommunity(int communityId);
+	
+	
 
 }

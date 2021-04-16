@@ -29,7 +29,7 @@ public class BloggerController {
 	}
 
 	@RequestMapping(value = "/blogger/{blogger_id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateBlogger(@RequestBody Blogger blogger,
+	public ResponseEntity<Object> updateBlogger(@Valid @RequestBody Blogger blogger,
 			@PathVariable(name = "blogger_id") int bloggerId) {
 		Blogger updatedBlogger = bloggerService.updateBlogger(blogger, bloggerId);
 		return ResponseEntity.status(201).body(updatedBlogger);

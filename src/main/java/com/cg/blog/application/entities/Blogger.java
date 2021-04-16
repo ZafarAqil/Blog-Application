@@ -60,8 +60,8 @@ public class Blogger extends User {
 	@JoinTable(name = "blogger_communities", joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "communityId", referencedColumnName = "communityId"))
 	private Set<Community> communities;
 
-//	@JsonManagedReference(value = "moderator-community")
-	@JsonIgnore
+	@JsonManagedReference(value = "moderator-community")
+//	@JsonIgnore
 	@Column(name = "mod_communities")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "moderatedBy", cascade = CascadeType.ALL)
 	private Set<Community> modCommunities;
