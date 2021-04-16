@@ -19,6 +19,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Community;
 import com.cg.blog.application.entities.Post;
+import com.cg.blog.application.exceptions.BloggerNotFoundException;
+import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
 import com.cg.blog.application.services.BloggerServiceImpl;
 import com.cg.blog.application.services.CommunityServiceImpl;
@@ -35,6 +37,9 @@ public class CommunityServiceTests {
 
 	@Autowired
 	BloggerServiceImpl bloggerService;
+	
+	@Autowired
+	IBloggerRepository bloggerRepository;
 
 	Community community;
 	Blogger blogger;
@@ -49,6 +54,7 @@ public class CommunityServiceTests {
 		community.setPosts(posts);
 		Set<Blogger> bloggers = new HashSet<Blogger>();
 		community.setBloggers(bloggers);
+		
 
 		blogger = new Blogger();
 		blogger.setId(1);
@@ -57,20 +63,26 @@ public class CommunityServiceTests {
 		blogger.setEmail("xyz@gmail.com");
 		blogger.setPosts(posts);
 		Set<Community> moderatesCommunities = new HashSet<Community>();
-		blogger.setModCommunities(moderatesCommunities);
+
 		
 		community.setModeratedBy(blogger);
-		blogger.getModCommunities().add(community);
-		
+		moderatesCommunities.add(community);
+
+		blogger.setModCommunities(moderatesCommunities);
+//		blogger.getModCommunities().add(community);
+
+		blogger = bloggerRepository.saveAndFlush(blogger);
 		community = communityRepository.saveAndFlush(community);
-		blogger = bloggerService.addBlogger(blogger);
+
 
 	}
 
 	@Transactional
 	@Test
 	public void testAddCommunity() {
-		assertEquals(community, communityService.addCommunity(community,1));
+//		assertEquals(community, communityService.addCommunity(community,1));
+		assertThrows(BloggerNotFoundException.class, () -> communityService.addCommunity(community,2));
+
 	}
 
 	@Transactional
@@ -91,17 +103,33 @@ public class CommunityServiceTests {
 	}
 
 	@Test
-	public void testListAllCommunitiesBySearchString() {
+	public void testGetAllCommunitiesBySearchString() {
 		assertEquals(community, communityService.getAllCommunitiesBySearchString("community").get(0));
 	}
 
 	@Transactional
 	@Test
-	public void testListAllCommunitiesByBlogger() {
+	public void testGetAllCommunitiesByBlogger() {
 		bloggerService.joinCommunity(1, 1);
 		assertEquals(1, communityService.getAllCommunitiesByBlogger(1).size());
 	}
+	@Transactional
+	@Test
+	public void testGetAllCommunities() {
+		List<String> list = new ArrayList<String>();
+		list.add(community.getTitle());
+		assertEquals(list, communityService.getAllCommunities());
 
+	}
+	
+	
+	@Transactional
+	@Test
+	public void testGetCommunity() {
+		
+		assertEquals(community, communityService.getCommunity(1));
+
+	}
 	@Transactional
 	@Test
 	public void testDeleteCommunity() {
