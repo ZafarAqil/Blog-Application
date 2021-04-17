@@ -1,7 +1,6 @@
 package com.cg.blog.application.entities;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -52,7 +51,7 @@ public class Post {
 	@JsonManagedReference(value = "award-post")
 	@Column(name = "awards_recieved")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-	private List<Award> awardsReceived = new ArrayList<>();
+	private List<Award> awardsReceived;
 
 	@CreationTimestamp
 	@Column(name = "created_date_time")

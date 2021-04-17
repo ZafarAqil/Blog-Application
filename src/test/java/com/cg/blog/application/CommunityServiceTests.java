@@ -78,7 +78,7 @@ class CommunityServiceTests {
 	@Test
 	@DisplayName(value = "Test for addCommunity")
 	void testAddCommunity() {
-		assertThrows(BloggerNotFoundException.class, () -> communityService.addCommunity(community, 2));
+		assertThrows(BloggerNotFoundException.class, () -> communityService.addCommunity(community, 29));
 
 	}
 

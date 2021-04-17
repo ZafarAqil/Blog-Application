@@ -1,3 +1,6 @@
+*.log
+blog-app-log.log
+
 HELP.md
 .gradle
 build/
