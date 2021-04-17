@@ -19,6 +19,15 @@ import com.cg.blog.application.exceptions.CommunityNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
 
+/**
+ * CommunityServiceImpl specific implemention of {@link ICommunityService}
+ * <p>
+ * This Service class for CommunityController
+ * </p>
+ * 
+ * @author Group4
+ *
+ */
 @Service
 public class CommunityServiceImpl implements ICommunityService {
 
@@ -27,12 +36,20 @@ public class CommunityServiceImpl implements ICommunityService {
 	private static final String UNAUTHORIZED_ACCESS = "Unauthorized Access";
 
 	private final Logger log = LoggerFactory.getLogger(CommunityServiceImpl.class);
-	
+
 	@Autowired
 	ICommunityRepository communityRepository;
 	@Autowired
 	IBloggerRepository bloggerRepository;
 
+	/**
+	 * This method is used to add community data into database
+	 * 
+	 * @param moderatorId of moderator
+	 * @param community   data
+	 * @return community data
+	 * @throws BloggerNotFoundException,CommunityNotFoundException
+	 */
 	@Transactional
 	@Override
 	public Community addCommunity(Community community, int moderatorId)
@@ -46,6 +63,15 @@ public class CommunityServiceImpl implements ICommunityService {
 		bloggerRepository.save(blogger);
 		return createdCommunity;
 	}
+
+	/**
+	 * This method is used to update community data from database
+	 * 
+	 * @param communityId of community
+	 * @param moderatorId of moderator
+	 * @return updated community data
+	 * @throws BloggerNotFoundException,CommunityNotFoundException, AuthenticationFailedException
+	 */
 
 	@Override
 	public Community updateCommunity(Community community, int communityId, int moderatorId)
@@ -64,6 +90,13 @@ public class CommunityServiceImpl implements ICommunityService {
 		return communityRepository.save(community);
 	}
 
+	/**
+	 * This method is used to delete community data from database
+	 * 
+	 * @param communityId of community
+	 * @param moderatorId of moderator
+	 * @throws BloggerNotFoundException,CommunityNotFoundException, AuthenticationFailedException
+	 */
 	@Transactional
 	@Override
 	public void deleteCommunity(int communityId, int moderatorId)
@@ -80,11 +113,25 @@ public class CommunityServiceImpl implements ICommunityService {
 		communityRepository.deleteById(communityId);
 	}
 
+	/**
+	 * This method is used to get all communities by search string from database
+	 * 
+	 * @param searchString
+	 * @return list of communities
+	 */
+
 	@Override
 	public List<Community> getAllCommunitiesBySearchString(String searchString) {
 		log.info("Community Service -- getAllCommunitiesBySearchString()");
 		return communityRepository.findByTitleContainsIgnoreCase(searchString);
 	}
+
+	/**
+	 * This method is used to get all communities by blogger from database
+	 * 
+	 * @param bloggerId of blogger
+	 * @throws BloggerNotFoundException
+	 */
 
 	@Override
 	public Set<Community> getAllCommunitiesByBlogger(int bloggerId) throws BloggerNotFoundException {
@@ -94,12 +141,24 @@ public class CommunityServiceImpl implements ICommunityService {
 		return blogger.getCommunities();
 	}
 
+	/**
+	 * This method is used to get all communities from database
+	 * 
+	 * @return list of community title
+	 */
+
 	@Override
 	public List<String> getAllCommunities() {
 		log.info("Community Service -- getAllCommunities()");
 		return communityRepository.findAll().stream().map(Community::getTitle).collect(Collectors.toList());
 	}
 
+	/**
+	 * This method is used to get community by communityId from database
+	 * 
+	 * @param communityId of community
+	 * @throws CommunityNotFoundException
+	 */
 	@Override
 	public Community getCommunity(int communityId) throws CommunityNotFoundException {
 		log.info("Community Service -- getCommunity()");

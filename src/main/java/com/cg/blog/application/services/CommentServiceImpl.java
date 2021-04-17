@@ -18,6 +18,15 @@ import com.cg.blog.application.repositories.ICommentRepository;
 import com.cg.blog.application.repositories.IPostRepository;
 import com.cg.blog.application.repositories.IUserRepository;
 
+/**
+ * CommentServiceImpl specific implemention of {@link ICommentService}
+ * <p>
+ * This Service class for CommentController
+ * </p>
+ * 
+ * @author Group4
+ *
+ */
 @Service
 public class CommentServiceImpl implements ICommentService {
 
@@ -26,7 +35,7 @@ public class CommentServiceImpl implements ICommentService {
 	private static final String COMMENT_NOT_FOUND = "Comment Not Found";
 
 	private final Logger log = LoggerFactory.getLogger(CommentServiceImpl.class);
-	
+
 	@Autowired
 	IPostRepository postRepository;
 
@@ -38,7 +47,16 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Autowired
 	ICommentRepository commentRepository;
-	
+
+	/**
+	 * This method is used to store comment data into database
+	 * 
+	 * @param bloggerId of registered blogger
+	 * @param postId    of post
+	 * @param comment   data
+	 * @return comment data
+	 * @throws BloggerNotFoundException,PostNotFoundException
+	 */
 	@Override
 	public Comment addComment(int bloggerId, int postId, Comment comment)
 			throws PostNotFoundException, BloggerNotFoundException {
@@ -60,6 +78,13 @@ public class CommentServiceImpl implements ICommentService {
 		return comment;
 	}
 
+	/**
+	 * This method is used to delete comment data from database
+	 * 
+	 * @param commentId of comment
+	 * @throws BloggerNotFoundException,PostNotFoundException
+	 */
+
 	@Transactional
 	@Override
 	public void deleteCommentById(int commentId) throws CommentNotFoundException {
@@ -73,6 +98,14 @@ public class CommentServiceImpl implements ICommentService {
 
 	}
 
+	/**
+	 * This method is used to get all comment list by their post
+	 * 
+	 * @param postId of post
+	 * @return list of comment
+	 * @throws PostNotFoundException
+	 */
+
 	@Override
 	public List<Comment> listAllCommentsByPost(int postId) throws PostNotFoundException {
 		log.info("Comment Service -- listAllCommentsByPost()");
@@ -81,6 +114,14 @@ public class CommentServiceImpl implements ICommentService {
 		return returnedPost.getComments();
 	}
 
+	/**
+	 * This method is used to update comment data from database
+	 * 
+	 * @param commentId of comment
+	 * @param comment   data
+	 * @return comment data
+	 * @throws CommentNotFoundException
+	 */
 	@Transactional
 	@Override
 	public Comment updateComment(int commentId, Comment comment) throws CommentNotFoundException {
