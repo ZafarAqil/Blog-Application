@@ -1,0 +1,99 @@
+2021-04-17 11:26:22.493  INFO 3116 --- [restartedMain] com.cg.blog.application.BlogApplication  : Starting BlogApplication using Java 11.0.10 on DESKTOP-Q4KT9LA with PID 3116 (C:\Users\zafar\eclipse-workspace-sprint-project\Blog-Application\bin\main started by zafar in C:\Users\zafar\eclipse-workspace-sprint-project\Blog-Application)
+2021-04-17 11:26:22.499  INFO 3116 --- [restartedMain] com.cg.blog.application.BlogApplication  : No active profile set, falling back to default profiles: default
+2021-04-17 11:26:22.629  INFO 3116 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\zafar\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc8\19.8.0.0\df9cff9b91c47d06b9a0482d566ee2d83a03e586\ojdbc8-19.8.0.0.jar referenced one or more files that do not exist: file:/C:/Users/zafar/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc8/19.8.0.0/df9cff9b91c47d06b9a0482d566ee2d83a03e586/oraclepki.jar
+2021-04-17 11:26:22.632  INFO 3116 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-04-17 11:26:22.633  INFO 3116 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-04-17 11:26:25.297  INFO 3116 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-17 11:26:25.504  INFO 3116 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 188 ms. Found 8 JPA repository interfaces.
+2021-04-17 11:26:27.066  INFO 3116 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9090 (http)
+2021-04-17 11:26:27.093  INFO 3116 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-17 11:26:27.093  INFO 3116 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-04-17 11:26:27.304  INFO 3116 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-17 11:26:27.305  INFO 3116 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4670 ms
+2021-04-17 11:26:27.737  INFO 3116 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-17 11:26:27.870  INFO 3116 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.29.Final
+2021-04-17 11:26:28.187  INFO 3116 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-04-17 11:26:28.470  INFO 3116 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-17 11:26:29.007  INFO 3116 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-17 11:26:29.049  INFO 3116 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2021-04-17 11:26:32.046  INFO 3116 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-17 11:26:32.069  INFO 3116 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-17 11:26:32.157  INFO 3116 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-04-17 11:26:33.855  WARN 3116 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-17 11:26:34.166  INFO 3116 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-04-17 11:26:34.390  INFO 3116 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-17 11:26:34.837  INFO 3116 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9090 (http) with context path ''
+2021-04-17 11:26:34.839  INFO 3116 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-04-17 11:26:34.895  INFO 3116 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-04-17 11:26:34.977  INFO 3116 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-04-17 11:26:35.476  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addCommunityUsingPOST_1
+2021-04-17 11:26:35.480  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteCommunityUsingDELETE_1
+2021-04-17 11:26:35.513  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deletePostUsingDELETE_1
+2021-04-17 11:26:35.589  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addBloggerUsingPOST_1
+2021-04-17 11:26:35.632  INFO 3116 --- [restartedMain] com.cg.blog.application.BlogApplication  : Started BlogApplication in 14.199 seconds (JVM running for 17.081)
+2021-04-17 11:26:43.339  INFO 3116 --- [Thread-8] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-04-17 11:26:43.350  INFO 3116 --- [Thread-8] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-04-17 11:26:43.362  INFO 3116 --- [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-04-17 11:26:43.383  INFO 3116 --- [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-04-17 11:26:43.597  INFO 3116 --- [restartedMain] com.cg.blog.application.BlogApplication  : Starting BlogApplication using Java 11.0.10 on DESKTOP-Q4KT9LA with PID 3116 (C:\Users\zafar\eclipse-workspace-sprint-project\Blog-Application\bin\main started by zafar in C:\Users\zafar\eclipse-workspace-sprint-project\Blog-Application)
+2021-04-17 11:26:43.598  INFO 3116 --- [restartedMain] com.cg.blog.application.BlogApplication  : No active profile set, falling back to default profiles: default
+2021-04-17 11:26:44.410  INFO 3116 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-17 11:26:44.498  INFO 3116 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 85 ms. Found 8 JPA repository interfaces.
+2021-04-17 11:26:44.716  INFO 3116 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9090 (http)
+2021-04-17 11:26:44.720  INFO 3116 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-17 11:26:44.721  INFO 3116 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-04-17 11:26:44.767  INFO 3116 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-17 11:26:44.769  INFO 3116 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1166 ms
+2021-04-17 11:26:44.873  INFO 3116 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-17 11:26:44.891  INFO 3116 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2021-04-17 11:26:44.918  INFO 3116 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2021-04-17 11:26:44.919  INFO 3116 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2021-04-17 11:26:45.612  INFO 3116 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-17 11:26:45.613  INFO 3116 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-17 11:26:45.636  INFO 3116 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-04-17 11:26:46.265  WARN 3116 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-17 11:26:46.362  INFO 3116 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-04-17 11:26:46.458  INFO 3116 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-17 11:26:46.582  INFO 3116 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9090 (http) with context path ''
+2021-04-17 11:26:46.586  INFO 3116 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-04-17 11:26:46.587  INFO 3116 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-04-17 11:26:46.610  INFO 3116 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-04-17 11:26:46.760  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addCommunityUsingPOST_1
+2021-04-17 11:26:46.764  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteCommunityUsingDELETE_1
+2021-04-17 11:26:46.796  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deletePostUsingDELETE_1
+2021-04-17 11:26:46.846  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addBloggerUsingPOST_1
+2021-04-17 11:26:46.864  INFO 3116 --- [restartedMain] com.cg.blog.application.BlogApplication  : Started BlogApplication in 3.348 seconds (JVM running for 28.312)
+2021-04-17 11:26:46.870  INFO 3116 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2021-04-17 11:27:22.302  INFO 3116 --- [Thread-12] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-04-17 11:27:22.307  INFO 3116 --- [Thread-12] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-04-17 11:27:22.309  INFO 3116 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2021-04-17 11:27:22.329  INFO 3116 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2021-04-17 11:27:22.523  INFO 3116 --- [restartedMain] com.cg.blog.application.BlogApplication  : Starting BlogApplication using Java 11.0.10 on DESKTOP-Q4KT9LA with PID 3116 (C:\Users\zafar\eclipse-workspace-sprint-project\Blog-Application\bin\main started by zafar in C:\Users\zafar\eclipse-workspace-sprint-project\Blog-Application)
+2021-04-17 11:27:22.523  INFO 3116 --- [restartedMain] com.cg.blog.application.BlogApplication  : No active profile set, falling back to default profiles: default
+2021-04-17 11:27:23.341  INFO 3116 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-17 11:27:23.443  INFO 3116 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 101 ms. Found 8 JPA repository interfaces.
+2021-04-17 11:27:23.698  INFO 3116 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9090 (http)
+2021-04-17 11:27:23.699  INFO 3116 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-17 11:27:23.699  INFO 3116 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-04-17 11:27:23.745  INFO 3116 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-17 11:27:23.745  INFO 3116 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1216 ms
+2021-04-17 11:27:23.849  INFO 3116 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-17 11:27:23.863  INFO 3116 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2021-04-17 11:27:23.889  INFO 3116 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2021-04-17 11:27:23.891  INFO 3116 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2021-04-17 11:27:24.446  INFO 3116 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-17 11:27:24.446  INFO 3116 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-17 11:27:24.474  INFO 3116 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-04-17 11:27:25.029  WARN 3116 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-17 11:27:25.112  INFO 3116 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-04-17 11:27:25.190  INFO 3116 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-17 11:27:25.304  INFO 3116 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9090 (http) with context path ''
+2021-04-17 11:27:25.305  INFO 3116 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-04-17 11:27:25.306  INFO 3116 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-04-17 11:27:25.324  INFO 3116 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-04-17 11:27:25.456  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addCommunityUsingPOST_1
+2021-04-17 11:27:25.461  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteCommunityUsingDELETE_1
+2021-04-17 11:27:25.475  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deletePostUsingDELETE_1
+2021-04-17 11:27:25.535  INFO 3116 --- [restartedMain] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addBloggerUsingPOST_1
+2021-04-17 11:27:25.544  INFO 3116 --- [restartedMain] com.cg.blog.application.BlogApplication  : Started BlogApplication in 3.088 seconds (JVM running for 66.993)
+2021-04-17 11:27:25.548  INFO 3116 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
