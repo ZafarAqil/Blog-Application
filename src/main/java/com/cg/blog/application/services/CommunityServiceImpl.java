@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ public class CommunityServiceImpl implements ICommunityService {
 	private static final String COMMUNITY_NOT_FOUND = "Community Not Found";
 	private static final String UNAUTHORIZED_ACCESS = "Unauthorized Access";
 
+	private final Logger log = LoggerFactory.getLogger(CommunityServiceImpl.class);
+	
 	@Autowired
 	ICommunityRepository communityRepository;
 	@Autowired
@@ -33,6 +37,7 @@ public class CommunityServiceImpl implements ICommunityService {
 	@Override
 	public Community addCommunity(Community community, int moderatorId)
 			throws CommunityNotFoundException, BloggerNotFoundException {
+		log.info("Community Service -- addCommunity()");
 		Blogger blogger = bloggerRepository.findById(moderatorId)
 				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		community.setModeratedBy(blogger);
@@ -45,6 +50,7 @@ public class CommunityServiceImpl implements ICommunityService {
 	@Override
 	public Community updateCommunity(Community community, int communityId, int moderatorId)
 			throws CommunityNotFoundException, BloggerNotFoundException, AuthenticationFailedException {
+		log.info("Community Service -- updateCommunity()");
 		Community oldCommunity = communityRepository.findById(communityId)
 				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 		Blogger moderator = bloggerRepository.findById(moderatorId)
@@ -62,6 +68,7 @@ public class CommunityServiceImpl implements ICommunityService {
 	@Override
 	public void deleteCommunity(int communityId, int moderatorId)
 			throws CommunityNotFoundException, BloggerNotFoundException, AuthenticationFailedException {
+		log.info("Community Service -- deleteCommunity()");
 		Community community = communityRepository.findById(communityId)
 				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 		Blogger moderator = bloggerRepository.findById(moderatorId)
@@ -75,11 +82,13 @@ public class CommunityServiceImpl implements ICommunityService {
 
 	@Override
 	public List<Community> getAllCommunitiesBySearchString(String searchString) {
+		log.info("Community Service -- getAllCommunitiesBySearchString()");
 		return communityRepository.findByTitleContainsIgnoreCase(searchString);
 	}
 
 	@Override
 	public Set<Community> getAllCommunitiesByBlogger(int bloggerId) throws BloggerNotFoundException {
+		log.info("Community Service -- getAllCommunitiesByBlogger()");
 		Blogger blogger = bloggerRepository.findById(bloggerId)
 				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		return blogger.getCommunities();
@@ -87,11 +96,13 @@ public class CommunityServiceImpl implements ICommunityService {
 
 	@Override
 	public List<String> getAllCommunities() {
+		log.info("Community Service -- getAllCommunities()");
 		return communityRepository.findAll().stream().map(Community::getTitle).collect(Collectors.toList());
 	}
 
 	@Override
 	public Community getCommunity(int communityId) throws CommunityNotFoundException {
+		log.info("Community Service -- getCommunity()");
 		return communityRepository.findById(communityId)
 				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 	}

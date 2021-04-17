@@ -2,6 +2,8 @@ package com.cg.blog.application.services;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class ModeratorServiceImpl implements IModeratorService {
 
 	private static final String UNAUTHORIZED_ACCESS = "Unauthorized Access";
 	private static final String POST_NOT_FOUND = "Post Not Found";
+	
+	private final Logger log = LoggerFactory.getLogger(ModeratorServiceImpl.class);
 
 	@Autowired
 	IBloggerRepository bloggerRepository;
@@ -26,6 +30,7 @@ public class ModeratorServiceImpl implements IModeratorService {
 	@Transactional
 	@Override
 	public void deletePost(int moderatorId, int postId) throws PostNotFoundException, AuthenticationFailedException {
+		log.info("Moderator Service -- deletePost()");
 		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
 		// checking if moderator has access to the community
 		if (post.getCommunity().getModeratedBy().getId() != moderatorId)

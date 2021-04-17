@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,12 @@ import com.cg.blog.application.repositories.IVoteRepository;
 @Service
 public class PostServiceImpl implements IPostService {
 
+	private static final String BLOGGER_NOT_FOUND = "Blogger Not Found";
+	private static final String COMMUNITY_NOT_FOUND = "Community Not Found";
+	private static final String POST_NOT_FOUND = "Post Not Found";
+	
+	private final Logger log = LoggerFactory.getLogger(PostServiceImpl.class);
+	
 	@Autowired
 	IPostRepository postRepository;
 	@Autowired
@@ -42,14 +50,10 @@ public class PostServiceImpl implements IPostService {
 	@Autowired
 	IAwardRepository awardRepository;
 
-	private static final String BLOGGER_NOT_FOUND = "Blogger Not Found";
-	private static final String COMMUNITY_NOT_FOUND = "Community Not Found";
-	private static final String POST_NOT_FOUND = "Post Not Found";
-
 	@Override
 	public Post addPost(int communityId, int bloggerId, Post post)
 			throws CommunityNotFoundException, BloggerNotFoundException {
-
+		log.info("Post Service -- addPost()");
 		Community community = communityRepository.findById(communityId)
 				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 		Blogger blogger = bloggerRepository.findById(bloggerId)
@@ -68,6 +72,7 @@ public class PostServiceImpl implements IPostService {
 	@Transactional
 	@Override
 	public void deletePost(int postId) throws PostNotFoundException {
+		log.info("Post Service -- deletePost()");
 		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
 		postRepository.delete(post);
 		post.getCreatedBy().getPosts().remove(post);
@@ -75,13 +80,14 @@ public class PostServiceImpl implements IPostService {
 
 	@Override
 	public List<Post> getPostBySearchString(String searchString) {
+		log.info("Post Service -- getPostBySearchString()");
 		return postRepository.findByTitleContainsIgnoreCase(searchString);
 	}
 
 	@Override
 	public void votePost(VoteType voteType, int bloggerId, int postId)
 			throws BloggerNotFoundException, PostNotFoundException, InvalidVoteException {
-
+		log.info("Post Service -- votePost()");
 		Blogger blogger = bloggerRepository.findById(bloggerId)
 				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
@@ -104,6 +110,7 @@ public class PostServiceImpl implements IPostService {
 
 	@Override
 	public List<Post> getPostByBlogger(int bloggerId) throws BloggerNotFoundException {
+		log.info("Post Service -- getPostByBlogger()");
 		Blogger blogger = bloggerRepository.findById(bloggerId)
 				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		return blogger.getPosts();
@@ -111,6 +118,7 @@ public class PostServiceImpl implements IPostService {
 
 	@Override
 	public Post updatePost(int postId, Post post) throws PostNotFoundException {
+		log.info("Post Service -- updatePost()");
 		Post oldPost = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
 
 		post.setPostId(postId);
@@ -130,6 +138,7 @@ public class PostServiceImpl implements IPostService {
 	@Override
 	public void giveAwardPost(AwardType awardType, int bloggerId, int postId)
 			throws BloggerNotFoundException, PostNotFoundException {
+		log.info("Post Service -- giveAwardPost()");
 		Blogger blogger = bloggerRepository.findById(bloggerId)
 				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
@@ -152,6 +161,7 @@ public class PostServiceImpl implements IPostService {
 
 	@Override
 	public List<Post> getPostsByCommunity(int communityId) {
+		log.info("Post Service -- getPostsByCommunity()");
 		Community community = communityRepository.findById(communityId)
 				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 		return community.getPosts();
