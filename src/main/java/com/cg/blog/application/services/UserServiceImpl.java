@@ -10,6 +10,7 @@ import com.cg.blog.application.repositories.IUserRepository;
 
 @Service
 public class UserServiceImpl implements IUserService {
+
 	@Autowired
 	IUserRepository userRepository;
 

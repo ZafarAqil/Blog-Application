@@ -3,6 +3,8 @@ package com.cg.blog.application.services;
 import java.util.List;
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cg.blog.application.entities.Blogger;
@@ -23,6 +25,8 @@ public class CommentServiceImpl implements ICommentService {
 	private static final String POST_NOT_FOUND = "Post Not Found";
 	private static final String COMMENT_NOT_FOUND = "Comment Not Found";
 
+	private final Logger log = LoggerFactory.getLogger(CommentServiceImpl.class);
+	
 	@Autowired
 	IPostRepository postRepository;
 
@@ -34,10 +38,11 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Autowired
 	ICommentRepository commentRepository;
-
+	
 	@Override
 	public Comment addComment(int bloggerId, int postId, Comment comment)
 			throws PostNotFoundException, BloggerNotFoundException {
+		log.info("Comment Service -- addComment()");
 		Blogger blogger = bloggerRepository.findById(bloggerId)
 				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
@@ -58,6 +63,7 @@ public class CommentServiceImpl implements ICommentService {
 	@Transactional
 	@Override
 	public void deleteCommentById(int commentId) throws CommentNotFoundException {
+		log.info("Comment Service -- deleteCommentById()");
 		Comment comment = commentRepository.findById(commentId)
 				.orElseThrow(() -> new CommentNotFoundException(COMMENT_NOT_FOUND));
 
@@ -69,6 +75,7 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public List<Comment> listAllCommentsByPost(int postId) throws PostNotFoundException {
+		log.info("Comment Service -- listAllCommentsByPost()");
 		Post returnedPost = postRepository.findById(postId)
 				.orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
 		return returnedPost.getComments();
@@ -77,6 +84,7 @@ public class CommentServiceImpl implements ICommentService {
 	@Transactional
 	@Override
 	public Comment updateComment(int commentId, Comment comment) throws CommentNotFoundException {
+		log.info("Comment Service -- updateComment()");
 		Comment oldComment = commentRepository.findById(commentId)
 				.orElseThrow(() -> new CommentNotFoundException(COMMENT_NOT_FOUND));
 

@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,14 +26,21 @@ public class CommunityController {
 	@Autowired
 	CommunityServiceImpl communityService;
 
+	private final Logger log = LoggerFactory.getLogger(CommunityController.class);
+
 	@PostMapping(path = "/community/{moderator_id}")
-	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community, @PathVariable(name = "moderator_id") int moderatorId) { //NOSONAR
+	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community,
+			@PathVariable(name = "moderator_id") int moderatorId) { // NOSONAR
+		log.info("Community Controller -- addCommunity()");
 		Community createdCommunity = communityService.addCommunity(community, moderatorId);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
 
 	@PutMapping(path = "/community/{community_id}/{moderator_id}")
-	public ResponseEntity<Object> updateCommunity(@RequestBody Community community, @PathVariable(name = "community_id") int communityId, @PathVariable(name = "moderator_id") int moderatorId) { //NOSONAR
+	public ResponseEntity<Object> updateCommunity(@RequestBody Community community,
+			@PathVariable(name = "community_id") int communityId,
+			@PathVariable(name = "moderator_id") int moderatorId) { // NOSONAR
+		log.info("Community Controller -- updateCommunity()");
 		Community createdCommunity = communityService.updateCommunity(community, communityId, moderatorId);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
@@ -39,6 +48,7 @@ public class CommunityController {
 	@DeleteMapping(path = "/community/{community_id}/{moderator_id}")
 	public ResponseEntity<Object> deleteCommunity(@PathVariable(name = "community_id") int communityId,
 			@PathVariable(name = "moderator_id") int moderatorId) {
+		log.info("Community Controller -- deleteCommunity()");
 		communityService.deleteCommunity(communityId, moderatorId);
 		return ResponseEntity.status(200).body("Community Succesfully Deleted");
 	}
@@ -46,6 +56,7 @@ public class CommunityController {
 	@GetMapping(path = "/community/search/{search_string}/")
 	public ResponseEntity<Object> getAllCommunitiesBySearchString(
 			@PathVariable(name = "search_string") String searchString) {
+		log.info("Community Controller -- getAllCommunitiesBySearchString()");
 		List<Community> matchedCommunities = communityService.getAllCommunitiesBySearchString(searchString);
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}
@@ -53,18 +64,21 @@ public class CommunityController {
 	@GetMapping(path = "/community/blogger/{blogger_id}")
 	public ResponseEntity<Object> getAllCommunitiesSubscribedByBlogger(
 			@PathVariable(name = "blogger_id") int bloggerId) {
+		log.info("Community Controller -- getAllCommunitiesSubscribedByBlogger()");
 		Set<Community> matchedCommunities = communityService.getAllCommunitiesByBlogger(bloggerId);
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}
 
 	@GetMapping(path = "/communities")
 	public ResponseEntity<Object> getAllCommunities() {
+		log.info("Community Controller -- getAllCommunities()");
 		List<String> matchedCommunities = communityService.getAllCommunities();
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}
 
 	@GetMapping(path = "/community/{community_id}")
 	public ResponseEntity<Object> getCommunity(@PathVariable(name = "community_id") int communityId) {
+		log.info("Community Controller -- getCommunity()");
 		Community community = communityService.getCommunity(communityId);
 		return ResponseEntity.status(200).body(community);
 	}
