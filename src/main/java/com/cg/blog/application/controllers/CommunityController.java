@@ -29,17 +29,14 @@ public class CommunityController {
 	private final Logger log = LoggerFactory.getLogger(CommunityController.class);
 
 	@PostMapping(path = "/community/{moderator_id}")
-	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community,
-			@PathVariable(name = "moderator_id") int moderatorId) { // NOSONAR
+	public ResponseEntity<Object> addCommunity(@Valid @RequestBody Community community, @PathVariable(name = "moderator_id") int moderatorId) { // NOSONAR
 		log.info("Community Controller -- addCommunity()");
 		Community createdCommunity = communityService.addCommunity(community, moderatorId);
 		return ResponseEntity.status(201).body(createdCommunity);
 	}
 
 	@PutMapping(path = "/community/{community_id}/{moderator_id}")
-	public ResponseEntity<Object> updateCommunity(@RequestBody Community community,
-			@PathVariable(name = "community_id") int communityId,
-			@PathVariable(name = "moderator_id") int moderatorId) { // NOSONAR
+	public ResponseEntity<Object> updateCommunity(@RequestBody Community community, @PathVariable(name = "community_id") int communityId, @PathVariable(name = "moderator_id") int moderatorId) { // NOSONAR
 		log.info("Community Controller -- updateCommunity()");
 		Community createdCommunity = communityService.updateCommunity(community, communityId, moderatorId);
 		return ResponseEntity.status(201).body(createdCommunity);
