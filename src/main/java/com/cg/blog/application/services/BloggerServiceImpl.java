@@ -15,6 +15,15 @@ import com.cg.blog.application.exceptions.CommunityNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
 
+/**
+ * BloggerServiceImpl specific implemention of {@link IBloggerService}
+ * <p>
+ * This Service class for BloggerController
+ * </p>
+ * 
+ * @author Group4
+ *
+ */
 @Service
 public class BloggerServiceImpl implements IBloggerService {
 
@@ -25,14 +34,30 @@ public class BloggerServiceImpl implements IBloggerService {
 	IBloggerRepository bloggerRepository;
 	@Autowired
 	ICommunityRepository communityRepository;
-	
+
 	private final Logger log = LoggerFactory.getLogger(BloggerServiceImpl.class);
 
+	/**
+	 * This method is used to store Blogger data into database
+	 * 
+	 * @param blogger data
+	 * @return blogger data return from database
+	 */
 	@Override
 	public Blogger addBlogger(Blogger blogger) {
 		log.info("Blogger Service -- addBlogger()");
 		return bloggerRepository.save(blogger);
 	}
+
+	/**
+	 * This method is used to update Blogger data into database
+	 * 
+	 * @param blogger   data
+	 * @param bloggerId of registered blogger
+	 * @return if blogger not found then throw BloggerNotFoundException or else
+	 *         return updated blogger data
+	 * @throws BloggerNotFoundException
+	 */
 
 	@Override
 	public Blogger updateBlogger(Blogger blogger, int bloggerId) throws BloggerNotFoundException {
@@ -43,6 +68,14 @@ public class BloggerServiceImpl implements IBloggerService {
 		return bloggerRepository.save(blogger);
 	}
 
+	/**
+	 * This method is used to delete Blogger data from database if blogger not found
+	 * then throw BloggerNotFoundException
+	 * 
+	 * @param bloggerId of registered blogger
+	 * @throws BloggerNotFoundException
+	 */
+
 	@Override
 	public void deleteBlogger(int bloggerId) throws BloggerNotFoundException {
 		log.info("Blogger Service -- deleteBlogger()");
@@ -51,6 +84,14 @@ public class BloggerServiceImpl implements IBloggerService {
 		bloggerRepository.deleteById(bloggerId);
 	}
 
+	/**
+	 * This method is used to get Blogger data from database by their bloggerId
+	 * 
+	 * @param bloggerId of registered blogger
+	 * @return if blogger not found then throw BloggerNotFoundException or else
+	 *         return blogger data
+	 * @throws BloggerNotFoundException
+	 */
 	@Override
 	public Blogger getBlogger(int bloggerId) throws BloggerNotFoundException {
 		log.info("Blogger Service -- getBlogger()");
@@ -63,6 +104,14 @@ public class BloggerServiceImpl implements IBloggerService {
 		return bloggerRepository.findAll();
 	}
 
+	/**
+	 * This method is used to get all blogger list from database by their
+	 * communityId if community not found then throw CommunityNotFoundException
+	 * 
+	 * @param communityId of registered community
+	 * @throws CommunityNotFoundException
+	 */
+
 	@Override
 	public Set<Blogger> getBloggerList(int communityId) throws CommunityNotFoundException {
 		log.info("Blogger Service -- getBloggerList()");
@@ -70,6 +119,16 @@ public class BloggerServiceImpl implements IBloggerService {
 				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 		return community.getBloggers();
 	}
+
+	/**
+	 * This method is used to join community for blogger. if blogger not found then
+	 * throw BloggerNotFoundException. if community not found then throw
+	 * CommunityNotFoundException.
+	 * 
+	 * @param bloggerId   of registered blogger
+	 * @param communityId of community
+	 * @throws BloggerNotFoundException,CommunityNotFoundException
+	 */
 
 	@Override
 	public void joinCommunity(int communityId, int bloggerId)

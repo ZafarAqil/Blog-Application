@@ -13,12 +13,21 @@ import com.cg.blog.application.exceptions.PostNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.IPostRepository;
 
+/**
+ * ModeratorServiceImpl specific implemention of {@link IModeratorService}
+ * <p>
+ * This Service class for ModeratorController
+ * </p>
+ * 
+ * @author Group4
+ *
+ */
 @Service
 public class ModeratorServiceImpl implements IModeratorService {
 
 	private static final String UNAUTHORIZED_ACCESS = "Unauthorized Access";
 	private static final String POST_NOT_FOUND = "Post Not Found";
-	
+
 	private final Logger log = LoggerFactory.getLogger(ModeratorServiceImpl.class);
 
 	@Autowired
@@ -27,6 +36,13 @@ public class ModeratorServiceImpl implements IModeratorService {
 	@Autowired
 	IPostRepository postRepository;
 
+	/**
+	 * This method is used to delete post data from database
+	 * 
+	 * @param moderatorId of moderator
+	 * @param postId      of post
+	 * @throws PostNotFoundException,AuthenticationFailedException
+	 */
 	@Transactional
 	@Override
 	public void deletePost(int moderatorId, int postId) throws PostNotFoundException, AuthenticationFailedException {
