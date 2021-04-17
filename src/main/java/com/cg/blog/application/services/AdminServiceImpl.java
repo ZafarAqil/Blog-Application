@@ -13,7 +13,12 @@ import com.cg.blog.application.exceptions.AdminNotFoundException;
 import com.cg.blog.application.exceptions.CommunityNotFoundException;
 import com.cg.blog.application.repositories.IAdminRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
-
+/**
+ * AdminServiceImpl specific implemention of {@link IAdminService}
+ * <p>This Service class for AdminController</p>
+ * @author Group4
+ *
+ */
 @Service
 public class AdminServiceImpl implements IAdminService {
 
@@ -27,11 +32,22 @@ public class AdminServiceImpl implements IAdminService {
 
 	private final Logger log = LoggerFactory.getLogger(AdminServiceImpl.class);
 
+	/**
+	 * This method is used to store Admin data into oracle database
+	 * @param admin data
+	 * @return admin data
+	 */
 	@Override
 	public Admin adminSignUp(Admin admin) {
 		log.info("Admin Service -- adminSignUp()");
 		return adminRepository.save(admin);
 	}
+	/**
+	 * This method is used to add community data into oracle database
+	 * @param community data
+	 * @return if admin not found throw custom exception or else return community data
+	 * @throws AdminNotFoundException
+	 */
 
 	@Override
 	public Community addCommunity(@Valid Community community, int adminId) throws AdminNotFoundException {
@@ -40,6 +56,16 @@ public class AdminServiceImpl implements IAdminService {
 			throw new AdminNotFoundException(ADMIN_NOT_FOUND);
 		return communityRepository.save(community);
 	}
+	
+	/**
+	 * This method is used to delete community data from oracle database
+	 * @param CommunityId 
+	 * @param adminId
+	 * @return if admin not found throw AdminNotFoundException 
+	 * or if community not found throw CommunityNotFoundException
+	 * @throws AdminNotFoundException,CommunityNotFoundException
+	 * 
+	 */
 
 	@Override
 	public void deleteCommunity(int communityId, int adminId)
