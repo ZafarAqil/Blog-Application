@@ -22,6 +22,8 @@ import com.cg.blog.application.entities.Post;
 import com.cg.blog.application.entities.PostType;
 import com.cg.blog.application.entities.VoteType;
 import com.cg.blog.application.exceptions.CommunityNotFoundException;
+import com.cg.blog.application.exceptions.InvalidVoteException;
+import com.cg.blog.application.exceptions.PostNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
 import com.cg.blog.application.repositories.IPostRepository;
@@ -99,17 +101,7 @@ class PostServiceTests {
 	@Test
 	@DisplayName(value = "Test for updatePost")
 	void testUpdatePost() {
-		Post otherPost = new Post();
-		otherPost.setPostId(1);
-		otherPost.setTitle("NewTitle");
-		otherPost.setDescription("SomethingUseless");
-		otherPost.setContent(PostType.TEXT);
-		otherPost.setNotSafeForWork(false);
-		otherPost.setSpoiler(false);
-		otherPost.setOriginalContent(false);
-		otherPost.setFlair("OC");
-		otherPost.setCreatedBy(blogger);
-		otherPost.setCommunity(community);
+		Post otherPost = new Post(1, "NewTitle", "Description", blogger, PostType.TEXT, null, null, null, 0, false, false, false, "OC", community);
 		assertEquals("NewTitle", postService.updatePost(1, otherPost).getTitle());
 	}
 
@@ -147,6 +139,19 @@ class PostServiceTests {
 	void testDeletePost() {
 		postRepo.deleteById(1);
 		assertThrows(NoSuchElementException.class, () -> postRepo.findById(1).get());
+	}
+	@Transactional
+	@Test
+	@DisplayName(value = "Test for InvalidVoteException")
+	void testInvalidVoteException() {
+		postService.votePost(VoteType.UPVOTE, 1, 1);
+		assertThrows(InvalidVoteException.class, () -> postService.votePost(VoteType.UPVOTE, 1, 1));
+	}
+	@Transactional
+	@Test
+	@DisplayName(value = "Test for PostNotFoundException")
+	void testPostNotFoundException() {
+		assertThrows(PostNotFoundException.class, () -> postService.deletePost(11));
 	}
 
 }

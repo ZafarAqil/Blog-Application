@@ -21,6 +21,7 @@ import com.cg.blog.application.entities.Comment;
 import com.cg.blog.application.entities.Community;
 import com.cg.blog.application.entities.Post;
 import com.cg.blog.application.entities.PostType;
+import com.cg.blog.application.exceptions.CommentNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommentRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
@@ -53,33 +54,15 @@ class CommentServiceTests {
 
 	@BeforeAll
 	void setUp() {
-		community = new Community();
-		community.setCommunityId(1);
-		community.setTitle("community");
-		community.setCommunityDescription("Description");
 		List<Post> posts = new ArrayList<Post>();
-		community.setPosts(posts);
-		community = communityRepository.saveAndFlush(community);
 
-		blogger = new Blogger();
-		blogger.setId(1);
-		blogger.setName("name");
-		blogger.setPassword("aaaaaaaa");
-		blogger.setEmail("xyz@gmail.com");
-		blogger.setPosts(posts);
+		blogger = new Blogger(1, "name", "xyz@gmail.com", "12121212", "blogger", 0, posts, null, null, null, null, null);
 		blogger = bloggerRepository.saveAndFlush(blogger);
 
-		post = new Post();
-		post.setPostId(1);
-		post.setTitle("SampleTitle");
-		post.setDescription("SomethingUseless");
-		post.setContent(PostType.TEXT);
-		post.setNotSafeForWork(false);
-		post.setSpoiler(false);
-		post.setOriginalContent(false);
-		post.setFlair("OC");
-		post.setCreatedBy(blogger);
-		post.setCommunity(community);
+		community = new Community(1, "community", "Description", 0, null, null, null, null, null, null, null, posts, blogger);
+		community = communityRepository.saveAndFlush(community);
+
+		post = new Post("NewTitle", "Description", blogger, PostType.TEXT, null, null, null, 0, false, false, false, "OC", community);
 		postRepo.saveAndFlush(post);
 
 		comment = new Comment();
@@ -110,6 +93,13 @@ class CommentServiceTests {
 	void testDeleteCommentById() {
 		commentService.deleteCommentById(1);
 		assertThrows(NoSuchElementException.class, () -> commentRepository.findById(1).get());
+	}
+
+	@Transactional
+	@Test
+	@DisplayName(value = "Test for commentNotFoundException")
+	void testCommentNotFoundException() {
+		assertThrows(CommentNotFoundException.class, () -> commentService.deleteCommentById(11));
 	}
 
 }
