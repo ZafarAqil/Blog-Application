@@ -46,8 +46,8 @@ class BloggerServiceTests {
 	}
 
 	@Test
-	@DisplayName(value = "Negative Test for addBlogger")
-	void testFailAddBlogger() {
+	@DisplayName(value = "Test for addBlogger when email already exists")
+	void testAddBloggerFail() {
 		Blogger otherBlogger = new Blogger();
 		otherBlogger.setId(101);
 		otherBlogger.setName("Pravin");
@@ -68,7 +68,7 @@ class BloggerServiceTests {
 	}
 
 	@Test
-	@DisplayName(value = "Negative Test for updateBlogger")
+	@DisplayName(value = "Test for updateBlogger when blogger does not exist")
 	void testFailUpdateBlogger() {
 		Blogger blogger = new Blogger();
 		blogger.setId(101);
@@ -93,8 +93,8 @@ class BloggerServiceTests {
 	}
 
 	@Test
-	@DisplayName(value = "Test Fail for DeleteBlogger")
-	void testFailDeleteBlogger() {
+	@DisplayName(value = "Test for DeleteBlogger when blogger does not exist")
+	void testDeleteBloggerFail() {
 		assertThrows(BloggerNotFoundException.class, () -> bloggerService.deleteBlogger(58));
 	}
 

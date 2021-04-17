@@ -82,13 +82,13 @@ class PostServiceTests {
 
 	@Transactional
 	@Test
-	@DisplayName(value = "Positive test for addPost")
+	@DisplayName(value = "Test for addPost")
 	void testAddPost() {
 		assertEquals(post, postService.addPost(1, 1, post));
 	}
 
 	@Test
-	@DisplayName(value = "Negative Test for addPost")
+	@DisplayName(value = "Test for addPost when community does not exists")
 	void testFailAddPost() {
 		assertThrows(CommunityNotFoundException.class, () -> postService.addPost(99, 1, post));
 	}
