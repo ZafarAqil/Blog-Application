@@ -90,24 +90,7 @@ class PostServiceTests {
 		assertThrows(CommunityNotFoundException.class, () -> postService.addPost(99, 1, post));
 	}
 
-//	@Transactional
-//	@Test
-//	void testDeletePost() {
-//		Post otherPost = new Post();
-//		otherPost.setPostId(2);
-//		otherPost.setTitle("SampleTitle");
-//		otherPost.setDescription("SomethingUseless");
-//		otherPost.setContent(PostType.TEXT);
-//		otherPost.setNotSafeForWork(false);
-//		otherPost.setSpoiler(false);
-//		otherPost.setOriginalContent(false);
-//		otherPost.setFlair("OC");
-//		otherPost.setCreatedBy(blogger);
-//		otherPost.setCommunity(community);
-//		postRepo.saveAndFlush(otherPost);
-//		postRepo.deleteById(2);
-//		assertThrows(NoSuchElementException.class, () -> postRepo.findById(2).get());
-//	}
+
 
 	@Transactional
 	@Test
@@ -149,6 +132,12 @@ class PostServiceTests {
 	void testVotePost() {
 		postService.votePost(VoteType.UPVOTE, 1, 1);
 		assertEquals(1, postRepo.findById(1).get().getVotes());
+	}
+	@Transactional
+	@Test
+	void testDeletePost() {
+		postRepo.deleteById(1);
+		assertThrows(NoSuchElementException.class, () -> postRepo.findById(1).get());
 	}
 
 }
