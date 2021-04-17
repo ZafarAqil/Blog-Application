@@ -125,7 +125,9 @@ public class PostServiceImpl implements IPostService {
 		post.setCreatedBy(oldPost.getCreatedBy());
 		post.setComments(oldPost.getComments());
 		post.setCommunity(oldPost.getCommunity());
-
+		post.setVotes(oldPost.getVotes());
+		post.setAwardsReceived(oldPost.getAwardsReceived());
+		
 		oldPost.getCommunity().getPosts().add(post);
 		oldPost.getCreatedBy().getPosts().add(post);
 
