@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,18 +92,21 @@ class CommentServiceTests {
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for addComment")
 	void testAddComment() {
 		assertEquals(comment, commentService.addComment(1, 1, comment));
 	}
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for listAllCommentsByPost")
 	void testListAllCommentsByPost() {
 		assertEquals(comment, commentService.listAllCommentsByPost(1).get(0));
 	}
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for deleteCommentById")
 	void testDeleteCommentById() {
 		commentService.deleteCommentById(1);
 		assertThrows(NoSuchElementException.class, () -> commentRepository.findById(1).get());

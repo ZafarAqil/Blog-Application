@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,7 @@ class CommunityServiceTests {
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for addCommunity")
 	void testAddCommunity() {
 		assertThrows(BloggerNotFoundException.class, () -> communityService.addCommunity(community, 2));
 
@@ -82,6 +84,7 @@ class CommunityServiceTests {
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for updateCommunity")
 	void testUpdateCommunity() {
 		Community otherCommunity = new Community();
 		otherCommunity.setCommunityId(1);
@@ -98,12 +101,14 @@ class CommunityServiceTests {
 	}
 
 	@Test
+	@DisplayName(value = "Test for getAllCommunitiesBySearchString")
 	void testGetAllCommunitiesBySearchString() {
 		assertEquals(community, communityService.getAllCommunitiesBySearchString("community").get(0));
 	}
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for getAllCommunitiesByBlogger")
 	void testGetAllCommunitiesByBlogger() {
 		bloggerService.joinCommunity(1, 1);
 		assertEquals(1, communityService.getAllCommunitiesByBlogger(1).size());
@@ -111,6 +116,7 @@ class CommunityServiceTests {
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for getAllCommunities")
 	void testGetAllCommunities() {
 		List<String> list = new ArrayList<String>();
 		list.add(community.getTitle());
@@ -120,6 +126,7 @@ class CommunityServiceTests {
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for getCommunity")
 	void testGetCommunity() {
 
 		assertEquals(community, communityService.getCommunity(1));
@@ -128,6 +135,7 @@ class CommunityServiceTests {
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for deleteCommunity")
 	void testDeleteCommunity() {
 		Community otherCommunity = new Community();
 		otherCommunity.setCommunityId(2);

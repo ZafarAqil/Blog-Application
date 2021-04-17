@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,11 +82,13 @@ class PostServiceTests {
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Positive test for addPost")
 	void testAddPost() {
 		assertEquals(post, postService.addPost(1, 1, post));
 	}
 
 	@Test
+	@DisplayName(value = "Negative Test for addPost")
 	void testFailAddPost() {
 		assertThrows(CommunityNotFoundException.class, () -> postService.addPost(99, 1, post));
 	}
@@ -94,6 +97,7 @@ class PostServiceTests {
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for updatePost")
 	void testUpdatePost() {
 		Post otherPost = new Post();
 		otherPost.setPostId(1);
@@ -110,18 +114,21 @@ class PostServiceTests {
 	}
 
 	@Test
+	@DisplayName(value = "Test for getPostBySearchString")
 	void testGetPostBySearchString() {
 		assertEquals("SampleTitle", postService.getPostBySearchString("SampleTitle").get(0).getTitle());
 	}
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for getPostByBlogger")
 	void testGetPostByBlogger() {
 		assertEquals(post, postService.getPostByBlogger(1).get(0));
 	}
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for giveAwardPost")
 	void testGiveAwardPost() {
 		postService.giveAwardPost(AwardType.GOLD, 1, 1);
 		assertEquals(AwardType.GOLD, postRepo.findById(1).get().getAwardsReceived().get(0).getAwardType());
@@ -129,12 +136,14 @@ class PostServiceTests {
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for votePost")
 	void testVotePost() {
 		postService.votePost(VoteType.UPVOTE, 1, 1);
 		assertEquals(1, postRepo.findById(1).get().getVotes());
 	}
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for deletePost")
 	void testDeletePost() {
 		postRepo.deleteById(1);
 		assertThrows(NoSuchElementException.class, () -> postRepo.findById(1).get());
