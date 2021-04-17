@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.ConstraintViolationException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -97,4 +99,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		});
 		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException exception, WebRequest request) {
+		log.error(exception.getMessage());
+		ExceptionResponse response = new ExceptionResponse();
+		response.setDateTime(LocalDateTime.now());
+		response.setMessage(exception.getMessage());
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

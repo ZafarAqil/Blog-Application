@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.validation.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -20,6 +20,7 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int commentId;
 
+	@NotEmpty(message = "Description cannot be empty")
 	@Column(name = "comment_description")
 	private String commentDescription;
 

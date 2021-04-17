@@ -54,6 +54,6 @@ sonarqube {
     properties {
         property "sonar.projectName", "Blog Application"
         property "sonar.host.url", "http://localhost:9000"
-        property "sonar.login", "9ab1326448dbc3d0ea34ec0e320bd6d6a03102fd"
+        property "sonar.login", "fc6d6a0aa2f92f9efc974064ad5842f4fb5d535e"
     }
 }

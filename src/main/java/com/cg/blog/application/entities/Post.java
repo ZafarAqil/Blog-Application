@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,11 +33,11 @@ public class Post {
 	private int postId;
 
 	@Column(name = "title")
-	@NotNull
+	@NotEmpty(message = "Title cannot be empty")
 	private String title;
 
 	@Lob
-	@NotNull
+	@NotEmpty(message = "Description cannot be empty")
 	@Column(name = "description")
 	private String description;
 

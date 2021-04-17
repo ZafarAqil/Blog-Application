@@ -19,14 +19,14 @@ public class Admin {
 	@SequenceGenerator(name = "adminSeq", sequenceName = "admin_seq", allocationSize = 1)
 	private int id;
 	@NotEmpty
-	@Size(min = 2, message = "user name should have at least 2 characters")
+	@Size(min = 2, message = "Username should have at least 2 characters")
 	@Column(name = "name", nullable = false)
 	private String name;
 	@NotEmpty
 	@Email
 	private String email;
 	@NotEmpty
-	@Size(min = 8, message = "password should have at least 8 characters")
+	@Size(min = 8, message = "Password should have at least 8 characters")
 	private String password;
 	@Column
 	private String contact;

@@ -22,6 +22,7 @@ import com.cg.blog.application.entities.Admin;
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Community;
 import com.cg.blog.application.entities.Post;
+import com.cg.blog.application.exceptions.AdminNotFoundException;
 import com.cg.blog.application.repositories.IAdminRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
 import com.cg.blog.application.services.AdminServiceImpl;
@@ -78,6 +79,13 @@ class AdminServiceTests {
 	void testDeleteCommunity() {
 		adminService.deleteCommunity(1, 1);
 		assertThrows(NoSuchElementException.class, () -> communityRepository.findById(1).get());
+	}
+
+	@Transactional
+	@Test
+	@DisplayName(value = "Test for AdmitNotFoundException")
+	void testAdminNotFoundException() {
+		assertThrows(AdminNotFoundException.class, () -> adminService.deleteCommunity(1,5));
 	}
 
 }
