@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,18 +60,21 @@ class AdminServiceTests {
 	}
 
 	@Test
+	@DisplayName(value = "Test for adminSignUp")
 	void testAdminSignUp() {
 		assertEquals(admin, adminService.adminSignUp(admin));
 	}
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for addCommunity")
 	void testAddCommunity() {
 		assertEquals(community, adminService.addCommunity(community, 1));
 	}
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for deleteCommunity")
 	void testDeleteCommunity() {
 		adminService.deleteCommunity(1, 1);
 		assertThrows(NoSuchElementException.class, () -> communityRepository.findById(1).get());

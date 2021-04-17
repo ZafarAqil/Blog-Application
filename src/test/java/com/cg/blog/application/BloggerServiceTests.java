@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ class BloggerServiceTests {
 	IBloggerRepository bloggerRepository;
 
 	@Test
+	@DisplayName(value = "Test for addBlogger")
+
 	void testAddBlogger() {
 		Blogger blogger = new Blogger();
 		blogger.setId(100);
@@ -36,6 +39,7 @@ class BloggerServiceTests {
 	}
 
 	@Test
+	@DisplayName(value = "Test for updateBlogger")
 	void testUpdateBlogger() {
 		Blogger blogger = new Blogger();
 		blogger.setId(100);
@@ -49,6 +53,7 @@ class BloggerServiceTests {
 	}
 
 	@Test
+	@DisplayName(value = "Test for DeleteBlogger")
 	void testDeleteBlogger() {
 		Blogger blogger = new Blogger();
 		blogger.setId(100);

@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,7 @@ class ModeratorServiceTests {
 
 	@Transactional
 	@Test
+	@DisplayName(value = "Test for deletePost")
 	void testDeletePost() {
 		moderatorService.deletePost(1, 1);
 		assertThrows(NoSuchElementException.class, () -> postRepo.findById(1).get());
