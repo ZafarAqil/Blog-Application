@@ -11,6 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.blog.application.services.BloggerServiceImpl;
 import com.cg.blog.application.services.ModeratorServiceImpl;
 
+/**
+ * <p>
+ * The controller for Moderator REST endpoints
+ * </p>
+ * <p>
+ * This class handles the Delete operation for Moderator entity
+ * </p>
+ * 
+ * @author Group4
+ *
+ */
 @RestController
 public class ModeratorController {
 
@@ -22,6 +33,12 @@ public class ModeratorController {
 
 	private final Logger log = LoggerFactory.getLogger(ModeratorController.class);
 
+	/**
+	 * 
+	 * @param moderatorId moderatorId of Moderator
+	 * @param postId      postId of Post
+	 * @return
+	 */
 	@DeleteMapping(path = "/moderator/{moderator_id}/posts/{post_id}")
 	public ResponseEntity<Object> deletePost(@PathVariable(name = "moderator_id") int moderatorId,
 			@PathVariable(name = "post_id") int postId) {
