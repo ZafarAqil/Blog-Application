@@ -137,9 +137,7 @@ public class Blogger extends User {
 		if (obj == null)
 			return false;
 
-		if (this.getClass() != obj.getClass())
-			return false;
-		Blogger blogger = (Blogger)obj;
+		Blogger blogger = (Blogger) obj;
 		return this.getId() == blogger.getId();
 	}
 

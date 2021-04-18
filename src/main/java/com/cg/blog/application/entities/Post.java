@@ -243,10 +243,7 @@ public class Post {
 		if (obj == null)
 			return false;
 
-		if (this.getClass() != obj.getClass())
-			return false;
-
-		Post otherPost = (Post)obj;
+		Post otherPost = (Post) obj;
 		return (this.postId == otherPost.postId);
 	}
 

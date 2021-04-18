@@ -237,10 +237,7 @@ public class Community {
 		if (obj == null)
 			return false;
 
-		if (this.getClass() != obj.getClass())
-			return false;
-
-		Community community = (Community)obj;
+		Community community = (Community) obj;
 		return (this.getCommunityId() == community.getCommunityId());
 	}
 

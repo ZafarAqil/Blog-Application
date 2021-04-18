@@ -107,12 +107,9 @@ public class Admin {
 		if (obj == null)
 			return false;
 
-		if (this.getClass() != obj.getClass())
-			return false;
-
 		Admin admin = (Admin) obj;
-		
-		return this.getId() == admin.getId() ;
+
+		return this.getId() == admin.getId();
 	}
 
 	@Override
