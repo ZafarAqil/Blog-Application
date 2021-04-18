@@ -28,15 +28,24 @@ import com.cg.blog.application.repositories.IPostRepository;
 import com.cg.blog.application.repositories.IUserRepository;
 import com.cg.blog.application.repositories.IVoteRepository;
 
+/**
+ * PostServiceImpl specific implemention of {@link IPostService}
+ * <p>
+ * This Service class for PostController
+ * </p>
+ * 
+ * @author Group4
+ *
+ */
 @Service
 public class PostServiceImpl implements IPostService {
 
 	private static final String BLOGGER_NOT_FOUND = "Blogger Not Found";
 	private static final String COMMUNITY_NOT_FOUND = "Community Not Found";
 	private static final String POST_NOT_FOUND = "Post Not Found";
-	
+
 	private final Logger log = LoggerFactory.getLogger(PostServiceImpl.class);
-	
+
 	@Autowired
 	IPostRepository postRepository;
 	@Autowired
@@ -50,6 +59,14 @@ public class PostServiceImpl implements IPostService {
 	@Autowired
 	IAwardRepository awardRepository;
 
+	/**
+	 * This method is used to add post data into database
+	 * 
+	 * @param communityId of community
+	 * @param bloggerId   of registered blogger
+	 * @return post data
+	 * @throws BloggerNotFoundException,CommunityNotFoundException
+	 */
 	@Override
 	public Post addPost(int communityId, int bloggerId, Post post)
 			throws CommunityNotFoundException, BloggerNotFoundException {
@@ -69,6 +86,12 @@ public class PostServiceImpl implements IPostService {
 		return postRepository.save(post);
 	}
 
+	/**
+	 * This method is used to delete post data from database
+	 * 
+	 * @param postId of post
+	 * @throws PostNotFoundException
+	 */
 	@Transactional
 	@Override
 	public void deletePost(int postId) throws PostNotFoundException {
@@ -78,12 +101,26 @@ public class PostServiceImpl implements IPostService {
 		post.getCreatedBy().getPosts().remove(post);
 	}
 
+	/**
+	 * This method is used to get post by search string from database
+	 * 
+	 * @param searchString
+	 * @return List<Post> list of post
+	 */
 	@Override
 	public List<Post> getPostBySearchString(String searchString) {
 		log.info("Post Service -- getPostBySearchString()");
 		return postRepository.findByTitleContainsIgnoreCase(searchString);
 	}
 
+	/**
+	 * This method is used to add vote for specific post
+	 * 
+	 * @param voteType  Type of vote
+	 * @param bloggerId of registered blogger
+	 * @param postId    of post
+	 * @throws BloggerNotFoundException,PostNotFoundException,InvalidVoteException
+	 */
 	@Override
 	public void votePost(VoteType voteType, int bloggerId, int postId)
 			throws BloggerNotFoundException, PostNotFoundException, InvalidVoteException {
@@ -108,6 +145,13 @@ public class PostServiceImpl implements IPostService {
 		voteRepository.save(vote);
 	}
 
+	/**
+	 * This method is used to get all posts from specific blogger
+	 * 
+	 * @param bloggerId of registered blogger
+	 * @return List<Post> List of post
+	 * @throws BloggerNotFoundException
+	 */
 	@Override
 	public List<Post> getPostByBlogger(int bloggerId) throws BloggerNotFoundException {
 		log.info("Post Service -- getPostByBlogger()");
@@ -116,6 +160,13 @@ public class PostServiceImpl implements IPostService {
 		return blogger.getPosts();
 	}
 
+	/**
+	 * This method is used to update post
+	 * 
+	 * @param postId of post
+	 * @param post   data
+	 * @throws PostNotFoundException
+	 */
 	@Override
 	public Post updatePost(int postId, Post post) throws PostNotFoundException {
 		log.info("Post Service -- updatePost()");
@@ -127,7 +178,7 @@ public class PostServiceImpl implements IPostService {
 		post.setCommunity(oldPost.getCommunity());
 		post.setVotes(oldPost.getVotes());
 		post.setAwardsReceived(oldPost.getAwardsReceived());
-		
+
 		oldPost.getCommunity().getPosts().add(post);
 		oldPost.getCreatedBy().getPosts().add(post);
 
@@ -137,6 +188,15 @@ public class PostServiceImpl implements IPostService {
 		return post;
 	}
 
+	/**
+	 * This method is used to give Award on specific post
+	 * 
+	 * @param awardType Type of Award
+	 * @param bloggerId of registered blogger
+	 * @param postId    of post
+	 * 
+	 * @throws BloggerNotFoundException,PostNotFoundException
+	 */
 	@Override
 	public void giveAwardPost(AwardType awardType, int bloggerId, int postId)
 			throws BloggerNotFoundException, PostNotFoundException {
@@ -161,6 +221,13 @@ public class PostServiceImpl implements IPostService {
 
 	}
 
+	/**
+	 * This method is used to get posts from specific community
+	 * 
+	 * @param communityId of community
+	 * @return list<post> list of post
+	 * @throws CommunityNotFoundException
+	 */
 	@Override
 	public List<Post> getPostsByCommunity(int communityId) {
 		log.info("Post Service -- getPostsByCommunity()");

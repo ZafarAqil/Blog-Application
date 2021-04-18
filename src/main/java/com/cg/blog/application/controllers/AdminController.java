@@ -18,8 +18,13 @@ import com.cg.blog.application.services.AdminServiceImpl;
 
 /**
  * 
- * <p>The controller for admin REST endpoints</p>
- * <p>This class handles the CRUD operations for admin entity</p>
+ * <p>
+ * The controller for admin REST endpoints
+ * </p>
+ * <p>
+ * This class handles the CRUD operations for admin entity
+ * </p>
+ * 
  * @author Group4
  *
  */
@@ -33,6 +38,7 @@ public class AdminController {
 
 	/**
 	 * This method is used to add Admin data
+	 * 
 	 * @param admin object of Admin entity
 	 * @return admin object
 	 */
@@ -42,11 +48,12 @@ public class AdminController {
 		Admin createdAdmin = adminService.adminSignUp(admin);
 		return ResponseEntity.status(201).body(createdAdmin);
 	}
-	
+
 	/**
 	 * This method is used to create community
+	 * 
 	 * @param community object of Community entity
-	 * @param adminId of Registered admin
+	 * @param adminId   of Registered admin
 	 * @return community object of created community
 	 */
 
@@ -56,11 +63,11 @@ public class AdminController {
 		log.info("Admin Controller -- addCommunity()");
 		return ResponseEntity.status(201).body(adminService.addCommunity(community, adminId));
 	}
-	
+
 	/**
 	 * 
 	 * @param communityId of created community
-	 * @param adminId of Registered admin
+	 * @param adminId     of Registered admin
 	 * @return "Community Deleted" when community deleted successfully
 	 */
 
