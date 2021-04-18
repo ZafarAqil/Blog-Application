@@ -98,7 +98,7 @@ public class PostController {
 	}
 
 	/**
-	 * This method is used to vte for a post
+	 * This method is used to vote for a post
 	 * 
 	 * @param voteType  object of VoteType Entity
 	 * @param bloggerId of Blogger

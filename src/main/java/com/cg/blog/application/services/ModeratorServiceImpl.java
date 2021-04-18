@@ -14,7 +14,7 @@ import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.IPostRepository;
 
 /**
- * ModeratorServiceImpl specific implemention of {@link IModeratorService}
+ * ModeratorServiceImpl specific implementation of {@link IModeratorService}
  * <p>
  * This Service class for ModeratorController
  * </p>

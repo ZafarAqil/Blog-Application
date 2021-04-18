@@ -34,6 +34,7 @@ public class ModeratorController {
 	private final Logger log = LoggerFactory.getLogger(ModeratorController.class);
 
 	/**
+	 * This method is used to delete post
 	 * 
 	 * @param moderatorId moderatorId of Moderator
 	 * @param postId      postId of Post

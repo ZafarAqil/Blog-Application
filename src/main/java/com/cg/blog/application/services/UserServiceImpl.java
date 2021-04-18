@@ -5,9 +5,19 @@ import org.springframework.stereotype.Service;
 
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.User;
+import com.cg.blog.application.exceptions.BloggerNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.IUserRepository;
 
+/**
+ * UserServiceImpl specific implementation of {@link IUserService}
+ * <p>
+ * This Service class for UserController
+ * </p>
+ * 
+ * @author Group4
+ *
+ */
 @Service
 public class UserServiceImpl implements IUserService {
 
@@ -20,6 +30,12 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	Blogger blogger;
 
+	/**
+	 * This method is used to add new User
+	 * 
+	 * @param user data
+	 * @return user data
+	 */
 	@Override
 	public User addNewUser(User user) {
 		blogger = new Blogger();
@@ -31,6 +47,12 @@ public class UserServiceImpl implements IUserService {
 		return userRepository.save(user);
 	}
 
+	/**
+	 * This method is used to User signIn
+	 * 
+	 * @param user data
+	 * @return user data
+	 */
 	@Override
 	public User signIn(User user) {
 		if (user.getPassword().equals(((User) userRepository.findByName(user.getName())).getPassword())) {
@@ -41,6 +63,12 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
+	/**
+	 * This method is used to signOut
+	 * 
+	 * @param user data
+	 * @return user data
+	 */
 	@Override
 	public User signOut(User user) {
 		return null;
