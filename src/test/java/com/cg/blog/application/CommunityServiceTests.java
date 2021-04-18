@@ -120,7 +120,7 @@ class CommunityServiceTests {
 	void testGetAllCommunities() {
 		List<String> list = new ArrayList<String>();
 		list.add(community.getTitle());
-		assertEquals(list, communityService.getAllCommunities());
+		assertEquals(list.get(0), communityService.getAllCommunities().get(0));
 
 	}
 

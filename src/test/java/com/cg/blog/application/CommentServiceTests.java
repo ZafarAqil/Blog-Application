@@ -62,7 +62,7 @@ class CommentServiceTests {
 		community = new Community(1, "community", "Description", 0, null, null, null, null, null, null, null, posts, blogger);
 		community = communityRepository.saveAndFlush(community);
 
-		post = new Post("NewTitle", "Description", blogger, PostType.TEXT, null, null, null, 0, false, false, false, "OC", community);
+		post = new Post(1,"NewTitle", "Description", blogger, PostType.TEXT, null, null, null, 0, false, false, false, "OC", community);
 		postRepo.saveAndFlush(post);
 
 		comment = new Comment();
