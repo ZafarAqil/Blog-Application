@@ -20,7 +20,7 @@ import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
 
 /**
- * CommunityServiceImpl specific implemention of {@link ICommunityService}
+ * CommunityServiceImpl specific implementation of {@link ICommunityService}
  * <p>
  * This Service class for CommunityController
  * </p>

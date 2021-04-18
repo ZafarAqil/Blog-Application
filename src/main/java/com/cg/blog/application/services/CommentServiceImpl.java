@@ -19,7 +19,7 @@ import com.cg.blog.application.repositories.IPostRepository;
 import com.cg.blog.application.repositories.IUserRepository;
 
 /**
- * CommentServiceImpl specific implemention of {@link ICommentService}
+ * CommentServiceImpl specific implementation of {@link ICommentService}
  * <p>
  * This Service class for CommentController
  * </p>

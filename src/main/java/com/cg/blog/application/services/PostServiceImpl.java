@@ -29,7 +29,7 @@ import com.cg.blog.application.repositories.IUserRepository;
 import com.cg.blog.application.repositories.IVoteRepository;
 
 /**
- * PostServiceImpl specific implemention of {@link IPostService}
+ * PostServiceImpl specific implementation of {@link IPostService}
  * <p>
  * This Service class for PostController
  * </p>

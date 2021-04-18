@@ -14,7 +14,7 @@ import com.cg.blog.application.exceptions.CommunityNotFoundException;
 import com.cg.blog.application.repositories.IAdminRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
 /**
- * AdminServiceImpl specific implemention of {@link IAdminService}
+ * AdminServiceImpl specific implementation of {@link IAdminService}
  * <p>This Service class for AdminController</p>
  * @author Group4
  *

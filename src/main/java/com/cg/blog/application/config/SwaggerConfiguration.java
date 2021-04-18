@@ -1,3 +1,4 @@
+
 package com.cg.blog.application.config;
 
 import org.springframework.context.annotation.Bean;

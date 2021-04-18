@@ -16,7 +16,7 @@ import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
 
 /**
- * BloggerServiceImpl specific implemention of {@link IBloggerService}
+ * BloggerServiceImpl specific implementation of {@link IBloggerService}
  * <p>
  * This Service class for BloggerController
  * </p>
