@@ -36,10 +36,8 @@ public class User {
 	@Size(min = 8, message = "password should have at least 8 characters")
 	private String password;
 	@Column(name = "role")
-	@JsonIgnore
 	private String role;
 	@Column(name = "karma")
-	@JsonIgnore
 	private long karma;
 
 //constructor
