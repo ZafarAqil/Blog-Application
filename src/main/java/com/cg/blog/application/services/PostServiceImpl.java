@@ -135,9 +135,12 @@ public class PostServiceImpl implements IPostService {
 		}
 		if (VoteType.UPVOTE.equals(voteType)) {
 			post.setVotes(post.getVotes() + 1);
+			post.getCreatedBy().setKarma(post.getCreatedBy().getKarma() + 1);
 		} else {
 			post.setVotes(post.getVotes() - 1);
+			post.getCreatedBy().setKarma(post.getCreatedBy().getKarma() - 1);
 		}
+		
 		Vote vote = new Vote();
 		vote.setBlogger(blogger);
 		vote.setPost(post);

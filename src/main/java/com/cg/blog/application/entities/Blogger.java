@@ -46,7 +46,7 @@ public class Blogger extends User {
 	@JsonIgnore
 	@Column(name = "communities")
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "blogger_communities", joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "communityId", referencedColumnName = "communityId"))
+	@JoinTable(name = "blogger_communities", joinColumns = @JoinColumn(name = "blogger_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "communityId", referencedColumnName = "communityId"))
 	private Set<Community> communities;
 
 //	@JsonManagedReference(value = "moderator-community")

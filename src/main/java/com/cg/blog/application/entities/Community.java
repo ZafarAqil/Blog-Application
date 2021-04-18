@@ -82,7 +82,7 @@ public class Community {
 //	@JsonBackReference(value = "moderator-community")
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "blogger_id", referencedColumnName = "id")
+	@JoinColumn(name = "moderator_id", referencedColumnName = "id")
 	private Blogger moderatedBy;
 
 	public Community() {

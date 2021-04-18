@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.User;
-import com.cg.blog.application.exceptions.BloggerNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.IUserRepository;
 
