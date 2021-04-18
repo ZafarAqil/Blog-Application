@@ -98,6 +98,11 @@ public class BloggerServiceImpl implements IBloggerService {
 		return bloggerRepository.findById(bloggerId).orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 	}
 
+	/**
+	 * This method is used to get all bloggers data from database
+	 * 
+	 * @return returns list of all bloggers
+	 */
 	@Override
 	public List<Blogger> getAllBloggers() {
 		log.info("Blogger Service -- getAllBloggers()");

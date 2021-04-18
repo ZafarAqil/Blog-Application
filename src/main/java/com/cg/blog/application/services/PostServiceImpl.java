@@ -131,7 +131,7 @@ public class PostServiceImpl implements IPostService {
 
 		Optional<Vote> recentVote = voteRepository.findTopByPostAndBloggerOrderByVoteIdDesc(post, blogger);
 		if (recentVote.isPresent() && recentVote.get().getVoteType().equals(voteType)) {
-			throw new InvalidVoteException("You have already " + voteType + "'D this post");
+			throw new InvalidVoteException("You have already " + voteType + "D this post");
 		}
 		if (VoteType.UPVOTE.equals(voteType)) {
 			post.setVotes(post.getVotes() + 1);
