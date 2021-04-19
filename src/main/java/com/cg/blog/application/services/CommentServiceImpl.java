@@ -36,7 +36,7 @@ public class CommentServiceImpl implements ICommentService {
 
 	private final Logger log = LoggerFactory.getLogger(CommentServiceImpl.class);
 
-	// make it private
+	//TODO make it private and use Constructor Injection
 	@Autowired
 	IPostRepository postRepository;
 
