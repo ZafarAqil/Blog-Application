@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.cg.blog.application.entities.Post;
 import com.cg.blog.application.exceptions.AuthenticationFailedException;
 import com.cg.blog.application.exceptions.PostNotFoundException;
-import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.IPostRepository;
 
 /**
@@ -29,9 +28,6 @@ public class ModeratorServiceImpl implements IModeratorService {
 	private static final String POST_NOT_FOUND = "Post Not Found";
 
 	private final Logger log = LoggerFactory.getLogger(ModeratorServiceImpl.class);
-
-	@Autowired
-	IBloggerRepository bloggerRepository;
 
 	@Autowired
 	IPostRepository postRepository;

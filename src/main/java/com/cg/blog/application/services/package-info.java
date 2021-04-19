@@ -1,4 +1,4 @@
 /**
- * Provide the classes necessary to repositories
+ * Provide the classes necessary to services
  */
 package com.cg.blog.application.services;

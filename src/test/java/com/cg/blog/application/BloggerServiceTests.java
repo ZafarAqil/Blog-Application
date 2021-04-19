@@ -46,7 +46,7 @@ class BloggerServiceTests {
 	}
 
 	@Test
-	@DisplayName(value = "Test for addBlogger when email already exists")
+	@DisplayName(value = "Test for addBlogger when adding another blogger")
 	void testAddBloggerFail() {
 		Blogger otherBlogger = new Blogger();
 		otherBlogger.setId(101);
