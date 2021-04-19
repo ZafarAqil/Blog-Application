@@ -6,6 +6,7 @@ import com.cg.blog.application.entities.Admin;
 
 /**
  * IAdminRepository specific extention of {@link JpaRepository}
+ * 
  * @author Group4
  *
  */
