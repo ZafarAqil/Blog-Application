@@ -56,9 +56,8 @@ class CommentServiceTests {
 	void setUp() {
 		List<Post> posts = new ArrayList<Post>();
 
-		blogger = new Blogger(1, "name", "xyz@gmail.com", "12121212", "blogger", 0, posts, null, null, null, null, null);
+		blogger = new Blogger(1, "name", "xyz@gmail.com", "12121212", null, 0, posts, null, null, null, null, null);
 		blogger = bloggerRepository.saveAndFlush(blogger);
-
 		community = new Community(1, "community", "Description", 0, null, null, null, null, null, null, null, posts, blogger);
 		community = communityRepository.saveAndFlush(community);
 

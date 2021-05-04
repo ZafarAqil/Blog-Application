@@ -6,7 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +44,7 @@ public class AdminController {
 	 * @param admin object of Admin entity
 	 * @return admin object
 	 */
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping(path = "/admin/signup")
 	public ResponseEntity<Object> adminSignUp(@Valid @RequestBody Admin admin) { // NOSONAR
 		log.info("Admin Controller -- adminSignUp()");
@@ -77,6 +80,13 @@ public class AdminController {
 		log.info("Admin Controller -- deleteCommunity()");
 		adminService.deleteCommunity(communityId, adminId);
 		return ResponseEntity.status(200).body("Community Deleted");
+	}
+	
+	@GetMapping(path="/admin")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<String> access() {
+	
+		return ResponseEntity.status(200).body("Admin");
 	}
 
 }

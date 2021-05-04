@@ -1,5 +1,6 @@
 package com.cg.blog.application.entities;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -22,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Component
 @Table(name = "bloggers")
-public class Blogger extends User {
+public class Blogger extends User{
 
 	@JsonManagedReference
 	@Column(name = "posts")
@@ -59,30 +63,49 @@ public class Blogger extends User {
 		super();
 	}
 
-	public Blogger(String name, String email, String password, String role, long karma, List<Post> posts,
+
+//
+//	public Blogger(int id, String name, String email, String password, String role, long karma, List<Post> posts,
+//			List<Comment> comments, List<Award> awardsReceived, List<Award> awardsGiven, Set<Community> communities,
+//			Set<Community> moderatesCommunities) {
+//		super(id, name, email, password, role, karma);
+
+//
+//	}
+	
+	
+
+
+
+	public Blogger(int id, @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email,
+			@NotBlank @Size(max = 120) String password, Set<Role> roles, long karma, List<Post> posts,
 			List<Comment> comments, List<Award> awardsReceived, List<Award> awardsGiven, Set<Community> communities,
 			Set<Community> moderatesCommunities) {
-		super(name, email, password, role, karma);
+		super(id, username, email, password, roles, karma);
 		this.posts = posts;
 		this.comments = comments;
 		this.awardsReceived = awardsReceived;
 		this.awardsGiven = awardsGiven;
 		this.communities = communities;
 		this.modCommunities = moderatesCommunities;
-	}
-
-	public Blogger(int id, String name, String email, String password, String role, long karma, List<Post> posts,
+		}
+	
+	public Blogger( @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email,
+			@NotBlank @Size(max = 120) String password, Set<Role> roles, long karma, List<Post> posts,
 			List<Comment> comments, List<Award> awardsReceived, List<Award> awardsGiven, Set<Community> communities,
 			Set<Community> moderatesCommunities) {
-		super(id, name, email, password, role, karma);
+		super( username, email, password, roles, karma);
 		this.posts = posts;
 		this.comments = comments;
 		this.awardsReceived = awardsReceived;
 		this.awardsGiven = awardsGiven;
 		this.communities = communities;
 		this.modCommunities = moderatesCommunities;
+		}
 
-	}
+
+
+
 
 	public List<Post> getPosts() {
 		return posts;
@@ -146,13 +169,14 @@ public class Blogger extends User {
 		return super.hashCode();
 	}
 
+
 	@Override
 	public String toString() {
 		return "Blogger [posts=" + posts + ", comments=" + comments + ", awardsReceived=" + awardsReceived
 				+ ", awardsGiven=" + awardsGiven + ", communities=" + communities + ", modCommunities=" + modCommunities
-				+ ", getId()=" + getId() + ", getName()=" + getName() + ", getEmail()=" + getEmail()
-				+ ", getPassword()=" + getPassword() + ", getRole()=" + getRole() + ", getKarma()=" + getKarma()
-				+ ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
+				+ "]";
 	}
+
+
 
 }
