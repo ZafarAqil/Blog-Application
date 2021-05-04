@@ -17,6 +17,12 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.7.RELEASE'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '5.3.3.RELEASE'
+	
+	
+	
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -54,6 +60,6 @@ sonarqube {
     properties {
         property "sonar.projectName", "Blog Application"
         property "sonar.host.url", "http://localhost:9000"
-        property "sonar.login", "fc6d6a0aa2f92f9efc974064ad5842f4fb5d535e"
+        property "sonar.login", "5815591b0decf7cacb7c3b0d5108a3c46a93527e"
     }
 }

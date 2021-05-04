@@ -8,8 +8,17 @@ import com.cg.blog.application.entities.User;
  * @author Group4
  *
  */
+import java.util.Optional;
+
+import org.springframework.stereotype.Repository;
+
+
+@Repository
 public interface IUserRepository extends JpaRepository<User, Integer> {
+	Optional<User> findByUsername(String username);
 
-	public User findByName(String name);
+	Boolean existsByUsername(String username);
 
+	Boolean existsByEmail(String email);
 }
+

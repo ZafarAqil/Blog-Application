@@ -29,48 +29,5 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	Blogger blogger;
 
-	/**
-	 * This method is used to add new User
-	 * 
-	 * @param user data
-	 * @return user data
-	 */
-	@Override
-	public User addNewUser(User user) {
-		blogger = new Blogger();
-		blogger.setId(user.getId());
-		blogger.setEmail(user.getEmail());
-		blogger.setPassword(user.getPassword());
-		blogger.setName(user.getName());
-		bloggerRepository.save(blogger);
-		return userRepository.save(user);
-	}
-
-	/**
-	 * This method is used to User signIn
-	 * 
-	 * @param user data
-	 * @return user data
-	 */
-	@Override
-	public User signIn(User user) {
-		if (user.getPassword().equals(((User) userRepository.findByName(user.getName())).getPassword())) {
-			user.setId(userRepository.findByName(user.getName()).getId());
-			return user;
-		}
-		return null;
-
-	}
-
-	/**
-	 * This method is used to signOut
-	 * 
-	 * @param user data
-	 * @return user data
-	 */
-	@Override
-	public User signOut(User user) {
-		return null;
-	}
 
 }

@@ -33,7 +33,7 @@ class BloggerServiceTests {
 	void setUp() {
 		blogger = new Blogger();
 		blogger.setId(1);
-		blogger.setName("name");
+		blogger.setUsername("name");
 		blogger.setPassword("aaaaaaaa");
 		blogger.setEmail("xyz@gmail.com");
 		blogger = bloggerRepository.saveAndFlush(blogger);
@@ -50,7 +50,7 @@ class BloggerServiceTests {
 	void testAddBloggerFail() {
 		Blogger otherBlogger = new Blogger();
 		otherBlogger.setId(101);
-		otherBlogger.setName("Pravin");
+		otherBlogger.setUsername("Pravin");
 		otherBlogger.setEmail("xyz@email.com");
 		otherBlogger.setPassword("12345678");
 		assertNotEquals(blogger, bloggerService.addBlogger(otherBlogger));
@@ -61,10 +61,10 @@ class BloggerServiceTests {
 	void testUpdateBlogger() {
 		Blogger updatedBlogger = new Blogger();
 		updatedBlogger.setId(1);
-		updatedBlogger.setName("Vishal");
+		updatedBlogger.setUsername("Vishal");
 		updatedBlogger.setEmail("xyz@email.com");
 		updatedBlogger.setPassword("12345678");
-		assertEquals(updatedBlogger.getName(), bloggerService.updateBlogger(updatedBlogger, 1).getName());
+		assertEquals(updatedBlogger.getUsername(), bloggerService.updateBlogger(updatedBlogger, 1).getUsername());
 	}
 
 	@Test
@@ -72,7 +72,7 @@ class BloggerServiceTests {
 	void testFailUpdateBlogger() {
 		Blogger blogger = new Blogger();
 		blogger.setId(101);
-		blogger.setName("Pravin");
+		blogger.setUsername("Pravin");
 		blogger.setEmail("xyz@email.com");
 		blogger.setPassword("12345678");
 
@@ -83,7 +83,7 @@ class BloggerServiceTests {
 	@DisplayName(value = "Test for DeleteBlogger")
 	void testDeleteBlogger() {
 		Blogger newBlogger = new Blogger();
-		newBlogger.setName("Vishal");
+		newBlogger.setUsername("Vishal");
 		newBlogger.setEmail("xyz@email.com");
 		newBlogger.setPassword("12345678");
 		newBlogger = bloggerRepository.saveAndFlush(newBlogger);

@@ -13,11 +13,14 @@ import org.springframework.stereotype.Service;
 
 import com.cg.blog.application.entities.Blogger;
 import com.cg.blog.application.entities.Community;
+import com.cg.blog.application.entities.ERole;
+import com.cg.blog.application.entities.Role;
 import com.cg.blog.application.exceptions.AuthenticationFailedException;
 import com.cg.blog.application.exceptions.BloggerNotFoundException;
 import com.cg.blog.application.exceptions.CommunityNotFoundException;
 import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
+import com.cg.blog.application.repositories.IRoleRepository;
 
 /**
  * CommunityServiceImpl specific implementation of {@link ICommunityService}
@@ -41,7 +44,8 @@ public class CommunityServiceImpl implements ICommunityService {
 	ICommunityRepository communityRepository;
 	@Autowired
 	IBloggerRepository bloggerRepository;
-
+	@Autowired
+	IRoleRepository roleRepository;
 	/**
 	 * This method is used to add community data into database
 	 * 
@@ -58,6 +62,16 @@ public class CommunityServiceImpl implements ICommunityService {
 		Blogger blogger = bloggerRepository.findById(moderatorId)
 				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		community.setModeratedBy(blogger);
+		
+		
+		
+		Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+				.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+		if(!blogger.getRoles().contains(modRole)) {
+			blogger.getRoles().add(modRole);
+		}
+		
+		
 		blogger.getModCommunities().add(community);
 		Community createdCommunity = communityRepository.save(community);
 		bloggerRepository.save(blogger);

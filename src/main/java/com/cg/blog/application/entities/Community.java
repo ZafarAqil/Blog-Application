@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -72,6 +73,7 @@ public class Community {
 	@CollectionTable(name = "community_flairs", joinColumns = @JoinColumn(name = "communityId"))
 	private List<String> flairs;
 
+	 @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
 	@ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
 	private Set<Blogger> bloggers;
 

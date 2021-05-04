@@ -61,7 +61,7 @@ class PostServiceTests {
 
 		blogger = new Blogger();
 		blogger.setId(1);
-		blogger.setName("name");
+		blogger.setUsername("name");
 		blogger.setPassword("aaaaaaaa");
 		blogger.setEmail("xyz@gmail.com");
 		blogger.setPosts(posts);
