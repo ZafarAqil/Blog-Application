@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +34,7 @@ import com.cg.blog.application.services.CommunityServiceImpl;
  *
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class CommunityController {
 
 	@Autowired
@@ -122,7 +125,7 @@ public class CommunityController {
 	@GetMapping(path = "/communities")
 	public ResponseEntity<Object> getAllCommunities() {
 		log.info("Community Controller -- getAllCommunities()");
-		List<String> matchedCommunities = communityService.getAllCommunities();
+		List<Community> matchedCommunities = communityService.getAllCommunities();
 		return ResponseEntity.status(200).body(matchedCommunities);
 	}
 
@@ -132,7 +135,9 @@ public class CommunityController {
 	 * @param communityId of community
 	 * @return community object
 	 */
+	
 	@GetMapping(path = "/community/{community_id}")
+//	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> getCommunity(@PathVariable(name = "community_id") int communityId) {
 		log.info("Community Controller -- getCommunity()");
 		Community community = communityService.getCommunity(communityId);

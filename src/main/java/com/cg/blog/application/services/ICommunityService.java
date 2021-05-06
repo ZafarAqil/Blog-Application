@@ -22,7 +22,7 @@ public interface ICommunityService {
 
 	public Set<Community> getAllCommunitiesByBlogger(int bloggerId) throws BloggerNotFoundException;
 
-	public List<String> getAllCommunities();
+	public List<Community> getAllCommunities();
 
 	public Community getCommunity(int communityId) throws CommunityNotFoundException;
 

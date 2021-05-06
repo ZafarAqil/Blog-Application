@@ -162,9 +162,9 @@ public class CommunityServiceImpl implements ICommunityService {
 	 */
 
 	@Override
-	public List<String> getAllCommunities() {
+	public List<Community> getAllCommunities() {
 		log.info("Community Service -- getAllCommunities()");
-		return communityRepository.findAll().stream().map(Community::getTitle).collect(Collectors.toList());
+		return communityRepository.findAll();
 	}
 
 	/**
