@@ -239,4 +239,8 @@ public class PostServiceImpl implements IPostService {
 		return community.getPosts();
 	}
 
+	public Post getPostById(int postId) {
+		return postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
+	}
+
 }

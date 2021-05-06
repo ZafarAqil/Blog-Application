@@ -156,4 +156,12 @@ public class PostController {
 		List<Post> postList = postService.getPostsByCommunity(communityId);
 		return ResponseEntity.status(200).body(postList);
 	}
+	
+	@GetMapping(path = "/post/{post_id}")
+	public ResponseEntity<Post> getPostById(@PathVariable(name = "post_id") int postId) {
+		log.info("Post Controller -- getPostById()");
+		Post post = postService.getPostById(postId);
+		return ResponseEntity.status(200).body(post);
+	}
+
 }
