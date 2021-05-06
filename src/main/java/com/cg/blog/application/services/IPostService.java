@@ -30,5 +30,7 @@ public interface IPostService {
 			throws BloggerNotFoundException, PostNotFoundException;
 
 	public List<Post> getPostsByCommunity(int communityId);
+	
+	public Post getPostById(int postId);
 
 }
