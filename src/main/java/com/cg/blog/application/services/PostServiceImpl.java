@@ -1,5 +1,6 @@
 package com.cg.blog.application.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,6 +81,7 @@ public class PostServiceImpl implements IPostService {
 		community.getPosts().add(post);
 		blogger.getPosts().add(post);
 		post.setCommunity(community);
+		post.setBloggerName(blogger.getUsername());
 
 		bloggerRepository.save(blogger);
 		communityRepository.save(community);
@@ -181,6 +183,7 @@ public class PostServiceImpl implements IPostService {
 		post.setCommunity(oldPost.getCommunity());
 		post.setVotes(oldPost.getVotes());
 		post.setAwardsReceived(oldPost.getAwardsReceived());
+		post.setBloggerName(oldPost.getCreatedBy().getUsername());
 
 		oldPost.getCommunity().getPosts().add(post);
 		oldPost.getCreatedBy().getPosts().add(post);
