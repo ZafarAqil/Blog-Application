@@ -83,6 +83,9 @@ public class Post {
 	@JoinColumn(name = "community_id", referencedColumnName = "communityId")
 	private Community community;
 
+	@Column(name = "blogger_name")
+	private String bloggerName;
+	
 	public Post() {
 		super();
 	}
@@ -236,6 +239,14 @@ public class Post {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getBloggerName() {
+		return bloggerName;
+	}
+
+	public void setBloggerName(String bloggerName) {
+		this.bloggerName = bloggerName;
 	}
 
 	@Override

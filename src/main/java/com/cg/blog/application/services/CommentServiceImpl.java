@@ -69,6 +69,7 @@ public class CommentServiceImpl implements ICommentService {
 
 		comment.setBlogger(blogger);
 		comment.setPost(post);
+		comment.setBloggerName(blogger.getUsername());
 
 		blogger.getComments().add(comment);
 		post.getComments().add(comment);
@@ -134,7 +135,8 @@ public class CommentServiceImpl implements ICommentService {
 		comment.setCommentId(commentId);
 		comment.setBlogger(oldComment.getBlogger());
 		comment.setPost(oldComment.getPost());
-
+		comment.setBloggerName(oldComment.getBloggerName());
+		
 		oldComment.getBlogger().getComments().remove(oldComment);
 		oldComment.getBlogger().getComments().add(comment);
 		oldComment.getPost().getComments().remove(oldComment);

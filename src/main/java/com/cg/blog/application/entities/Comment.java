@@ -1,5 +1,7 @@
 package com.cg.blog.application.entities;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -33,7 +38,15 @@ public class Comment {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "post_id", referencedColumnName = "postId")
 	private Post post;
+	
+	@Column(name = "blogger_name")
+	private String bloggerName;
+	
+	@CreationTimestamp
+	@Column(name = "created_date_time")
+	private LocalDateTime createdDateTime;
 
+	
 	// constructors
 
 	public Comment() {
@@ -87,6 +100,22 @@ public class Comment {
 
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	public String getBloggerName() {
+		return bloggerName;
+	}
+
+	public void setBloggerName(String bloggerName) {
+		this.bloggerName = bloggerName;
+	}
+
+	public LocalDateTime getCreatedDateTime() {
+		return createdDateTime;
+	}
+
+	public void setCreatedDateTime(LocalDateTime createdDateTime) {
+		this.createdDateTime = createdDateTime;
 	}
 
 	@Override
