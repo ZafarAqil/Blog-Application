@@ -82,7 +82,8 @@ public class PostServiceImpl implements IPostService {
 		blogger.getPosts().add(post);
 		post.setCommunity(community);
 		post.setBloggerName(blogger.getUsername());
-
+		post.setCommunityName(community.getTitle());
+		
 		bloggerRepository.save(blogger);
 		communityRepository.save(community);
 		return postRepository.save(post);
@@ -183,8 +184,9 @@ public class PostServiceImpl implements IPostService {
 		post.setCommunity(oldPost.getCommunity());
 		post.setVotes(oldPost.getVotes());
 		post.setAwardsReceived(oldPost.getAwardsReceived());
-		post.setBloggerName(oldPost.getCreatedBy().getUsername());
-
+		post.setBloggerName(oldPost.getBloggerName());
+		post.setCommunityName(oldPost.getCommunityName());
+		
 		oldPost.getCommunity().getPosts().add(post);
 		oldPost.getCreatedBy().getPosts().add(post);
 

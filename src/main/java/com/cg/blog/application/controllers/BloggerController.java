@@ -137,4 +137,17 @@ public class BloggerController {
 		return ResponseEntity.status(200).body(bloggers);
 	}
 
+	/**
+	 * This method is used to get Blogger data
+	 * 
+	 * @param bloggerName of created blogger
+	 * @return blogger object of registered blogger
+	 */
+	@GetMapping(path = "/bloggers/{blogger_name}")
+	public ResponseEntity<Object> getBloggerByName(@PathVariable(name = "blogger_name") String bloggerName) {
+		log.info("Blogger Controller -- getBloggerByName()");
+		Blogger blogger = bloggerService.getBloggerByName(bloggerName);
+		return ResponseEntity.status(200).body(blogger);
+	}
+
 }
