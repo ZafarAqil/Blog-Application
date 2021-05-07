@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -141,6 +140,21 @@ public class CommunityController {
 	public ResponseEntity<Object> getCommunity(@PathVariable(name = "community_id") int communityId) {
 		log.info("Community Controller -- getCommunity()");
 		Community community = communityService.getCommunity(communityId);
+		return ResponseEntity.status(200).body(community);
+	}
+
+	/**
+	 * This method is used to return community by community title
+	 * 
+	 * @param communityTitle of community
+	 * @return community object
+	 */
+	
+	@GetMapping(path = "/communityByTitle/{community_title}")
+//	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<Object> getCommunityByTitle(@PathVariable(name = "community_title") String communityTitle) {
+		log.info("Community Controller -- getCommunity()");
+		Community community = communityService.getCommunityByTitle(communityTitle);
 		return ResponseEntity.status(200).body(community);
 	}
 
