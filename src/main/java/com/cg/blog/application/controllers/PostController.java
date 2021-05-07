@@ -1,5 +1,6 @@
 package com.cg.blog.application.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ import com.cg.blog.application.entities.AwardType;
 import com.cg.blog.application.entities.Post;
 import com.cg.blog.application.entities.VoteType;
 import com.cg.blog.application.services.PostServiceImpl;
+import com.fasterxml.jackson.annotation.JsonClassDescription;
 
 /**
  * 
@@ -112,7 +114,7 @@ public class PostController {
 			@PathVariable(name = "blogger_id") int bloggerId, @PathVariable(name = "post_id") int postId) {
 		log.info("Post Controller -- votePost()");
 		postService.votePost(voteType, bloggerId, postId);
-		return ResponseEntity.status(200).body("Vote Submitted");
+		return ResponseEntity.status(200).body(Arrays.asList("Vote Submitted"));
 	}
 
 	/**

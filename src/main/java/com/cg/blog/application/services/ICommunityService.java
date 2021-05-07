@@ -26,4 +26,6 @@ public interface ICommunityService {
 
 	public Community getCommunity(int communityId) throws CommunityNotFoundException;
 
+	public Community getCommunityByTitle(String communityTitle) throws CommunityNotFoundException;
+
 }

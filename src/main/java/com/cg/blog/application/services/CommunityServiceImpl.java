@@ -179,4 +179,8 @@ public class CommunityServiceImpl implements ICommunityService {
 		return communityRepository.findById(communityId)
 				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));
 	}
+
+	public Community getCommunityByTitle(String communityTitle) throws CommunityNotFoundException {
+		return communityRepository.findByTitleContainsIgnoreCase(communityTitle).get(0);
+	}
 }
