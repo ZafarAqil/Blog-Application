@@ -13,4 +13,6 @@ public interface ICommunityRepository extends JpaRepository<Community, Integer>{
 
 	public List<Community> findByTitleContainsIgnoreCase(String searchString);
 
+	public Community findByTitleIgnoreCase(String communityTitle);
+
 }
