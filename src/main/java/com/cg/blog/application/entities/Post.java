@@ -86,6 +86,9 @@ public class Post {
 	@Column(name = "blogger_name")
 	private String bloggerName;
 	
+	@Column(name = "community_name")
+	private String communityName;
+
 	public Post() {
 		super();
 	}
@@ -247,6 +250,14 @@ public class Post {
 
 	public void setBloggerName(String bloggerName) {
 		this.bloggerName = bloggerName;
+	}
+
+	public String getCommunityName() {
+		return communityName;
+	}
+
+	public void setCommunityName(String communityName) {
+		this.communityName = communityName;
 	}
 
 	@Override

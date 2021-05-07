@@ -150,4 +150,9 @@ public class BloggerServiceImpl implements IBloggerService {
 		communityRepository.save(community);
 	}
 
+	public Blogger getBloggerByName(String bloggerName) throws BloggerNotFoundException {
+		return bloggerRepository.findByUsername(bloggerName)
+				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
+	}
+
 }
