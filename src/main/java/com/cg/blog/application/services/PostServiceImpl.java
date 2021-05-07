@@ -83,7 +83,7 @@ public class PostServiceImpl implements IPostService {
 		post.setCommunity(community);
 		post.setBloggerName(blogger.getUsername());
 		post.setCommunityName(community.getTitle());
-		
+
 		bloggerRepository.save(blogger);
 		communityRepository.save(community);
 		return postRepository.save(post);
@@ -133,17 +133,25 @@ public class PostServiceImpl implements IPostService {
 		Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND));
 
 		Optional<Vote> recentVote = voteRepository.findTopByPostAndBloggerOrderByVoteIdDesc(post, blogger);
-		if (recentVote.isPresent() && recentVote.get().getVoteType().equals(voteType)) {
-			throw new InvalidVoteException("You have already " + voteType + "D this post");
-		}
-		if (VoteType.UPVOTE.equals(voteType)) {
+		if (recentVote.isPresent()) {
+			if (recentVote.get().getVoteType().equals(voteType)) {
+				throw new InvalidVoteException("You have already " + voteType + "D this post");
+			} else if (VoteType.UPVOTE.equals(voteType) && recentVote.get().getVoteType().equals(VoteType.DOWNVOTE)) {
+				post.setVotes(post.getVotes() + 2);
+				post.getCreatedBy().setKarma(post.getCreatedBy().getKarma() + 2);
+			} else {
+				post.setVotes(post.getVotes() - 2);
+				post.getCreatedBy().setKarma(post.getCreatedBy().getKarma() - 2);
+			}
+		} else if (VoteType.UPVOTE.equals(voteType)) {
 			post.setVotes(post.getVotes() + 1);
 			post.getCreatedBy().setKarma(post.getCreatedBy().getKarma() + 1);
 		} else {
 			post.setVotes(post.getVotes() - 1);
 			post.getCreatedBy().setKarma(post.getCreatedBy().getKarma() - 1);
+
 		}
-		
+
 		Vote vote = new Vote();
 		vote.setBlogger(blogger);
 		vote.setPost(post);
@@ -186,7 +194,7 @@ public class PostServiceImpl implements IPostService {
 		post.setAwardsReceived(oldPost.getAwardsReceived());
 		post.setBloggerName(oldPost.getBloggerName());
 		post.setCommunityName(oldPost.getCommunityName());
-		
+
 		oldPost.getCommunity().getPosts().add(post);
 		oldPost.getCreatedBy().getPosts().add(post);
 

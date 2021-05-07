@@ -181,6 +181,6 @@ public class CommunityServiceImpl implements ICommunityService {
 	}
 
 	public Community getCommunityByTitle(String communityTitle) throws CommunityNotFoundException {
-		return communityRepository.findByTitleContainsIgnoreCase(communityTitle).get(0);
+		return communityRepository.findByTitleIgnoreCase(communityTitle);
 	}
 }
