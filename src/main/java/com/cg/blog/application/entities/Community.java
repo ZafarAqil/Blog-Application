@@ -48,7 +48,7 @@ public class Community {
 	private int totalMembers;
 
 	@Column
-	private File image;
+	private String imageUrl;
 
 	@CreationTimestamp
 	@Column(name = "created_on")
@@ -73,7 +73,8 @@ public class Community {
 	@CollectionTable(name = "community_flairs", joinColumns = @JoinColumn(name = "communityId"))
 	private List<String> flairs;
 
-	 @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+//	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+	@JsonIgnore()
 	@ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
 	private Set<Blogger> bloggers;
 
@@ -94,7 +95,7 @@ public class Community {
 		super();
 	}
 
-	public Community(@NotNull String title, @NotNull String communityDescription, int totalMembers, File image,
+	public Community(@NotNull String title, @NotNull String communityDescription, int totalMembers, String imageUrl,
 			LocalDateTime createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
 			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts,
 			Blogger moderatedBy) {
@@ -102,7 +103,7 @@ public class Community {
 		this.title = title;
 		this.communityDescription = communityDescription;
 		this.totalMembers = totalMembers;
-		this.image = image;
+		this.imageUrl = imageUrl;
 		this.createdOn = createdOn;
 		this.postRulesAllowed = postRulesAllowed;
 		this.postRulesDisallowed = postRulesDisallowed;
@@ -114,7 +115,7 @@ public class Community {
 	}
 
 	public Community(int communityId, @NotNull String title, @NotNull String communityDescription, int totalMembers,
-			File image, LocalDateTime createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
+			String imageUrl, LocalDateTime createdOn, List<String> postRulesAllowed, List<String> postRulesDisallowed,
 			List<String> banningPolicy, List<String> flairs, Set<Blogger> bloggers, List<Post> posts,
 			Blogger moderatedBy) {
 		super();
@@ -122,7 +123,7 @@ public class Community {
 		this.title = title;
 		this.communityDescription = communityDescription;
 		this.totalMembers = totalMembers;
-		this.image = image;
+		this.imageUrl = imageUrl;
 		this.createdOn = createdOn;
 		this.postRulesAllowed = postRulesAllowed;
 		this.postRulesDisallowed = postRulesDisallowed;
@@ -155,14 +156,6 @@ public class Community {
 
 	public void setTotalMembers(int totalMembers) {
 		this.totalMembers = totalMembers;
-	}
-
-	public File getImage() {
-		return image;
-	}
-
-	public void setImage(File image) {
-		this.image = image;
 	}
 
 	public LocalDateTime getCreatedOn() {
@@ -245,6 +238,14 @@ public class Community {
 		this.moderatorName = moderatorName;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null)
@@ -262,7 +263,7 @@ public class Community {
 	@Override
 	public String toString() {
 		return "Community [communityId=" + communityId + ", title=" + title + ", communityDescription="
-				+ communityDescription + ", totalMembers=" + totalMembers + ", image=" + image + ", createdOn="
+				+ communityDescription + ", totalMembers=" + totalMembers + ", image=" + imageUrl + ", createdOn="
 				+ createdOn + ", postRulesAllowed=" + postRulesAllowed + ", postRulesDisallowed=" + postRulesDisallowed
 				+ ", banningPolicy=" + banningPolicy + ", flairs=" + flairs + ", bloggers=" + bloggers + ", posts="
 				+ posts + ", moderatedBy=" + moderatedBy + ", getClass()=" + getClass() + ", toString()="

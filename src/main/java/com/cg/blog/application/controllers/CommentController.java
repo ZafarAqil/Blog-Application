@@ -1,5 +1,6 @@
 package com.cg.blog.application.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -84,7 +85,7 @@ public class CommentController {
 			@PathVariable(name = "post_id") int postId, @PathVariable(name = "comment_id") int commentId) {
 		log.info("Comment Controller -- deleteCommentById()");
 		commentService.deleteCommentById(commentId);
-		return ResponseEntity.status(200).body("Comment Successfully Deleted!");
+		return ResponseEntity.status(200).body(Arrays.asList("Comment Successfully Deleted!"));
 	}
 
 	/**
