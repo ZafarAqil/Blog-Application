@@ -88,6 +88,9 @@ public class Post {
 	
 	@Column(name = "community_name")
 	private String communityName;
+	
+	@Column(name = "imageUrl")
+	private String imageUrl;
 
 	public Post() {
 		super();
@@ -258,6 +261,14 @@ public class Post {
 
 	public void setCommunityName(String communityName) {
 		this.communityName = communityName;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	@Override
