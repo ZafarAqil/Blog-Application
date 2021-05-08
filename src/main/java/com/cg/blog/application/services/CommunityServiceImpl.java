@@ -73,6 +73,7 @@ public class CommunityServiceImpl implements ICommunityService {
 		
 		
 		blogger.getModCommunities().add(community);
+		community.setModeratorName(blogger.getUsername());
 		Community createdCommunity = communityRepository.save(community);
 		bloggerRepository.save(blogger);
 		return createdCommunity;
@@ -101,6 +102,7 @@ public class CommunityServiceImpl implements ICommunityService {
 
 		community.setCommunityId(communityId);
 		community.setModeratedBy(moderator);
+		community.setModeratorName(moderator.getUsername());
 		return communityRepository.save(community);
 	}
 
