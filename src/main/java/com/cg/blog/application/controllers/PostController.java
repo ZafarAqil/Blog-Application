@@ -98,7 +98,7 @@ public class PostController {
 	public ResponseEntity<Object> deletePost(@PathVariable(name = "post_id") int postId) {
 		log.info("Post Controller -- deletePost()");
 		postService.deletePost(postId);
-		return ResponseEntity.status(200).body("Post Deleted");
+		return ResponseEntity.status(200).body(Arrays.asList("Post Deleted"));
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class PostController {
 			@PathVariable(name = "blogger_id") int bloggerId, @PathVariable(name = "post_id") int postId) {
 		log.info("Post Controller -- giveAward()");
 		postService.giveAwardPost(awardType, bloggerId, postId);
-		return ResponseEntity.status(200).body("Award Given");
+		return ResponseEntity.status(200).body(Arrays.asList("Award Given"));
 	}
 
 	/**
