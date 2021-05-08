@@ -145,7 +145,8 @@ public class BloggerServiceImpl implements IBloggerService {
 				.orElseThrow(() -> new BloggerNotFoundException(BLOGGER_NOT_FOUND));
 		community.getBloggers().add(blogger);
 		blogger.getCommunities().add(community);
-		community.setTotalMembers(community.getTotalMembers() + 1);
+//		community.setTotalMembers(community.getTotalMembers() + 1);
+		community.setTotalMembers(community.getBloggers().size());
 		bloggerRepository.save(blogger);
 		communityRepository.save(community);
 	}
