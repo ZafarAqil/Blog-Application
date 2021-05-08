@@ -1,5 +1,6 @@
 package com.cg.blog.application.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -121,7 +122,7 @@ public class BloggerController {
 			@PathVariable(name = "community_id") int communityId) {
 		log.info("Blogger Controller -- joinCommunity()");
 		bloggerService.joinCommunity(communityId, bloggerId);
-		return ResponseEntity.status(201).body("Joined Community");
+		return ResponseEntity.status(201).body(Arrays.asList("Joined Community"));
 	}
 
 	/**
