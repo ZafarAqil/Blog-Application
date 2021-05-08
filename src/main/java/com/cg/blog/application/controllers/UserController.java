@@ -53,8 +53,8 @@ public class UserController {
 	@Autowired
 	JwtUtils jwtUtils;
 	
-	@Autowired
-	Blogger blogger;
+//	@Autowired
+//	Blogger blogger;
 	
 	@Autowired
 	IBloggerRepository bloggerRepository;
@@ -99,7 +99,7 @@ public class UserController {
 		}
 
 		// Create new user's account
-
+		Blogger blogger = new Blogger();
 		blogger.setUsername(signUpRequest.getUsername());
 		blogger.setPassword(encoder.encode(signUpRequest.getPassword()));
 		blogger.setEmail(signUpRequest.getEmail());
