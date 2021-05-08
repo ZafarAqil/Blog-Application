@@ -87,6 +87,9 @@ public class Community {
 	@JoinColumn(name = "moderator_id", referencedColumnName = "id")
 	private Blogger moderatedBy;
 
+	@Column(name = "moderator_name")
+	private String moderatorName;
+	
 	public Community() {
 		super();
 	}
@@ -232,6 +235,14 @@ public class Community {
 
 	public void setModeratedBy(Blogger moderatedBy) {
 		this.moderatedBy = moderatedBy;
+	}
+
+	public String getModeratorName() {
+		return moderatorName;
+	}
+
+	public void setModeratorName(String moderatorName) {
+		this.moderatorName = moderatorName;
 	}
 
 	@Override
