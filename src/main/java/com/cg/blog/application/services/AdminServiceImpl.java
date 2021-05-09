@@ -12,6 +12,7 @@ import com.cg.blog.application.entities.Community;
 import com.cg.blog.application.exceptions.AdminNotFoundException;
 import com.cg.blog.application.exceptions.CommunityNotFoundException;
 import com.cg.blog.application.repositories.IAdminRepository;
+import com.cg.blog.application.repositories.IBloggerRepository;
 import com.cg.blog.application.repositories.ICommunityRepository;
 /**
  * AdminServiceImpl specific implementation of {@link IAdminService}
@@ -26,6 +27,8 @@ public class AdminServiceImpl implements IAdminService {
 	IAdminRepository adminRepository;
 	@Autowired
 	ICommunityRepository communityRepository;
+	@Autowired
+	IBloggerRepository bloggerRepository;
 
 	private static final String ADMIN_NOT_FOUND = "Admin Not Found";
 	private static final String COMMUNITY_NOT_FOUND = "Community Not Found";
@@ -71,7 +74,7 @@ public class AdminServiceImpl implements IAdminService {
 	public void deleteCommunity(int communityId, int adminId)
 			throws AdminNotFoundException, CommunityNotFoundException {
 		log.info("Admin Service -- deleteCommunity()");
-		if (!adminRepository.findById(adminId).isPresent())
+		if (!bloggerRepository.findById(adminId).isPresent())
 			throw new AdminNotFoundException(ADMIN_NOT_FOUND);
 		Community community = communityRepository.findById(communityId)
 				.orElseThrow(() -> new CommunityNotFoundException(COMMUNITY_NOT_FOUND));

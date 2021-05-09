@@ -82,7 +82,7 @@ public class BloggerController {
 	public ResponseEntity<Object> deleteBlogger(@PathVariable(name = "blogger_id") int bloggerId) {
 		log.info("Blogger Controller -- deleteBlogger()");
 		bloggerService.deleteBlogger(bloggerId);
-		return ResponseEntity.status(200).body("Blogger successfully deleted");
+		return ResponseEntity.status(200).body(Arrays.asList("Blogger successfully deleted"));
 	}
 
 	/**
