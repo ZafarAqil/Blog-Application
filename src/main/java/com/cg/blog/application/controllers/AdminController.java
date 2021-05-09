@@ -1,5 +1,7 @@
 package com.cg.blog.application.controllers;
 
+import java.util.Arrays;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -77,11 +79,11 @@ public class AdminController {
 	 */
 
 	@DeleteMapping(path = "/admin/{admin_id}/community/{community_id}")
-	public ResponseEntity<String> deleteCommunity(@PathVariable(name = "community_id") int communityId,
+	public ResponseEntity<Object> deleteCommunity(@PathVariable(name = "community_id") int communityId,
 			@PathVariable(name = "admin_id") int adminId) {
 		log.info("Admin Controller -- deleteCommunity()");
 		adminService.deleteCommunity(communityId, adminId);
-		return ResponseEntity.status(200).body("Community Deleted");
+		return ResponseEntity.status(200).body(Arrays.asList("Community Deleted"));
 	}
 	
 	@GetMapping(path="/admin")

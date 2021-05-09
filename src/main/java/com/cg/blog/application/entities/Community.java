@@ -73,8 +73,8 @@ public class Community {
 	@CollectionTable(name = "community_flairs", joinColumns = @JoinColumn(name = "communityId"))
 	private List<String> flairs;
 
-//	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
-	@JsonIgnore()
+	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+//	@JsonIgnore()
 	@ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
 	private Set<Blogger> bloggers;
 
