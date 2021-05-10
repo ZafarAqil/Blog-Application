@@ -1,5 +1,6 @@
 package com.cg.blog.application.controllers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.blog.application.entities.Blogger;
+import com.cg.blog.application.entities.Community;
 import com.cg.blog.application.services.BloggerServiceImpl;
 
 /**
@@ -126,6 +128,20 @@ public class BloggerController {
 	}
 
 	/**
+	 * This method is used to leave Community
+	 * 
+	 * @param bloggerId   of created blogger
+	 * @param communityId of created community
+	 * @return "Left Community" when community joined successfully
+	 */
+	@PutMapping(path = "/bloggers/{community_id}/{blogger_id}")
+	public ResponseEntity<Object> leaveCommunity(@PathVariable(name = "blogger_id") int bloggerId,
+			@PathVariable(name = "community_id") int communityId) {
+		bloggerService.leaveCommunity(communityId, bloggerId);
+		return ResponseEntity.status(201).body(Arrays.asList("Left Community"));
+	}
+
+	/**
 	 * This method is used to get set of Bloggers
 	 * 
 	 * @param communityId of created community
@@ -148,7 +164,11 @@ public class BloggerController {
 	public ResponseEntity<Object> getBloggerByName(@PathVariable(name = "blogger_name") String bloggerName) {
 		log.info("Blogger Controller -- getBloggerByName()");
 		Blogger blogger = bloggerService.getBloggerByName(bloggerName);
-		return ResponseEntity.status(200).body(blogger);
+		ArrayList<String> joinedCommunties = new ArrayList<String>();
+		for(Community c : blogger.getCommunities()){
+			joinedCommunties.add(c.getTitle());
+		} 
+		return ResponseEntity.status(200).body(Arrays.asList(blogger,joinedCommunties));
 	}
 
 }
