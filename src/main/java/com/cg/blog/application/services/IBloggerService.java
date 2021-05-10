@@ -25,5 +25,8 @@ public interface IBloggerService {
 	
 	public Blogger getBloggerByName(String bloggerName) throws BloggerNotFoundException;
 
+	public void leaveCommunity(int communityId, int bloggerId)
+			throws CommunityNotFoundException, BloggerNotFoundException;
+
 
 }
